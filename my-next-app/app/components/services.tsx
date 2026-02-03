@@ -1,253 +1,334 @@
-'use client';
+'use client'
 
-import React, { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Briefcase, LineChart, Shield, Users, ArrowUpRight, ChevronRight } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
+const RSWServicesSection = () => {
+  const [activeService, setActiveService] = useState(0);
 
-interface Service {
-  num: string;
-  title: string;
-  description: string;
-  image: string;
-}
-
-const RSWServicesSection: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
-
-  const services: Service[] = [
+  const services = [
     {
-      num: "01",
-      title: "Private Equity",
-      description: "Transforming businesses through strategic capital and operational excellence",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80"
+      icon: Briefcase,
+      number: "01",
+      title: "Strategic Investments",
+      description: "Identifying high-potential opportunities across diverse sectors with meticulous due diligence and strategic foresight that drives sustainable growth.",
+      stats: "500M+",
+      statsLabel: "Assets Managed",
     },
     {
-      num: "02",
-      title: "Real Estate",
-      description: "Developing landmark properties that redefine urban landscapes",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=80"
+      icon: LineChart,
+      number: "02",
+      title: "Portfolio Management",
+      description: "Comprehensive oversight and optimization of investment portfolios to maximize returns while managing risk effectively across all market conditions.",
+      stats: "25%",
+      statsLabel: "Avg. Annual Returns",
     },
     {
-      num: "03",
-      title: "Venture Capital",
-      description: "Backing visionary founders building tomorrow's industry leaders",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&q=80"
+      icon: Shield,
+      number: "03",
+      title: "Risk Assessment",
+      description: "Advanced analytical frameworks to evaluate and mitigate investment risks, ensuring your portfolio remains resilient in any economic climate.",
+      stats: "150+",
+      statsLabel: "Risk Models",
     },
     {
-      num: "04",
-      title: "Strategic Advisory",
-      description: "Guiding enterprises through complex transformations and market expansions",
-      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1600&q=80"
+      icon: Users,
+      number: "04",
+      title: "Partnership Development",
+      description: "Building lasting relationships with industry leaders and emerging innovators to create mutual value and unlock new opportunities.",
+      stats: "80+",
+      statsLabel: "Global Partners",
     }
   ];
 
-  const animateToItem = (index: number) => {
-    gsap.to(imageRef.current, {
-      opacity: 0,
-      scale: 1.1,
-      duration: 0.4,
-      ease: "power2.inOut",
-      onComplete: () => {
-        if (imageRef.current) {
-          imageRef.current.src = services[index].image;
-        }
-        gsap.to(imageRef.current, { 
-          opacity: 1, 
-          scale: 1,
-          duration: 0.6,
-          ease: "power2.out"
-        });
-      }
-    });
-  };
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      services.forEach((_, index) => {
-        ScrollTrigger.create({
-          trigger: containerRef.current,
-          start: () => `top+=${index * (100 / services.length)}% top`,
-          end: () => `top+=${(index + 1) * (100 / services.length)}% top`,
-          onEnter: () => {
-            setActiveIndex(index);
-            animateToItem(index);
-          },
-          onEnterBack: () => {
-            setActiveIndex(index);
-            animateToItem(index);
-          },
-        });
-      });
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <div 
-      ref={containerRef}
-      className="relative"
-      style={{ height: `${services.length * 100}vh` }}
+    <section 
+      className="relative min-h-screen overflow-hidden py-24 lg:py-32"
+      style={{ background: '#f8f9fa' }}
     >
-      {/* Sticky Container */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-slate-900">
+      
+      {/* Ambient glows */}
+      <div 
+        className="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full blur-[150px] pointer-events-none"
+        style={{ background: 'rgba(22, 59, 95, 0.04)' }}
+      />
+      <div 
+        className="absolute bottom-0 left-1/4 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none"
+        style={{ background: 'rgba(191, 199, 205, 0.3)' }}
+      />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
         
-        {/* Content Container */}
-        <div className="relative z-10 h-full flex flex-col justify-between p-8 lg:p-16">
-          
-          {/* Top Bar */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-px bg-white/30" />
-              <span className="text-xs tracking-[0.3em] text-white/70 font-light uppercase">Our Expertise</span>
-            </div>
-            <span className="text-xs tracking-[0.2em] text-white/50 font-light">
-              {String(activeIndex + 1).padStart(2, '0')} / {String(services.length).padStart(2, '0')}
+        {/* Section Header */}
+        <div className="mb-16 lg:mb-24">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-px" style={{ background: 'rgba(22, 59, 95, 0.3)' }} />
+            <span 
+              className="text-xs tracking-[0.4em] uppercase"
+              style={{ color: 'rgba(22, 59, 95, 0.6)' }}
+            >
+              Our Services
             </span>
           </div>
+          <h2 
+            className="text-4xl lg:text-6xl font-light leading-tight max-w-2xl"
+            style={{ color: '#163b5f' }}
+          >
+            Excellence in every
+            <span className="block font-semibold mt-2">investment</span>
+          </h2>
+        </div>
 
-          {/* Main Content Area */}
-          <div className="flex-1 flex items-center justify-center py-12">
-            <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-              
-              {/* Left - Service List */}
-              <div className="space-y-2">
-                {services.map((service, index) => (
-                  <div
-                    key={service.num}
-                    className={`group cursor-pointer transition-all duration-500 ${
-                      index === activeIndex ? 'opacity-100' : 'opacity-30 hover:opacity-50'
-                    }`}
-                    onClick={() => {
-                      setActiveIndex(index);
-                      animateToItem(index);
+        {/* Services Grid */}
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-6">
+          
+          {/* Left - Service Navigation */}
+          <div className="lg:col-span-5">
+            <div className="space-y-3">
+              {services.map((service, index) => {
+                const Icon = service.icon;
+                const isActive = activeService === index;
+                
+                return (
+                  <motion.div
+                    key={index}
+                    onClick={() => setActiveService(index)}
+                    className="relative p-6 cursor-pointer transition-all duration-500"
+                    style={{
+                      background: isActive 
+                        ? '#ffffff' 
+                        : 'transparent',
+                      borderRadius: '20px',
+                      border: isActive 
+                        ? '1px solid rgba(22, 59, 95, 0.1)' 
+                        : '1px solid transparent',
+                      boxShadow: isActive 
+                        ? '0 10px 40px rgba(22, 59, 95, 0.08)' 
+                        : 'none'
+                    }}
+                    whileHover={{
+                      background: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.5)',
                     }}
                   >
-                    <div className="flex items-baseline gap-6 py-4">
-                      <span className={`text-sm font-light tracking-wider transition-colors duration-300 ${
-                        index === activeIndex ? 'text-white/80' : 'text-white/40'
-                      }`}>
-                        {service.num}
+                    {/* Left accent line */}
+                    <div 
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] transition-all duration-500"
+                      style={{
+                        height: isActive ? '50%' : '0%',
+                        background: 'linear-gradient(180deg, #163b5f 0%, rgba(191, 199, 205, 0.5) 100%)',
+                        borderRadius: '2px'
+                      }}
+                    />
+                    
+                    <div className="flex items-center gap-5">
+                      {/* Number */}
+                      <span 
+                        className="text-3xl font-extralight transition-colors duration-500"
+                        style={{ 
+                          color: isActive ? '#163b5f' : 'rgba(22, 59, 95, 0.2)'
+                        }}
+                      >
+                        {service.number}
                       </span>
-                      <h3 className={`text-3xl lg:text-5xl font-bold tracking-tight transition-all duration-500 ${
-                        index === activeIndex ? 'text-white translate-x-2' : 'text-white/60'
-                      }`}>
-                        {service.title}
-                      </h3>
-                    </div>
-                    <div className={`h-px transition-all duration-500 ${
-                      index === activeIndex 
-                        ? 'bg-gradient-to-r from-white/50 via-white/20 to-transparent' 
-                        : 'bg-white/10'
-                    }`} />
-                  </div>
-                ))}
-              </div>
 
-              {/* Right - Glassmorphism Card with Image Frame */}
-              <div className="flex justify-center lg:justify-end">
-                <div className="relative w-full max-w-md">
-                  {/* Glass Card */}
-                  <div className="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl p-8 lg:p-10">
-                    {/* Inner glow */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent rounded-3xl pointer-events-none" />
-                    
-                    {/* Corner accent */}
-                    <div className="absolute top-6 right-6 w-12 h-12 border-t border-r border-white/20 rounded-tr-xl" />
-                    
-                    <div className="relative z-10 space-y-8">
-                      {/* Image Frame */}
-                      <div className="relative w-full h-48 rounded-2xl overflow-hidden">
-                        <img
-                          ref={imageRef}
-                          src={services[0].image}
-                          alt={services[0].title}
-                          className="w-full h-full object-cover"
+                      {/* Icon */}
+                      <div 
+                        className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500"
+                        style={{
+                          background: isActive 
+                            ? '#163b5f' 
+                            : 'rgba(22, 59, 95, 0.06)',
+                        }}
+                      >
+                        <Icon 
+                          className="w-5 h-5 transition-colors duration-500" 
+                          style={{ color: isActive ? '#ffffff' : 'rgba(22, 59, 95, 0.5)' }}
+                          strokeWidth={1.5}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-transparent to-slate-900/30" />
                       </div>
-
-                      {/* Large Number */}
-                      <span className="text-6xl lg:text-7xl font-bold text-white/10 leading-none">
-                        {services[activeIndex].num}
-                      </span>
                       
                       {/* Title */}
-                      <div>
-                        <p className="text-xs tracking-[0.25em] text-white/50 font-light uppercase mb-3">
-                          Service Focus
-                        </p>
-                        <h4 className="text-2xl lg:text-3xl font-bold text-white tracking-wide">
-                          {services[activeIndex].title}
-                        </h4>
+                      <div className="flex-1">
+                        <h3 
+                          className="text-lg font-medium transition-colors duration-500"
+                          style={{ color: isActive ? '#163b5f' : 'rgba(22, 59, 95, 0.5)' }}
+                        >
+                          {service.title}
+                        </h3>
                       </div>
 
-                      {/* Divider */}
-                      <div className="w-12 h-px bg-gradient-to-r from-white/40 to-transparent" />
-
-                      {/* Description */}
-                      <p className="text-white/70 text-sm lg:text-base leading-relaxed font-light">
-                        {services[activeIndex].description}
-                      </p>
-
-                      {/* CTA */}
-                      <button className="group flex items-center gap-3 pt-4">
-                        <span className="text-xs tracking-[0.2em] text-white/80 font-light group-hover:text-white transition-colors">
-                          LEARN MORE
-                        </span>
-                        <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
-                          <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" strokeWidth={1.5} />
-                        </div>
-                      </button>
+                      {/* Arrow */}
+                      <ChevronRight 
+                        className="w-5 h-5 transition-all duration-500"
+                        style={{ 
+                          color: '#163b5f',
+                          opacity: isActive ? 1 : 0,
+                          transform: isActive ? 'translateX(0)' : 'translateX(-10px)'
+                        }}
+                        strokeWidth={1.5}
+                      />
                     </div>
-                  </div>
+                  </motion.div>
+                );
+              })}
+            </div>
 
-                  {/* Floating accent behind card */}
-                  <div className="absolute -bottom-4 -right-4 w-full h-full bg-white/5 backdrop-blur-sm rounded-3xl -z-10" />
+            {/* Bottom Stats */}
+            <div 
+              className="flex items-center gap-8 mt-12 pt-8"
+              style={{ borderTop: '1px solid rgba(22, 59, 95, 0.1)' }}
+            >
+              <div>
+                <span className="text-3xl font-light" style={{ color: '#163b5f' }}>$2.5B</span>
+                <span className="text-xs block mt-1" style={{ color: 'rgba(22, 59, 95, 0.5)' }}>Total AUM</span>
+              </div>
+              <div className="w-px h-10" style={{ background: 'rgba(22, 59, 95, 0.1)' }} />
+              <div>
+                <span className="text-3xl font-light" style={{ color: '#163b5f' }}>98%</span>
+                <span className="text-xs block mt-1" style={{ color: 'rgba(22, 59, 95, 0.5)' }}>Client Retention</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right - Active Service Detail Card */}
+          <div className="lg:col-span-7">
+            <motion.div 
+              className="relative h-full min-h-[500px] p-10 lg:p-14 overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, #163b5f 0%, #1e4a6f 100%)',
+                borderRadius: '32px',
+              }}
+              key={activeService}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Decorative elements */}
+              <div 
+                className="absolute top-0 right-0 w-64 h-64 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(circle, rgba(191, 199, 205, 0.15) 0%, transparent 60%)'
+                }}
+              />
+              <div 
+                className="absolute bottom-0 left-0 w-48 h-48 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 60%)'
+                }}
+              />
+              
+              {/* Large number watermark */}
+              <div 
+                className="absolute top-6 right-8 text-[150px] font-bold pointer-events-none leading-none"
+                style={{ color: 'rgba(255, 255, 255, 0.05)' }}
+              >
+                {services[activeService].number}
+              </div>
+
+              {/* Content */}
+              <div className="relative z-10 h-full flex flex-col">
+                {/* Icon */}
+                <div 
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center mb-8"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(255, 255, 255, 0.15)'
+                  }}
+                >
+                  {React.createElement(services[activeService].icon, {
+                    className: "w-7 h-7",
+                    style: { color: '#ffffff' },
+                    strokeWidth: 1.5
+                  })}
+                </div>
+
+                {/* Title */}
+                <h3 className="text-3xl lg:text-4xl font-medium mb-6 text-white">
+                  {services[activeService].title}
+                </h3>
+
+                {/* Description */}
+                <p 
+                  className="text-lg leading-relaxed mb-10 max-w-md font-light"
+                  style={{ color: 'rgba(191, 199, 205, 0.9)' }}
+                >
+                  {services[activeService].description}
+                </p>
+
+                {/* Stats */}
+                <div 
+                  className="inline-flex items-end gap-3 p-6 rounded-2xl mb-10"
+                  style={{ background: 'rgba(255, 255, 255, 0.08)' }}
+                >
+                  <span className="text-5xl font-light text-white">
+                    {services[activeService].stats}
+                  </span>
+                  <span 
+                    className="text-sm pb-2"
+                    style={{ color: 'rgba(191, 199, 205, 0.7)' }}
+                  >
+                    {services[activeService].statsLabel}
+                  </span>
+                </div>
+
+                {/* CTA */}
+                <div className="mt-auto">
+                  <button 
+                    className="group inline-flex items-center gap-3 px-6 py-4 rounded-xl transition-all duration-300 hover:bg-white/20"
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.1)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)'
+                    }}
+                  >
+                    <span className="text-sm tracking-wider text-white">Explore Service</span>
+                    <ArrowUpRight 
+                      className="w-4 h-4 text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" 
+                      strokeWidth={1.5}
+                    />
+                  </button>
                 </div>
               </div>
-            </div>
+
+              {/* Corner decorative lines */}
+              <div 
+                className="absolute bottom-8 right-8 w-20 h-px"
+                style={{ background: 'linear-gradient(to left, rgba(191, 199, 205, 0.3), transparent)' }}
+              />
+              <div 
+                className="absolute bottom-8 right-8 w-px h-20"
+                style={{ background: 'linear-gradient(to top, rgba(191, 199, 205, 0.3), transparent)' }}
+              />
+            </motion.div>
           </div>
+        </div>
 
-          {/* Bottom Bar */}
-          <div className="flex items-center justify-between">
-            {/* Progress Indicators */}
-            <div className="flex items-center gap-3">
-              {services.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    setActiveIndex(index);
-                    animateToItem(index);
-                  }}
-                  className={`h-1 rounded-full transition-all duration-500 ${
-                    index === activeIndex 
-                      ? 'w-10 bg-white' 
-                      : index < activeIndex 
-                        ? 'w-6 bg-white/40' 
-                        : 'w-3 bg-white/20 hover:bg-white/30'
-                  }`}
-                />
-              ))}
-            </div>
-
-            {/* Scroll Indicator */}
-            <div className="flex items-center gap-4">
-              <span className="text-xs tracking-[0.2em] text-white/40 font-light hidden sm:block">SCROLL TO EXPLORE</span>
-              <div className="w-6 h-10 border border-white/20 rounded-full flex items-start justify-center pt-2">
-                <div className="w-1 h-2 bg-white/60 rounded-full animate-bounce" />
-              </div>
-            </div>
-          </div>
-
+        {/* Bottom Tagline */}
+        <div className="mt-20 lg:mt-28 text-center">
+          <p 
+            className="text-lg font-light max-w-2xl mx-auto"
+            style={{ color: 'rgba(22, 59, 95, 0.6)' }}
+          >
+            Trusted by leading institutions worldwide to deliver exceptional results 
+            through strategic investment solutions.
+          </p>
         </div>
       </div>
-    </div>
+
+      {/* Vertical text decoration */}
+      <div className="absolute bottom-[20%] left-6 hidden lg:block">
+        <span 
+          className="text-xs tracking-[0.5em] uppercase"
+          style={{ 
+            color: 'rgba(22, 59, 95, 0.15)',
+            writingMode: 'vertical-lr',
+            textOrientation: 'mixed'
+          }}
+        >
+          Investment Excellence
+        </span>
+      </div>
+    </section>
   );
 };
 
