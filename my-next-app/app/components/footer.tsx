@@ -24,11 +24,12 @@ const RSWFooter = () => {
       { label: 'Risk Assessment', href: '#' },
       { label: 'Partnership Development', href: '#' },
     ],
-    ecosystem: [
-      { label: 'RSW Investment', href: '#' },
-      { label: 'Hector Advance Technology', href: '#' },
-      { label: 'RSW Construction', href: '#' },
-      { label: 'Cortex 82 Technology', href: '#' },
+    investors: [
+      { label: 'Investment Portfolios', href: '#portfolios' },
+      { label: 'Investor Relations', href: '#investor-relations' },
+      { label: 'News & Updates', href: '#news' },
+      { label: 'Board of Directors', href: '#board' },
+      { label: 'Governance', href: '#governance' },
     ],
     legal: [
       { label: 'Privacy Policy', href: '#' },
@@ -169,16 +170,16 @@ const RSWFooter = () => {
             </ul>
           </div>
 
-          {/* Ecosystem */}
+          {/* Investors */}
           <div>
             <h5 
               className="text-xs font-medium tracking-[0.2em] uppercase mb-6"
               style={{ color: '#BFC7CD' }}
             >
-              Our Companies
+              Investors
             </h5>
             <ul className="space-y-3">
-              {footerLinks.ecosystem.map((link, idx) => (
+              {footerLinks.investors.map((link, idx) => (
                 <li key={idx}>
                   <a 
                     href={link.href}

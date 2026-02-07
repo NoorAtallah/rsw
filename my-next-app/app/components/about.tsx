@@ -2,39 +2,39 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Award, Globe2, TrendingUp, Users2, Play, ArrowUpRight } from 'lucide-react';
+import { Building2, Cpu, HardHat, Shield, Play, ArrowUpRight } from 'lucide-react';
 
 const RSWAboutSection = () => {
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
 
   const features = [
     {
-      icon: Globe2,
-      title: "Global Presence",
-      description: "Operating across 30+ countries with local expertise and global reach.",
-      stat: "30+",
-      statLabel: "Countries"
+      icon: Building2,
+      title: "Real Estate Excellence",
+      description: "Comprehensive investment, development, and management solutions across UAE.",
+      stat: "4",
+      statLabel: "Business Verticals"
     },
     {
-      icon: Award,
-      title: "Award Winning",
-      description: "Recognized excellence in investment management and client service.",
-      stat: "50+",
-      statLabel: "Awards"
+      icon: Cpu,
+      title: "Tech Innovation",
+      description: "AI research, cybersecurity, and cloud computing at the forefront of digital transformation.",
+      stat: "100%",
+      statLabel: "UAE Compliant"
     },
     {
-      icon: TrendingUp,
-      title: "Proven Returns",
-      description: "Consistently outperforming market benchmarks for over two decades.",
-      stat: "25%",
-      statLabel: "Avg. ROI"
+      icon: HardHat,
+      title: "Construction Power",
+      description: "End-to-end building solutions from oil & gas facilities to interior design.",
+      stat: "Full",
+      statLabel: "Service Suite"
     },
     {
-      icon: Users2,
-      title: "Expert Team",
-      description: "Industry veterans with combined experience of 200+ years.",
-      stat: "85+",
-      statLabel: "Experts"
+      icon: Shield,
+      title: "Abu Dhabi HQ",
+      description: "Strategically positioned in the heart of UAE's business capital.",
+      stat: "24/7",
+      statLabel: "Operations"
     }
   ];
 
@@ -69,8 +69,8 @@ const RSWAboutSection = () => {
               }}
             >
               <img 
-                src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=800&q=80"
-                alt="RSW Office"
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80"
+                alt="Abu Dhabi Business District"
                 className="w-full h-full object-cover"
               />
               
@@ -101,31 +101,20 @@ const RSWAboutSection = () => {
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium" style={{ color: '#163b5f' }}>Watch Our Story</p>
-                    <p className="text-xs mt-1" style={{ color: 'rgba(22, 59, 95, 0.5)' }}>2 min video</p>
+                    <p className="text-sm font-medium" style={{ color: '#163b5f' }}>Discover RSW Group</p>
+                    <p className="text-xs mt-1" style={{ color: 'rgba(22, 59, 95, 0.5)' }}>Our Journey in Abu Dhabi</p>
                   </div>
-                  <div className="flex -space-x-2">
-                    {[1,2,3,4].map((i) => (
-                      <div 
-                        key={i}
-                        className="w-8 h-8 rounded-full border-2 border-white"
-                        style={{ 
-                          background: `linear-gradient(135deg, ${i % 2 === 0 ? '#163b5f' : '#BFC7CD'} 0%, ${i % 2 === 0 ? '#1e4a6f' : '#a0a8ae'} 100%)` 
-                        }}
-                      />
-                    ))}
-                    <div 
-                      className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-xs font-medium"
-                      style={{ background: '#f8f9fa', color: '#163b5f' }}
-                    >
-                      +5k
-                    </div>
+                  <div 
+                    className="px-4 py-2 rounded-lg text-xs font-medium"
+                    style={{ background: 'rgba(22, 59, 95, 0.08)', color: '#163b5f' }}
+                  >
+                    EST. UAE
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Floating Stats Card */}
+            {/* Floating Divisions Card */}
             <motion.div 
               className="absolute -right-8 top-12 p-6 rounded-2xl hidden lg:block"
               style={{
@@ -143,16 +132,16 @@ const RSWAboutSection = () => {
                   className="w-14 h-14 rounded-2xl flex items-center justify-center"
                   style={{ background: 'rgba(22, 59, 95, 0.08)' }}
                 >
-                  <TrendingUp className="w-6 h-6" style={{ color: '#163b5f' }} strokeWidth={1.5} />
+                  <Building2 className="w-6 h-6" style={{ color: '#163b5f' }} strokeWidth={1.5} />
                 </div>
                 <div>
-                  <p className="text-3xl font-light" style={{ color: '#163b5f' }}>$2.5B</p>
-                  <p className="text-xs" style={{ color: 'rgba(22, 59, 95, 0.5)' }}>Assets Under Management</p>
+                  <p className="text-3xl font-light" style={{ color: '#163b5f' }}>4</p>
+                  <p className="text-xs" style={{ color: 'rgba(22, 59, 95, 0.5)' }}>Business Divisions</p>
                 </div>
               </div>
             </motion.div>
 
-            {/* Experience Badge */}
+            {/* Location Badge */}
             <motion.div 
               className="absolute -left-4 bottom-32 p-5 rounded-2xl hidden lg:block"
               style={{
@@ -163,8 +152,8 @@ const RSWAboutSection = () => {
               transition={{ duration: 0.6, delay: 0.5 }}
               viewport={{ once: true }}
             >
-              <p className="text-4xl font-light text-white">22+</p>
-              <p className="text-xs text-white/60 mt-1">Years of Excellence</p>
+              <p className="text-lg font-medium text-white">Abu Dhabi</p>
+              <p className="text-xs text-white/60 mt-1">Headquarters</p>
             </motion.div>
           </div>
 
@@ -177,7 +166,7 @@ const RSWAboutSection = () => {
                 className="text-xs tracking-[0.4em] uppercase"
                 style={{ color: 'rgba(22, 59, 95, 0.6)' }}
               >
-                About RSW
+                About RSW Group
               </span>
             </div>
 
@@ -186,8 +175,8 @@ const RSWAboutSection = () => {
               className="text-4xl lg:text-5xl font-light leading-tight mb-6"
               style={{ color: '#163b5f' }}
             >
-              Building wealth through
-              <span className="block font-semibold mt-2">strategic vision</span>
+              A unified ecosystem of
+              <span className="block font-semibold mt-2">investment excellence</span>
             </h2>
 
             {/* Description */}
@@ -195,9 +184,9 @@ const RSWAboutSection = () => {
               className="text-lg font-light leading-relaxed mb-10"
               style={{ color: 'rgba(22, 59, 95, 0.7)' }}
             >
-              For over two decades, RSW has been at the forefront of investment excellence, 
-              combining deep market expertise with innovative strategies to deliver 
-              exceptional returns for our clients worldwide.
+              Headquartered in Abu Dhabi, RSW Group operates through four specialized divisions 
+              delivering comprehensive solutions across real estate investment, advanced technology, 
+              construction services, and software innovation—all with full UAE regulatory compliance.
             </p>
 
             {/* Features Grid */}
@@ -267,7 +256,7 @@ const RSWAboutSection = () => {
                   background: '#163b5f',
                 }}
               >
-                <span className="text-sm tracking-wider text-white">Learn Our Story</span>
+                <span className="text-sm tracking-wider text-white">Explore Our Divisions</span>
                 <ArrowUpRight 
                   className="w-4 h-4 text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" 
                   strokeWidth={1.5}
@@ -279,32 +268,44 @@ const RSWAboutSection = () => {
                 className="group flex items-center gap-2 transition-colors"
                 style={{ color: 'rgba(22, 59, 95, 0.6)' }}
               >
-                <span className="text-sm tracking-wider group-hover:text-[#163b5f] transition-colors">Meet the Team</span>
+                <span className="text-sm tracking-wider group-hover:text-[#163b5f] transition-colors">Contact Us</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" strokeWidth={1.5} />
               </a>
             </div>
           </div>
         </div>
 
-        {/* Bottom Logos/Partners Section */}
+        {/* Bottom Certifications/Compliance Section */}
         <div className="mt-24 lg:mt-32 pt-16" style={{ borderTop: '1px solid rgba(22, 59, 95, 0.08)' }}>
           <div className="text-center mb-12">
             <p 
               className="text-sm tracking-wider"
               style={{ color: 'rgba(22, 59, 95, 0.5)' }}
             >
-              TRUSTED BY LEADING INSTITUTIONS WORLDWIDE
+              FULLY LICENSED & COMPLIANT IN THE UAE
             </p>
           </div>
           
-          <div className="flex items-center justify-center gap-12 lg:gap-20 flex-wrap opacity-40">
-            {['Goldman', 'Morgan Stanley', 'BlackRock', 'Vanguard', 'Fidelity'].map((name, i) => (
-              <div 
-                key={i}
-                className="text-2xl font-semibold tracking-wider"
-                style={{ color: '#163b5f' }}
-              >
-                {name}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+            {[
+              { title: 'Real Estate', subtitle: 'Investment & Brokerage' },
+              { title: 'Technology', subtitle: 'AI & Cybersecurity' },
+              { title: 'Construction', subtitle: 'Full Contracting' },
+              { title: 'Software', subtitle: 'Development & Systems' }
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <div 
+                  className="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center"
+                  style={{ background: 'rgba(22, 59, 95, 0.06)' }}
+                >
+                  <Shield className="w-7 h-7" style={{ color: '#163b5f' }} strokeWidth={1.5} />
+                </div>
+                <p className="text-sm font-medium mb-1" style={{ color: '#163b5f' }}>
+                  {item.title}
+                </p>
+                <p className="text-xs" style={{ color: 'rgba(22, 59, 95, 0.5)' }}>
+                  {item.subtitle}
+                </p>
               </div>
             ))}
           </div>
@@ -321,7 +322,7 @@ const RSWAboutSection = () => {
             textOrientation: 'mixed'
           }}
         >
-          Two Decades of Excellence
+          Abu Dhabi Excellence
         </span>
       </div>
     </section>

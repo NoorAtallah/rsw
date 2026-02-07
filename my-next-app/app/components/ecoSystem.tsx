@@ -17,8 +17,8 @@ const RSWEcosystemSection = () => {
 
   const companies = [
     {
-      id: 'rsw-investment',
-      name: 'RSW Investment',
+      id: 'investment-division',
+      name: 'Investment Division',
       tagline: 'Commercial & Real Estate Investments',
       icon: Building2,
       description: 'The flagship investment arm managing diverse portfolios across real estate, commercial ventures, and strategic partnerships.',
@@ -32,8 +32,8 @@ const RSWEcosystemSection = () => {
       ],
     },
     {
-      id: 'hector-tech',
-      name: 'Hector Advance Technology',
+      id: 'technology-division',
+      name: 'Technology Division',
       tagline: 'AI Research & IT Consultancy',
       icon: Cpu,
       description: 'Pioneering innovation through artificial intelligence research, cybersecurity solutions, and cloud computing services.',
@@ -47,8 +47,8 @@ const RSWEcosystemSection = () => {
       ],
     },
     {
-      id: 'rsw-construction',
-      name: 'RSW Construction & Decoration',
+      id: 'construction-division',
+      name: 'Construction Division',
       tagline: 'Building Projects & Contracting',
       icon: HardHat,
       description: 'Full-service construction solutions from building contracting to interior design, serving oil & gas and commercial sectors.',
@@ -62,8 +62,8 @@ const RSWEcosystemSection = () => {
       ],
     },
     {
-      id: 'cortex-82',
-      name: 'Cortex 82 Technology',
+      id: 'software-division',
+      name: 'Software Division',
       tagline: 'Software Design & Tech Projects',
       icon: Monitor,
       description: 'Cutting-edge software development and technological project management driving digital transformation.',
@@ -111,7 +111,7 @@ const RSWEcosystemSection = () => {
               className="text-4xl lg:text-5xl font-light leading-[1.15]"
               style={{ color: '#163b5f' }}
             >
-              Four companies,
+              Four divisions,
               <span className="font-semibold block">one vision</span>
             </h2>
           </div>
