@@ -28,28 +28,28 @@ const RSWAboutPage = () => {
       name: 'Real Estate',
       description: 'Commercial investment, leasing brokerage, and strategic property development across prime UAE locations.',
       services: ['Investment Management', 'Commercial Brokerage', 'Property Development', 'Asset Management'],
-      color: '#3b82f6'
+      color: '#163b5f'
     },
     {
       icon: Cpu,
       name: 'Technology',
       description: 'Cutting-edge AI research, cybersecurity solutions, and comprehensive cloud infrastructure services.',
       services: ['AI Research', 'Cybersecurity', 'Cloud Computing', 'IT Consultancy'],
-      color: '#8b5cf6'
+      color: '#1e4a6f'
     },
     {
       icon: HardHat,
       name: 'Construction',
       description: 'End-to-end building solutions from oil & gas facilities to commercial interiors and ongoing maintenance.',
       services: ['Building Contracting', 'Oil & Gas Projects', 'Interior Design', 'Facility Management'],
-      color: '#ef4444'
+      color: '#2a5a85'
     },
     {
       icon: Monitor,
       name: 'Software',
       description: 'Advanced software engineering and digital transformation solutions powering modern businesses.',
       services: ['Custom Development', 'System Integration', 'Digital Platforms', 'Tech Innovation'],
-      color: '#10b981'
+      color: '#366a95'
     }
   ];
 
@@ -88,21 +88,21 @@ const RSWAboutPage = () => {
       
       {/* Hero Section - Dark */}
       <section className="relative min-h-screen flex items-center overflow-hidden"
-        style={{ background: '#0f172a' }}>
+        style={{ background: '#163b5f' }}>
         
         {/* Animated Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(191, 199, 205, 0.3) 1px, transparent 0)`,
             backgroundSize: '40px 40px'
           }} />
         </div>
 
         {/* Gradient Orbs */}
         <div className="absolute top-20 right-20 w-96 h-96 rounded-full blur-3xl opacity-20"
-          style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }} />
+          style={{ background: 'rgba(191, 199, 205, 0.3)' }} />
         <div className="absolute bottom-20 left-20 w-80 h-80 rounded-full blur-3xl opacity-20"
-          style={{ background: 'linear-gradient(135deg, #10b981, #3b82f6)' }} />
+          style={{ background: 'rgba(191, 199, 205, 0.2)' }} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full py-20">
           
@@ -117,11 +117,11 @@ const RSWAboutPage = () => {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
                 style={{ 
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)'
+                  background: 'rgba(191, 199, 205, 0.1)',
+                  border: '1px solid rgba(191, 199, 205, 0.2)'
                 }}>
-                <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#10b981' }} />
-                <span className="text-xs tracking-wider text-white/70">
+                <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#BFC7CD' }} />
+                <span className="text-xs tracking-wider" style={{ color: 'rgba(191, 199, 205, 0.8)' }}>
                   Diversified Investment Group
                 </span>
               </div>
@@ -129,13 +129,14 @@ const RSWAboutPage = () => {
               {/* Main Headline */}
               <h1 className="text-5xl lg:text-7xl font-light text-white mb-6 leading-[1.05]">
                 Powering Growth
-                <span className="block font-bold mt-3 bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
+                <span className="block font-bold mt-3" style={{ color: '#BFC7CD' }}>
                   Across Industries
                 </span>
               </h1>
 
               {/* Description */}
-              <p className="text-lg lg:text-xl text-white/70 leading-relaxed mb-10">
+              <p className="text-lg lg:text-xl leading-relaxed mb-10"
+                style={{ color: 'rgba(191, 199, 205, 0.8)' }}>
                 A premier investment firm delivering integrated solutions across four strategic 
                 sectors—Real Estate, Technology, Construction, and Software Development.
               </p>
@@ -151,9 +152,9 @@ const RSWAboutPage = () => {
                     transition={{ duration: 0.5, delay: 0.2 + idx * 0.1 }}
                   >
                     <div className="text-3xl lg:text-4xl font-bold text-white mb-1">
-                      {stat.number}<span className="text-blue-400">{stat.suffix}</span>
+                      {stat.number}<span style={{ color: '#BFC7CD' }}>{stat.suffix}</span>
                     </div>
-                    <div className="text-xs text-white/50">
+                    <div className="text-xs" style={{ color: 'rgba(191, 199, 205, 0.6)' }}>
                       {stat.label}
                     </div>
                   </motion.div>
@@ -162,17 +163,18 @@ const RSWAboutPage = () => {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="group px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
-                  style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }}>
-                  <span className="text-sm font-semibold text-white">Explore Sectors</span>
-                  <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" 
+                <button className="group px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-xl"
+                  style={{ background: '#BFC7CD' }}>
+                  <span className="text-sm font-semibold" style={{ color: '#163b5f' }}>Explore Sectors</span>
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" 
+                    style={{ color: '#163b5f' }}
                     strokeWidth={2} />
                 </button>
                 
-                <button className="px-8 py-4 rounded-xl transition-all duration-300"
+                <button className="px-8 py-4 rounded-xl transition-all duration-300 hover:bg-white/10"
                   style={{ 
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                    background: 'rgba(191, 199, 205, 0.1)',
+                    border: '1px solid rgba(191, 199, 205, 0.3)'
                   }}>
                   <span className="text-sm font-semibold text-white">Request Information</span>
                 </button>
@@ -195,7 +197,8 @@ const RSWAboutPage = () => {
                 />
                 
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0" 
+                  style={{ background: 'linear-gradient(to top, rgba(22, 59, 95, 0.8) 0%, transparent 50%)' }} />
                 
                 {/* Floating Glass Card */}
                 <div className="absolute bottom-8 left-8 right-8 p-6 rounded-2xl backdrop-blur-xl"
@@ -209,23 +212,23 @@ const RSWAboutPage = () => {
                       <p className="text-sm font-bold text-white mb-1">
                         Abu Dhabi Based
                       </p>
-                      <p className="text-xs text-white/70">
+                      <p className="text-xs" style={{ color: 'rgba(191, 199, 205, 0.9)' }}>
                         UAE's Investment Capital
                       </p>
                     </div>
                     <div className="w-12 h-12 rounded-full flex items-center justify-center"
-                      style={{ background: 'rgba(59, 130, 246, 0.2)' }}>
-                      <Globe2 className="w-6 h-6 text-blue-400" strokeWidth={1.5} />
+                      style={{ background: 'rgba(191, 199, 205, 0.2)' }}>
+                      <Globe2 className="w-6 h-6" style={{ color: '#BFC7CD' }} strokeWidth={1.5} />
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Decorative Elements */}
-              <div className="absolute -z-10 -top-8 -right-8 w-72 h-72 rounded-full blur-3xl opacity-30"
-                style={{ background: '#3b82f6' }} />
-              <div className="absolute -z-10 -bottom-8 -left-8 w-64 h-64 rounded-full blur-3xl opacity-30"
-                style={{ background: '#8b5cf6' }} />
+              <div className="absolute -z-10 -top-8 -right-8 w-72 h-72 rounded-full blur-3xl opacity-20"
+                style={{ background: '#BFC7CD' }} />
+              <div className="absolute -z-10 -bottom-8 -left-8 w-64 h-64 rounded-full blur-3xl opacity-20"
+                style={{ background: 'rgba(191, 199, 205, 0.4)' }} />
             </motion.div>
           </div>
         </div>
@@ -244,17 +247,17 @@ const RSWAboutPage = () => {
               viewport={{ once: true }}
             >
               <span className="text-xs tracking-[0.3em] uppercase font-semibold mb-4 block"
-                style={{ color: 'rgba(15, 23, 42, 0.5)' }}>
+                style={{ color: 'rgba(22, 59, 95, 0.5)' }}>
                 What We Do
               </span>
               
               <h2 className="text-4xl lg:text-6xl font-light mb-6 leading-tight" 
-                style={{ color: '#0f172a' }}>
+                style={{ color: '#163b5f' }}>
                 Four Strategic
                 <span className="block font-bold mt-2">Sectors</span>
               </h2>
               
-              <p className="text-lg text-gray-600">
+              <p className="text-lg" style={{ color: 'rgba(22, 59, 95, 0.6)' }}>
                 Comprehensive solutions across real estate, technology, construction, and software
               </p>
             </motion.div>
@@ -269,8 +272,8 @@ const RSWAboutPage = () => {
                   key={idx}
                   className="group relative p-8 rounded-3xl cursor-pointer overflow-hidden"
                   style={{ 
-                    background: '#f8fafc',
-                    border: '2px solid #e2e8f0',
+                    background: '#f8f9fa',
+                    border: '2px solid rgba(22, 59, 95, 0.1)',
                     transition: 'all 0.3s ease'
                   }}
                   initial={{ opacity: 0, y: 20 }}
@@ -279,7 +282,7 @@ const RSWAboutPage = () => {
                   viewport={{ once: true }}
                   whileHover={{ 
                     y: -8,
-                    borderColor: sector.color,
+                    borderColor: '#163b5f',
                     background: '#ffffff'
                   }}
                   onClick={() => setActiveSector(idx)}
@@ -292,22 +295,23 @@ const RSWAboutPage = () => {
                     {/* Icon */}
                     <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300"
                       style={{ 
-                        background: activeSector === idx ? sector.color : '#e2e8f0',
+                        background: activeSector === idx ? sector.color : 'rgba(22, 59, 95, 0.1)',
                       }}>
                       <Icon 
                         className="w-8 h-8 transition-colors" 
-                        style={{ color: activeSector === idx ? '#ffffff' : '#0f172a' }}
+                        style={{ color: activeSector === idx ? '#ffffff' : '#163b5f' }}
                         strokeWidth={1.5} 
                       />
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-2xl font-bold mb-3" style={{ color: '#0f172a' }}>
+                    <h3 className="text-2xl font-bold mb-3" style={{ color: '#163b5f' }}>
                       {sector.name}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-sm text-gray-600 leading-relaxed mb-6">
+                    <p className="text-sm leading-relaxed mb-6"
+                      style={{ color: 'rgba(22, 59, 95, 0.7)' }}>
                       {sector.description}
                     </p>
 
@@ -320,7 +324,7 @@ const RSWAboutPage = () => {
                             style={{ color: sector.color }}
                             strokeWidth={2}
                           />
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs" style={{ color: 'rgba(22, 59, 95, 0.6)' }}>
                             {service}
                           </span>
                         </div>
@@ -342,7 +346,7 @@ const RSWAboutPage = () => {
       </section>
 
       {/* Our Principles */}
-      <section className="py-24 lg:py-32" style={{ background: '#f8fafc' }}>
+      <section className="py-24 lg:py-32" style={{ background: '#f8f9fa' }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -361,28 +365,30 @@ const RSWAboutPage = () => {
                   alt="Business principles"
                   className="w-full h-[500px] object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <div className="absolute inset-0" 
+                  style={{ background: 'linear-gradient(to top, rgba(22, 59, 95, 0.5) 0%, transparent 50%)' }} />
               </div>
               
               {/* Decorative element */}
               <div className="absolute -bottom-6 -right-6 w-48 h-48 rounded-3xl blur-3xl opacity-20"
-                style={{ background: '#3b82f6' }} />
+                style={{ background: '#163b5f' }} />
             </motion.div>
 
             {/* Right - Content */}
             <div>
               <span className="text-xs tracking-[0.3em] uppercase font-semibold mb-4 block"
-                style={{ color: 'rgba(15, 23, 42, 0.5)' }}>
+                style={{ color: 'rgba(22, 59, 95, 0.5)' }}>
                 Core Values
               </span>
               
               <h2 className="text-4xl lg:text-5xl font-light mb-6 leading-tight" 
-                style={{ color: '#0f172a' }}>
+                style={{ color: '#163b5f' }}>
                 Built on
                 <span className="block font-bold mt-2">Strong Principles</span>
               </h2>
 
-              <p className="text-lg text-gray-600 mb-10 leading-relaxed">
+              <p className="text-lg mb-10 leading-relaxed"
+                style={{ color: 'rgba(22, 59, 95, 0.7)' }}>
                 Our commitment to excellence, integrity, and innovation guides every decision 
                 and partnership we forge.
               </p>
@@ -394,7 +400,10 @@ const RSWAboutPage = () => {
                     <motion.div
                       key={idx}
                       className="flex gap-4 p-5 rounded-2xl transition-all duration-300 hover:shadow-md"
-                      style={{ background: '#ffffff', border: '1px solid #e2e8f0' }}
+                      style={{ 
+                        background: '#ffffff', 
+                        border: '1px solid rgba(22, 59, 95, 0.1)' 
+                      }}
                       initial={{ opacity: 0, x: 20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.5, delay: idx * 0.1 }}
@@ -402,14 +411,15 @@ const RSWAboutPage = () => {
                       whileHover={{ x: 4 }}
                     >
                       <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                        style={{ background: '#f1f5f9' }}>
-                        <Icon className="w-6 h-6" style={{ color: '#0f172a' }} strokeWidth={1.5} />
+                        style={{ background: 'rgba(22, 59, 95, 0.05)' }}>
+                        <Icon className="w-6 h-6" style={{ color: '#163b5f' }} strokeWidth={1.5} />
                       </div>
                       <div>
-                        <h3 className="text-lg font-bold mb-2" style={{ color: '#0f172a' }}>
+                        <h3 className="text-lg font-bold mb-2" style={{ color: '#163b5f' }}>
                           {principle.title}
                         </h3>
-                        <p className="text-sm text-gray-600 leading-relaxed">
+                        <p className="text-sm leading-relaxed"
+                          style={{ color: 'rgba(22, 59, 95, 0.6)' }}>
                           {principle.description}
                         </p>
                       </div>
@@ -424,21 +434,21 @@ const RSWAboutPage = () => {
 
       {/* CTA Section */}
       <section className="relative py-24 lg:py-32 overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}>
+        style={{ background: 'linear-gradient(135deg, #163b5f 0%, #1e4a6f 100%)' }}>
         
         {/* Animated Background */}
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(191, 199, 205, 0.3) 1px, transparent 0)`,
             backgroundSize: '40px 40px'
           }} />
         </div>
 
         {/* Gradient Orbs */}
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-20"
-          style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }} />
+          style={{ background: 'rgba(191, 199, 205, 0.3)' }} />
         <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl opacity-20"
-          style={{ background: 'linear-gradient(135deg, #10b981, #3b82f6)' }} />
+          style={{ background: 'rgba(191, 199, 205, 0.2)' }} />
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-12 text-center">
           
@@ -448,30 +458,33 @@ const RSWAboutPage = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <Sparkles className="w-12 h-12 mx-auto mb-6 text-blue-400" strokeWidth={1.5} />
+            <Sparkles className="w-12 h-12 mx-auto mb-6" style={{ color: '#BFC7CD' }} strokeWidth={1.5} />
             
             <h2 className="text-4xl lg:text-6xl font-light text-white mb-6 leading-tight">
               Ready to explore
-              <span className="block font-bold mt-2 bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
+              <span className="block font-bold mt-2" style={{ color: '#BFC7CD' }}>
                 new opportunities?
               </span>
             </h2>
             
-            <p className="text-lg text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg mb-12 max-w-2xl mx-auto leading-relaxed"
+              style={{ color: 'rgba(191, 199, 205, 0.9)' }}>
               Partner with a diversified investment group that delivers results across 
               multiple high-growth sectors.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105"
-                style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }}>
-                <span className="text-sm font-semibold text-white">Schedule Consultation</span>
+              <button className="px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                style={{ background: '#BFC7CD' }}>
+                <span className="text-sm font-semibold" style={{ color: '#163b5f' }}>
+                  Schedule Consultation
+                </span>
               </button>
               
-              <button className="group px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
+              <button className="group px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 hover:bg-white/10"
                 style={{ 
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)'
+                  background: 'rgba(191, 199, 205, 0.1)',
+                  border: '1px solid rgba(191, 199, 205, 0.3)'
                 }}>
                 <span className="text-sm font-semibold text-white">Download Portfolio</span>
                 <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" 
