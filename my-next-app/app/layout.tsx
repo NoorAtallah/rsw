@@ -1,8 +1,6 @@
-'use client' // add this at the top of layout.tsx
-
-import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import RSWNavigation from "./components/ClientNavbar";
 import RSWFooter from "./components/footer";
 import "./globals.css";
 
@@ -15,9 +13,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-// Now you can import Navbar normally because this is a client component
-import RSWNavigation from "./components/nav";
 
 export const metadata: Metadata = {
   title: "Create Next App",
