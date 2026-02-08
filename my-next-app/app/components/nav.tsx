@@ -9,14 +9,24 @@ import { motion } from 'framer-motion'
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(false)
   const pathname = usePathname()
 
+  // Handle scroll & window width
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
+    // Scroll listener
+    const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+
+    // Check desktop width
+    const checkWidth = () => setIsDesktop(window.innerWidth >= 768)
+    checkWidth()
+    window.addEventListener('resize', checkWidth)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', checkWidth)
+    }
   }, [])
 
   const navItems = [
@@ -37,7 +47,7 @@ export default function Navbar() {
           transform: scrolled ? 'translateX(-50%)' : 'none',
           maxWidth: scrolled ? '1200px' : 'none',
           width: scrolled ? '90%' : 'auto',
-          marginLeft: scrolled ? '0' : typeof window !== 'undefined' && window.innerWidth >= 768 ? '16%' : '0',
+          marginLeft: scrolled ? '0' : isDesktop ? '16%' : '0', // ✅ fixed here
           background: scrolled ? 'rgba(22, 59, 95, 0.8)' : 'transparent',
           backdropFilter: scrolled ? 'blur(20px)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
