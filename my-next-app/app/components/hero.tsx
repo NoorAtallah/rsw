@@ -8,6 +8,14 @@ export default function RSWHeroSection() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+const [isMobile, setIsMobile] = useState(false)
+
+useEffect(() => {
+  const checkScreen = () => setIsMobile(window.innerWidth < 768)
+  checkScreen()
+  window.addEventListener('resize', checkScreen)
+  return () => window.removeEventListener('resize', checkScreen)
+}, [])
 
   const slides = [
     {
@@ -280,7 +288,8 @@ export default function RSWHeroSection() {
           style={{
             top: '1.2%',
             left: '1.2%',
-            width: window.innerWidth < 768 ? '20%' : '15%',
+          width: isMobile ? '20%' : '15%',
+
             height: '10%',
           }}
           initial={{ opacity: 0 }}
