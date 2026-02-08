@@ -1,6 +1,6 @@
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import RSWNavigation from "./components/nav";
 import RSWFooter from "./components/footer";
 import "./globals.css";
 
@@ -12,6 +12,11 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// ✅ Dynamically import Navbar so it only renders on the client
+const RSWNavigation = dynamic(() => import("./components/nav"), {
+  ssr: false,
 });
 
 export const metadata: Metadata = {
