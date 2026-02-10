@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import RSWNavigation from "./components/ClientNavbar";
 import RSWFooter from "./components/footer";
+import SocialPopup from "./components/popUp";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,7 +30,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+         
         <RSWNavigation />
+         <SocialPopup />
         {children}
         <RSWFooter />
       </body>
