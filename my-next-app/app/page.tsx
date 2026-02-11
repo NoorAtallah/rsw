@@ -11,14 +11,15 @@ export default function Home() {
   return (
     <main >
       <RSWHeroSection />
+       <RSWAboutSection />
       <RSWNewsSection />
       <LuxuryServicesSection />
-      <RSWAboutSection />
+     
       <RSWInvestorRelationsSection />
       {/* <RSWEcosystemSection /> */}
-      <RSWStatsSection />
+      {/* <RSWStatsSection /> */}
       <RSWCTASection />
-      <RSWFooter />
+    
     </main>
   );
 }

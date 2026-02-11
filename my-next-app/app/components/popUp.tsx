@@ -11,6 +11,14 @@ const SocialPopup = () => {
 useEffect(() => {
   console.log('SocialPopup mounted');
   
+  // Check if user has opted to not see the popup again
+  const dontShowAgain = localStorage.getItem('socialPopupDontShowAgain');
+  
+  if (dontShowAgain === 'true') {
+    console.log('User opted out of popup');
+    return;
+  }
+  
   const timer = setTimeout(() => {
     console.log('Timer triggered');
     setIsOpen(true);
@@ -62,6 +70,11 @@ useEffect(() => {
   const handleClose = () => {
     setIsOpen(false);
     sessionStorage.setItem('socialPopupSeen', 'true');
+  };
+
+  const handleDontShowAgain = () => {
+    localStorage.setItem('socialPopupDontShowAgain', 'true');
+    setIsOpen(false);
   };
 
   const handleNext = () => {
@@ -324,12 +337,21 @@ useEffect(() => {
                         ))}
                       </div>
 
-                      <button
-                        onClick={handleClose}
-                        className="story-text w-full text-center text-sm font-semibold text-white/70 hover:text-white transition-colors"
-                      >
-                        Maybe Later
-                      </button>
+                      <div className="flex flex-col gap-2">
+                        <button
+                          onClick={handleClose}
+                          className="story-text w-full text-center text-sm font-semibold text-white/70 hover:text-white transition-colors"
+                        >
+                          Maybe Later
+                        </button>
+                        
+                        <button
+                          onClick={handleDontShowAgain}
+                          className="story-text w-full text-center text-xs font-medium text-white/50 hover:text-white/70 transition-colors"
+                        >
+                          Don't show again
+                        </button>
+                      </div>
                     </div>
                   </motion.div>
                 </AnimatePresence>

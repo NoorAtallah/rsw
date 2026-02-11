@@ -1,429 +1,294 @@
 'use client'
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, ArrowRight } from 'lucide-react';
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Shield, Wrench, Handshake, Leaf, ArrowUpRight } from 'lucide-react'
 
-const RSWServicesSection = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+export default function RSWInvestmentsSection() {
+  const [activeCard, setActiveCard] = useState<number | null>(null)
+  const [activeInvestment, setActiveInvestment] = useState<number | null>(null)
 
-  const services = [
+  const purple = '#432c96'
+  const white = '#ffffff'
+  const lightPurple = '#f5f3fb'
+
+  const approaches = [
     {
-      number: "01",
-      title: "Real Estate Development",
-      subtitle: "Premium Properties Across UAE",
-      description: "Transforming skylines with architectural excellence. Our portfolio spans luxury residential towers, commercial complexes, and mixed-use developments that redefine modern living.",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80",
-      stat: "2.5B",
-      statLabel: "AED Development Value",
-      accent: "#432c96"
+      id: 1,
+      icon: Shield,
+      title: 'Risk & Capital Protection',
+      description: 'We place central importance on risk management in all our investment decisions, through portfolio diversification, continuous evaluation, and adherence to clear operational frameworks aimed at protecting capital.',
     },
     {
-      number: "02",
-      title: "Construction Services",
-      subtitle: "Building Tomorrow's Infrastructure",
-      description: "Industry-leading construction expertise delivering projects on time and beyond expectations. From concept to completion, we build with precision and purpose.",
-      image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80",
-      stat: "150+",
-      statLabel: "Projects Completed",
-      accent: "#5a3fb8"
+      id: 2,
+      icon: Wrench,
+      title: 'Operational Expertise',
+      description: "RSW's role is not limited to financing; it extends to strategic oversight and operational support, enhancing asset efficiency and increasing their long-term value.",
     },
     {
-      number: "03",
-      title: "Technology Solutions",
-      subtitle: "Innovation at the Core",
-      description: "Pioneering smart building technologies and PropTech solutions that integrate seamlessly into modern developments, creating intelligent spaces for the future.",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80",
-      stat: "50+",
-      statLabel: "Tech Integrations",
-      accent: "#7856d9"
+      id: 3,
+      icon: Handshake,
+      title: 'Strategic Partnerships',
+      description: 'We work with local and international partners who possess specialized expertise, enabling more efficient project execution and the achievement of sustainable results.',
     },
     {
-      number: "04",
-      title: "Investment Management",
-      subtitle: "Strategic Portfolio Growth",
-      description: "Diversified investment strategies across real estate, infrastructure, and emerging markets. Building wealth through calculated risk and market insight.",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
-      stat: "25%",
-      statLabel: "Annual Growth Rate",
-      accent: "#432c96"
-    }
-  ];
+      id: 4,
+      icon: Leaf,
+      title: 'Sustainable Investment',
+      description: 'We integrate principles of sustainability and responsibility into our investment decisions, taking into account long-term economic and social impact and strengthening business continuity.',
+    },
+  ]
+
+  const investments = [
+    {
+      id: 1,
+      title: 'Real Estate',
+      description: 'We invest in well-studied real estate projects in strategic locations, focusing on operational value and long-term sustainability.',
+      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80',
+    },
+    {
+      id: 2,
+      title: 'Infrastructure & Construction',
+      description: 'We participate in infrastructure and construction projects with clear economic viability, supported by operational and managerial expertise.',
+      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80',
+    },
+    {
+      id: 3,
+      title: 'Technology & Innovation',
+      description: 'We direct capital toward technology projects with high growth potential, focusing on scalable solutions and digital transformation.',
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80',
+    },
+  ]
 
   return (
-    <section 
-      className="relative min-h-screen overflow-hidden py-16 lg:py-20"
-      style={{ background: '#ffffff' }}
-    >
+    <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden" style={{ background: white }}>
+      
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
         
-        .editorial-number {
-          font-family: 'Playfair Display', serif;
-          font-weight: 300;
-          font-style: italic;
+        .investment-card-hover {
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
-        .editorial-title {
-          font-family: 'Playfair Display', serif;
-          font-weight: 700;
-          letter-spacing: -0.02em;
+        .investment-card-hover:hover {
+          transform: translateY(-4px);
         }
-        
-        .editorial-body {
-          font-family: 'Inter', sans-serif;
-          font-weight: 400;
-        }
-        
-        .image-grain {
-          position: relative;
-        }
-        
-        .image-grain::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
-          pointer-events: none;
-          mix-blend-mode: overlay;
+        .investment-image-overlay {
+          background: linear-gradient(
+            to top,
+            rgba(67, 44, 150, 0.9) 0%,
+            rgba(67, 44, 150, 0.4) 60%,
+            transparent 100%
+          );
         }
       `}</style>
 
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+      {/* Subtle purple gradient background */}
+      <div 
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full blur-[180px] pointer-events-none opacity-10"
+        style={{ background: purple }}
+      />
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-10">
         
-        {/* Editorial Header */}
-        <div className="mb-12 lg:mb-16">
-          <div className="grid lg:grid-cols-2 gap-8 items-end">
-            <div>
-              <motion.div 
-                className="mb-4"
+        {/* Header - Centered */}
+        <div className="text-center mb-12 md:mb-16">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-12 h-px" style={{ background: purple }} />
+            <span 
+              className="text-xs tracking-[0.3em] uppercase"
+              style={{ color: purple, fontFamily: 'Space Mono, monospace', fontWeight: 400 }}
+            >
+              Strategic Portfolio
+            </span>
+            <div className="w-12 h-px" style={{ background: purple }} />
+          </div>
+
+          <h2 
+            className="text-3xl md:text-4xl lg:text-5xl font-light leading-tight mb-6"
+            style={{ color: purple, fontFamily: 'Outfit, sans-serif' }}
+          >
+            Our <span className="font-bold">Investments</span>
+          </h2>
+
+          <p 
+            className="text-base md:text-lg font-light leading-relaxed max-w-3xl mx-auto mb-8"
+            style={{ color: 'rgba(67, 44, 150, 0.75)', fontFamily: 'Outfit, sans-serif' }}
+          >
+            RSW's investments are distributed across carefully selected strategic sectors, enabling a balance between returns and stability, with long-term scalability.
+          </p>
+
+          <div 
+            className="max-w-2xl mx-auto p-6 md:p-8 rounded-2xl"
+            style={{ 
+              background: lightPurple,
+              border: `1px solid rgba(67, 44, 150, 0.1)`
+            }}
+          >
+            <h3 
+              className="text-lg md:text-xl font-semibold mb-3"
+              style={{ color: purple, fontFamily: 'Outfit, sans-serif' }}
+            >
+              We complete the vision
+            </h3>
+            <p 
+              className="text-sm md:text-base leading-relaxed"
+              style={{ color: 'rgba(67, 44, 150, 0.7)', fontFamily: 'Outfit, sans-serif' }}
+            >
+              Our investments span strategic sectors including real estate, infrastructure, and technology. This diversification enables a balanced approach to returns and stability, while maintaining agility in evolving market conditions.
+            </p>
+          </div>
+        </div>
+
+        {/* Our Approach */}
+        <div className="mb-12 md:mb-16">
+          <h3 
+            className="text-2xl md:text-3xl font-semibold text-center mb-10"
+            style={{ color: purple, fontFamily: 'Outfit, sans-serif' }}
+          >
+            Our Approach
+          </h3>
+
+          {/* Approach Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {approaches.map((approach, index) => (
+              <motion.div
+                key={approach.id}
+                className="relative p-6 md:p-7 rounded-xl cursor-pointer group transition-all duration-300"
+                style={{
+                  background: activeCard === approach.id ? purple : lightPurple,
+                  border: `1px solid ${activeCard === approach.id ? purple : 'rgba(67, 44, 150, 0.1)'}`,
+                }}
+                onMouseEnter={() => setActiveCard(approach.id)}
+                onMouseLeave={() => setActiveCard(null)}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <span 
-                  className="editorial-body text-[10px] tracking-[0.3em] uppercase"
-                  style={{ color: 'rgba(67, 44, 150, 0.5)' }}
+                {/* Icon */}
+                <div 
+                  className="w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-all duration-300"
+                  style={{
+                    background: activeCard === approach.id 
+                      ? 'rgba(255, 255, 255, 0.15)' 
+                      : white,
+                  }}
                 >
-                  Portfolio — 2024
-                </span>
+                  <approach.icon 
+                    className="w-5 h-5 transition-colors duration-300"
+                    style={{ 
+                      color: activeCard === approach.id ? white : purple,
+                      strokeWidth: 1.5 
+                    }}
+                  />
+                </div>
+
+                {/* Title */}
+                <h4 
+                  className="text-base font-semibold mb-3 transition-colors duration-300"
+                  style={{ 
+                    color: activeCard === approach.id ? white : purple,
+                    fontFamily: 'Outfit, sans-serif' 
+                  }}
+                >
+                  {approach.title}
+                </h4>
+
+                {/* Description */}
+                <p 
+                  className="text-xs leading-relaxed transition-colors duration-300"
+                  style={{ 
+                    color: activeCard === approach.id 
+                      ? 'rgba(255, 255, 255, 0.85)' 
+                      : 'rgba(67, 44, 150, 0.65)',
+                    fontFamily: 'Outfit, sans-serif' 
+                  }}
+                >
+                  {approach.description}
+                </p>
               </motion.div>
-              
-              <motion.h2 
-                className="editorial-title text-4xl lg:text-5xl xl:text-6xl leading-[0.95] mb-4"
-                style={{ color: '#432c96' }}
+            ))}
+          </div>
+        </div>
+
+        {/* Investment Sectors */}
+        <div>
+          <h3 
+            className="text-2xl md:text-3xl font-semibold text-center mb-10"
+            style={{ color: purple, fontFamily: 'Outfit, sans-serif' }}
+          >
+            Investment Sectors
+          </h3>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {investments.map((investment, index) => (
+              <motion.div
+                key={investment.id}
+                className="investment-card-hover group cursor-pointer rounded-2xl overflow-hidden"
+                style={{
+                  background: white,
+                  border: `1px solid rgba(67, 44, 150, 0.15)`,
+                  boxShadow: activeInvestment === investment.id 
+                    ? '0 20px 60px rgba(67, 44, 150, 0.25)' 
+                    : '0 4px 20px rgba(67, 44, 150, 0.08)',
+                }}
+                onMouseEnter={() => setActiveInvestment(investment.id)}
+                onMouseLeave={() => setActiveInvestment(null)}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
               >
-                Building
-                <span className="block mt-2">Excellence</span>
-              </motion.h2>
-              
-              <motion.div 
-                className="w-16 h-[2px]"
-                style={{ background: '#432c96' }}
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-              />
-            </div>
-            
-            <motion.p 
-              className="editorial-body text-sm lg:text-base leading-relaxed max-w-xl lg:ml-auto"
-              style={{ color: 'rgba(67, 44, 150, 0.7)' }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              Four verticals united by a singular vision: to create lasting value through strategic investments, innovative development, and uncompromising quality.
-            </motion.p>
-          </div>
-        </div>
-
-        {/* Main Editorial Layout */}
-        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 mb-16">
-          
-          {/* Left Navigation */}
-          <div className="lg:col-span-4 xl:col-span-3">
-            <div className="lg:sticky lg:top-24 space-y-1">
-              {services.map((service, index) => {
-                const isActive = activeIndex === index;
-                
-                return (
-                  <motion.button
-                    key={index}
-                    onClick={() => setActiveIndex(index)}
-                    className="w-full text-left group relative py-4 px-5 transition-all duration-500"
-                    style={{
-                      background: isActive ? 'rgba(67, 44, 150, 0.03)' : 'transparent',
-                      borderLeft: isActive ? '3px solid #432c96' : '3px solid transparent',
-                    }}
-                    whileHover={{ x: 8 }}
-                  >
-                    {/* Number */}
-                    <div 
-                      className="editorial-number text-2xl mb-2 transition-all duration-500"
-                      style={{ 
-                        color: isActive ? '#432c96' : 'rgba(67, 44, 150, 0.2)',
-                      }}
-                    >
-                      {service.number}
-                    </div>
-                    
-                    {/* Title */}
-                    <h3 
-                      className="editorial-body text-sm font-medium mb-1 transition-all duration-500"
-                      style={{ 
-                        color: isActive ? '#432c96' : 'rgba(67, 44, 150, 0.5)'
-                      }}
-                    >
-                      {service.title}
-                    </h3>
-                    
-                    {/* Subtitle */}
-                    <p 
-                      className="editorial-body text-[10px] transition-all duration-500"
-                      style={{ 
-                        color: isActive ? 'rgba(67, 44, 150, 0.6)' : 'rgba(67, 44, 150, 0.3)'
-                      }}
-                    >
-                      {service.subtitle}
-                    </p>
-
-                    {/* Arrow indicator */}
-                    <ArrowRight 
-                      className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 transition-all duration-500"
-                      style={{
-                        color: '#432c96',
-                        opacity: isActive ? 1 : 0,
-                        transform: isActive 
-                          ? 'translateY(-50%) translateX(0)' 
-                          : 'translateY(-50%) translateX(-10px)'
-                      }}
-                    />
-                  </motion.button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Right Content Area */}
-          <div className="lg:col-span-8 xl:col-span-9">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -40 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {/* Hero Image */}
-                <div className="relative aspect-[16/10] mb-6 overflow-hidden rounded-2xl image-grain">
+                {/* Image */}
+                <div className="relative aspect-[4/3] overflow-hidden">
                   <img 
-                    src={services[activeIndex].image}
-                    alt={services[activeIndex].title}
-                    className="w-full h-full object-cover"
-                    style={{
-                      filter: 'contrast(1.05) saturate(0.95)'
-                    }}
+                    src={investment.image} 
+                    alt={investment.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  
-                  {/* Gradient overlay */}
-                  <div 
-                    className="absolute inset-0"
-                    style={{
-                      background: `linear-gradient(to top, ${services[activeIndex].accent}dd 0%, transparent 50%)`
-                    }}
-                  />
-                  
-                  {/* Large number watermark */}
-                  <div 
-                    className="absolute bottom-6 left-6 editorial-number text-7xl lg:text-8xl leading-none"
-                    style={{ 
-                      color: 'rgba(255, 255, 255, 0.2)',
-                      textShadow: '0 0 40px rgba(0,0,0,0.3)'
-                    }}
-                  >
-                    {services[activeIndex].number}
-                  </div>
-
-                  {/* Stat Badge */}
-                  <div 
-                    className="absolute top-6 right-6 px-4 py-3 rounded-xl backdrop-blur-md"
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.15)',
-                      border: '1px solid rgba(255, 255, 255, 0.25)'
-                    }}
-                  >
-                    <div className="editorial-title text-xl text-white mb-1">
-                      {services[activeIndex].stat}
-                    </div>
-                    <div className="editorial-body text-[10px] text-white opacity-80">
-                      {services[activeIndex].statLabel}
-                    </div>
-                  </div>
+                  <div className="investment-image-overlay absolute inset-0" />
                 </div>
 
-                {/* Content Grid */}
-                <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
-                  
-                  {/* Left - Title & Description */}
-                  <div>
-                    <h3 
-                      className="editorial-title text-2xl lg:text-3xl leading-tight mb-4"
-                      style={{ color: '#432c96' }}
-                    >
-                      {services[activeIndex].title}
-                    </h3>
-                    
-                    <div 
-                      className="w-12 h-[2px] mb-4"
-                      style={{ background: services[activeIndex].accent }}
+                {/* Content */}
+                <div className="p-6">
+                  <h4 
+                    className="text-xl font-bold mb-3 transition-colors duration-300"
+                    style={{ 
+                      color: activeInvestment === investment.id 
+                        ? purple 
+                        : 'rgba(67, 44, 150, 0.9)',
+                      fontFamily: 'Outfit, sans-serif' 
+                    }}
+                  >
+                    {investment.title}
+                  </h4>
+
+                  <p 
+                    className="text-sm leading-relaxed mb-5"
+                    style={{ 
+                      color: 'rgba(67, 44, 150, 0.7)',
+                      fontFamily: 'Outfit, sans-serif' 
+                    }}
+                  >
+                    {investment.description}
+                  </p>
+
+                  <button 
+                    className="flex items-center gap-2 text-sm font-medium group/btn"
+                    style={{ color: purple, fontFamily: 'Outfit, sans-serif' }}
+                  >
+                    <span>Learn More</span>
+                    <ArrowUpRight 
+                      className="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" 
+                      strokeWidth={2}
                     />
-                    
-                    <p 
-                      className="editorial-body text-sm leading-relaxed mb-6"
-                      style={{ color: 'rgba(67, 44, 150, 0.7)' }}
-                    >
-                      {services[activeIndex].description}
-                    </p>
-
-                    <button 
-                      className="group inline-flex items-center gap-2 px-5 py-3 rounded-full transition-all duration-300 hover:gap-3"
-                      style={{
-                        background: '#432c96',
-                        color: '#ffffff'
-                      }}
-                    >
-                      <span className="editorial-body text-xs font-medium tracking-wider">
-                        Explore More
-                      </span>
-                      <ArrowUpRight 
-                        className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" 
-                        strokeWidth={2}
-                      />
-                    </button>
-                  </div>
-
-                  {/* Right - Details & Features */}
-                  <div className="space-y-5">
-                    {/* Key Features */}
-                    <div>
-                      <h4 
-                        className="editorial-body text-[10px] tracking-[0.2em] uppercase mb-3"
-                        style={{ color: 'rgba(67, 44, 150, 0.5)' }}
-                      >
-                        Key Highlights
-                      </h4>
-                      
-                      <div className="space-y-2">
-                        {['Award-Winning Projects', 'Sustainable Design', 'Global Partnerships', 'Client-Centric Approach'].map((feature, i) => (
-                          <div 
-                            key={i}
-                            className="flex items-center gap-2.5 py-2 border-b"
-                            style={{ borderColor: 'rgba(67, 44, 150, 0.1)' }}
-                          >
-                            <div 
-                              className="w-1.5 h-1.5 rounded-full"
-                              style={{ background: services[activeIndex].accent }}
-                            />
-                            <span 
-                              className="editorial-body text-xs"
-                              style={{ color: 'rgba(67, 44, 150, 0.8)' }}
-                            >
-                              {feature}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Quote or Testimonial */}
-                    <div 
-                      className="p-5 rounded-xl mt-6"
-                      style={{ 
-                        background: 'rgba(67, 44, 150, 0.03)',
-                        borderLeft: `4px solid ${services[activeIndex].accent}`
-                      }}
-                    >
-                      <p 
-                        className="editorial-body text-xs italic leading-relaxed"
-                        style={{ color: 'rgba(67, 44, 150, 0.7)' }}
-                      >
-                        "Excellence is not a destination, it's a continuous journey of innovation, dedication, and unwavering commitment to quality."
-                      </p>
-                    </div>
-                  </div>
+                  </button>
                 </div>
               </motion.div>
-            </AnimatePresence>
+            ))}
           </div>
         </div>
-
-        {/* Bottom Stats Bar */}
-        <motion.div 
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 py-8 border-t"
-          style={{ borderColor: 'rgba(67, 44, 150, 0.1)' }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="text-center lg:text-left">
-            <div className="editorial-title text-3xl lg:text-4xl mb-1" style={{ color: '#432c96' }}>
-              15+
-            </div>
-            <div className="editorial-body text-xs" style={{ color: 'rgba(67, 44, 150, 0.6)' }}>
-              Years of Excellence
-            </div>
-          </div>
-          
-          <div className="text-center lg:text-left">
-            <div className="editorial-title text-3xl lg:text-4xl mb-1" style={{ color: '#432c96' }}>
-              200+
-            </div>
-            <div className="editorial-body text-xs" style={{ color: 'rgba(67, 44, 150, 0.6)' }}>
-              Projects Delivered
-            </div>
-          </div>
-          
-          <div className="text-center lg:text-left">
-            <div className="editorial-title text-3xl lg:text-4xl mb-1" style={{ color: '#432c96' }}>
-              5B+
-            </div>
-            <div className="editorial-body text-xs" style={{ color: 'rgba(67, 44, 150, 0.6)' }}>
-              AED Portfolio Value
-            </div>
-          </div>
-          
-          <div className="text-center lg:text-left">
-            <div className="editorial-title text-3xl lg:text-4xl mb-1" style={{ color: '#432c96' }}>
-              98%
-            </div>
-            <div className="editorial-body text-xs" style={{ color: 'rgba(67, 44, 150, 0.6)' }}>
-              Client Satisfaction
-            </div>
-          </div>
-        </motion.div>
       </div>
-
-      {/* Decorative Elements */}
-      <div 
-        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[150px] pointer-events-none opacity-30"
-        style={{ background: 'rgba(67, 44, 150, 0.08)' }}
-      />
-      
-      <div 
-        className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none opacity-20"
-        style={{ background: 'rgba(67, 44, 150, 0.06)' }}
-      />
     </section>
-  );
-};
-
-export default RSWServicesSection;
+  )
+}

@@ -17,10 +17,19 @@ export default function RSWHeroSection() {
   const white = '#ffffff'
 
   return (
-    <div className="min-h-screen h-screen overflow-hidden relative" style={{ background: purple }}>
+    <div className="min-h-screen h-screen relative w-full" style={{ background: purple, overflow: 'hidden' }}>
       
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+        
+        html, body {
+          overflow-x: hidden;
+          max-width: 100vw;
+        }
+        
+        * {
+          box-sizing: border-box;
+        }
         
         .text-vertical {
           writing-mode: vertical-rl;
@@ -106,31 +115,32 @@ export default function RSWHeroSection() {
 
       {/* Ambient white glows */}
       <div 
-        className="absolute top-1/4 right-1/4 w-[400px] h-[400px] md:w-[800px] md:h-[800px] rounded-full blur-[120px] md:blur-[200px] pointer-events-none opacity-20 md:opacity-25 z-[1]"
+        className="absolute top-1/4 right-0 w-[250px] h-[250px] md:w-[800px] md:h-[800px] rounded-full blur-[120px] md:blur-[200px] pointer-events-none opacity-20 md:opacity-25 z-[1]"
         style={{ background: 'rgba(255, 255, 255, 0.15)' }}
       />
       
       <div 
-        className="absolute bottom-0 left-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full blur-[100px] md:blur-[180px] pointer-events-none opacity-15 z-[1]"
+        className="absolute bottom-0 left-0 w-[200px] h-[200px] md:w-[600px] md:h-[600px] rounded-full blur-[100px] md:blur-[180px] pointer-events-none opacity-15 z-[1]"
         style={{ background: 'rgba(255, 255, 255, 0.1)' }}
       />
 
       {/* Main Container */}
-      <div className="relative h-full z-10">
+      <div className="relative h-full z-10 w-full overflow-hidden">
 
         {/* Main Title Section */}
         <motion.section
-          className="absolute z-20 px-4 md:px-0"
+          className="absolute z-20 w-full px-4 md:px-8"
           style={{
             top: '22%',
-            left: '4%',
-            right: '4%',
-            maxWidth: '800px',
+            left: '0',
+            right: '0',
+            maxWidth: '100%',
           }}
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: isLoaded ? 1 : 0, x: isLoaded ? 0 : -30 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
+          <div className="max-w-3xl">
           {/* Eyebrow */}
           <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
             <div className="w-6 md:w-10 h-px" style={{ background: 'rgba(255, 255, 255, 0.5)' }} />
@@ -138,33 +148,33 @@ export default function RSWHeroSection() {
               className="text-[9px] md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase"
               style={{ color: 'rgba(255, 255, 255, 0.7)', fontFamily: 'Space Mono, monospace' }}
             >
-              Diversified Investment Group
+              Integrated Investment Platform
             </span>
           </div>
 
           {/* Main Title */}
           <h1 
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] font-light leading-[1.05] mb-4 md:mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light leading-[1.1] mb-4 md:mb-6"
             style={{ color: white, fontFamily: 'Outfit, sans-serif' }}
           >
-            Building
+            Where Strategy
             <span className="block font-bold mt-1 md:mt-2 stat-glow" style={{ color: white }}>
-              Tomorrow's Success
+              Meets Sustainable Growth
             </span>
           </h1>
           
           {/* Description */}
           <p 
-            className="text-base md:text-xl font-light leading-relaxed mb-8 md:mb-12 max-w-xl"
+            className="text-sm md:text-base font-light leading-relaxed mb-6 md:mb-8 max-w-xl"
             style={{ color: 'rgba(255, 255, 255, 0.85)', fontFamily: 'Outfit, sans-serif' }}
           >
-            A world-class investment hub spanning Real Estate, Construction, and Advanced Technology across the UAE and beyond.
+            We manage capital with a long-term vision, building value through discipline, analysis, and strategic partnerships. RSW Investment Group operates as an integrated investment platform, allocating capital across diverse sectors with a strong commitment to governance and transparency.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4">
             <button 
-              className="group flex items-center gap-3 px-6 md:px-8 py-4 md:py-5 rounded-xl md:rounded-2xl transition-all duration-300 hover:bg-opacity-90 hover:shadow-2xl hover:scale-105"
+              className="group flex items-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-lg transition-all duration-300 hover:bg-opacity-90 hover:shadow-2xl hover:scale-105"
               style={{
                 background: white,
                 color: purple,
@@ -172,27 +182,28 @@ export default function RSWHeroSection() {
                 fontWeight: 500,
               }}
             >
-              <span className="text-sm md:text-base tracking-wider">Explore Ventures</span>
+              <span className="text-sm tracking-wide">Explore Ventures</span>
               <ArrowUpRight 
-                className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" 
+                className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" 
                 strokeWidth={2}
               />
             </button>
             
             <button 
-              className="group flex items-center gap-3 px-6 md:px-8 py-4 md:py-5 rounded-xl md:rounded-2xl transition-all duration-300 hover:bg-white hover:text-[#432c96] hover:shadow-xl glass-bg-purple glass-border-purple"
+              className="group flex items-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-lg transition-all duration-300 hover:bg-white hover:text-[#432c96] hover:shadow-xl glass-bg-purple glass-border-purple"
               style={{
                 fontFamily: 'Outfit, sans-serif',
                 fontWeight: 500,
                 color: white
               }}
             >
-              <span className="text-sm md:text-base tracking-wider">Investor Relations</span>
+              <span className="text-sm tracking-wide">Investor Relations</span>
               <ArrowUpRight 
-                className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" 
+                className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" 
                 strokeWidth={2}
               />
             </button>
+          </div>
           </div>
         </motion.section>
 
@@ -207,13 +218,13 @@ export default function RSWHeroSection() {
             className="text-vertical-lr text-xs tracking-[0.5em] uppercase"
             style={{ color: 'rgba(255, 255, 255, 0.3)', fontFamily: 'Space Mono, monospace' }}
           >
-            Diversified Investment Solutions
+            Capital Allocation & Strategic Partnerships
           </span>
         </motion.div>
 
-        {/* Large RSW Watermark */}
+        {/* Large RSW Watermark - Desktop only */}
         <motion.div
-          className="hidden lg:block absolute top-1/2 -translate-y-1/2 z-[5] pointer-events-none"
+          className="hidden xl:block absolute top-1/2 -translate-y-1/2 z-[5] pointer-events-none"
           style={{ right: '8%' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 0.03 : 0 }}
@@ -248,9 +259,9 @@ export default function RSWHeroSection() {
           </span>
         </motion.div>
 
-        {/* Decorative Corner Lines */}
+        {/* Decorative Corner Lines - Desktop only */}
         <motion.div
-          className="hidden md:block absolute w-20 h-px z-20"
+          className="hidden lg:block absolute w-20 h-px z-20"
           style={{ 
             top: '24%', 
             left: '20%',
@@ -262,7 +273,7 @@ export default function RSWHeroSection() {
         />
         
         <motion.div
-          className="hidden md:block absolute w-px h-20 z-20"
+          className="hidden lg:block absolute w-px h-20 z-20"
           style={{ 
             top: '24%', 
             left: '20%',

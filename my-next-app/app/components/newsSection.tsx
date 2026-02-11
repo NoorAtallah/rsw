@@ -199,7 +199,7 @@ const RSWNewsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Latest News & Insights
+            Latest News 
           </motion.h2>
 
           <motion.div 
@@ -281,7 +281,7 @@ const RSWNewsSection = () => {
                 </div>
 
                 {/* Stats */}
-                <div 
+                {/* <div 
                   className="absolute bottom-3 right-3 px-2.5 py-1.5 rounded-lg backdrop-blur-sm"
                   style={{
                     background: 'rgba(255, 255, 255, 0.15)',
@@ -294,7 +294,7 @@ const RSWNewsSection = () => {
                   <div className="news-body text-[9px] text-white opacity-90">
                     {news.stats.label}
                   </div>
-                </div>
+                </div> */}
               </div>
 
               {/* Content */}
