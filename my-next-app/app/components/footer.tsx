@@ -109,7 +109,7 @@ const RSWFooter = () => {
           </div>
 
           {/* Newsletter */}
-          <div className="lg:pl-12">
+          {/* <div className="lg:pl-12">
             <h4 
               className="text-lg font-medium text-white mb-3"
               style={{ fontFamily: 'Outfit, sans-serif' }}
@@ -142,7 +142,7 @@ const RSWFooter = () => {
                 <ArrowUpRight className="w-4 h-4" strokeWidth={1.5} />
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Links Grid */}
