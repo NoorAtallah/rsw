@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Shield, Wrench, Handshake, Leaf, ArrowUpRight } from 'lucide-react'
+import { useI18n } from '@/i18n/I18nProvider'
 
 export default function RSWInvestmentsSection() {
   const [activeCard, setActiveCard] = useState<number | null>(null)
   const [activeInvestment, setActiveInvestment] = useState<number | null>(null)
+  const { t, locale, direction } = useI18n()
 
   const purple = '#432c96'
   const white = '#ffffff'
@@ -16,55 +18,55 @@ export default function RSWInvestmentsSection() {
     {
       id: 1,
       icon: Shield,
-      title: 'Risk & Capital Protection',
-      description: 'We place central importance on risk management in all our investment decisions, through portfolio diversification, continuous evaluation, and adherence to clear operational frameworks aimed at protecting capital.',
+      title: t('investments.approach.risk.title'),
+      description: t('investments.approach.risk.description'),
     },
     {
       id: 2,
       icon: Wrench,
-      title: 'Operational Expertise',
-      description: "RSW's role is not limited to financing; it extends to strategic oversight and operational support, enhancing asset efficiency and increasing their long-term value.",
+      title: t('investments.approach.operational.title'),
+      description: t('investments.approach.operational.description'),
     },
     {
       id: 3,
       icon: Handshake,
-      title: 'Strategic Partnerships',
-      description: 'We work with local and international partners who possess specialized expertise, enabling more efficient project execution and the achievement of sustainable results.',
+      title: t('investments.approach.partnerships.title'),
+      description: t('investments.approach.partnerships.description'),
     },
     {
       id: 4,
       icon: Leaf,
-      title: 'Sustainable Investment',
-      description: 'We integrate principles of sustainability and responsibility into our investment decisions, taking into account long-term economic and social impact and strengthening business continuity.',
+      title: t('investments.approach.sustainable.title'),
+      description: t('investments.approach.sustainable.description'),
     },
   ]
 
   const investments = [
     {
       id: 1,
-      title: 'Real Estate',
-      description: 'We invest in well-studied real estate projects in strategic locations, focusing on operational value and long-term sustainability.',
+      title: t('investments.sectors.realEstate.title'),
+      description: t('investments.sectors.realEstate.description'),
       image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80',
     },
     {
       id: 2,
-      title: 'Infrastructure & Construction',
-      description: 'We participate in infrastructure and construction projects with clear economic viability, supported by operational and managerial expertise.',
+      title: t('investments.sectors.infrastructure.title'),
+      description: t('investments.sectors.infrastructure.description'),
       image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80',
     },
     {
       id: 3,
-      title: 'Technology & Innovation',
-      description: 'We direct capital toward technology projects with high growth potential, focusing on scalable solutions and digital transformation.',
+      title: t('investments.sectors.technology.title'),
+      description: t('investments.sectors.technology.description'),
       image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80',
     },
   ]
 
   return (
-    <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden" style={{ background: white }}>
+    <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden" style={{ background: white }} dir={direction}>
       
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&family=Tajawal:wght@200;300;400;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap');
         
         .investment-card-hover {
           transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -79,6 +81,15 @@ export default function RSWInvestmentsSection() {
             rgba(67, 44, 150, 0.4) 60%,
             transparent 100%
           );
+        }
+        
+        /* RTL-specific styles */
+        [dir="rtl"] {
+          font-family: 'Tajawal', 'IBM Plex Sans Arabic', sans-serif;
+        }
+        
+        [dir="ltr"] {
+          font-family: 'Outfit', 'Space Mono', sans-serif;
         }
       `}</style>
 
@@ -96,25 +107,41 @@ export default function RSWInvestmentsSection() {
             <div className="w-12 h-px" style={{ background: purple }} />
             <span 
               className="text-xs tracking-[0.3em] uppercase"
-              style={{ color: purple, fontFamily: 'Space Mono, monospace', fontWeight: 400 }}
+              style={{ 
+                color: purple, 
+                fontFamily: locale === 'ar' ? 'IBM Plex Sans Arabic, sans-serif' : 'Space Mono, monospace',
+                fontWeight: locale === 'ar' ? 500 : 400 
+              }}
             >
-              Strategic Portfolio
+              {t('investments.eyebrow')}
             </span>
             <div className="w-12 h-px" style={{ background: purple }} />
           </div>
 
           <h2 
             className="text-3xl md:text-4xl lg:text-5xl font-light leading-tight mb-6"
-            style={{ color: purple, fontFamily: 'Outfit, sans-serif' }}
+            style={{ 
+              color: purple, 
+              fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
+            }}
           >
-            Our <span className="font-bold">Investments</span>
+            {locale === 'ar' ? (
+              <span className="font-bold">{t('investments.title')}</span>
+            ) : (
+              <>
+                Our <span className="font-bold">Investments</span>
+              </>
+            )}
           </h2>
 
           <p 
             className="text-base md:text-lg font-light leading-relaxed max-w-3xl mx-auto mb-8"
-            style={{ color: 'rgba(67, 44, 150, 0.75)', fontFamily: 'Outfit, sans-serif' }}
+            style={{ 
+              color: 'rgba(67, 44, 150, 0.75)', 
+              fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
+            }}
           >
-            RSW's investments are distributed across carefully selected strategic sectors, enabling a balance between returns and stability, with long-term scalability.
+            {t('investments.description')}
           </p>
 
           <div 
@@ -126,15 +153,21 @@ export default function RSWInvestmentsSection() {
           >
             <h3 
               className="text-lg md:text-xl font-semibold mb-3"
-              style={{ color: purple, fontFamily: 'Outfit, sans-serif' }}
+              style={{ 
+                color: purple, 
+                fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
+              }}
             >
-              We complete the vision
+              {t('investments.vision.title')}
             </h3>
             <p 
               className="text-sm md:text-base leading-relaxed"
-              style={{ color: 'rgba(67, 44, 150, 0.7)', fontFamily: 'Outfit, sans-serif' }}
+              style={{ 
+                color: 'rgba(67, 44, 150, 0.7)', 
+                fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
+              }}
             >
-              Our investments span strategic sectors including real estate, infrastructure, and technology. This diversification enables a balanced approach to returns and stability, while maintaining agility in evolving market conditions.
+              {t('investments.vision.description')}
             </p>
           </div>
         </div>
@@ -143,9 +176,12 @@ export default function RSWInvestmentsSection() {
         <div className="mb-12 md:mb-16">
           <h3 
             className="text-2xl md:text-3xl font-semibold text-center mb-10"
-            style={{ color: purple, fontFamily: 'Outfit, sans-serif' }}
+            style={{ 
+              color: purple, 
+              fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
+            }}
           >
-            Our Approach
+            {t('investments.approachTitle')}
           </h3>
 
           {/* Approach Cards Grid */}
@@ -188,7 +224,7 @@ export default function RSWInvestmentsSection() {
                   className="text-base font-semibold mb-3 transition-colors duration-300"
                   style={{ 
                     color: activeCard === approach.id ? white : purple,
-                    fontFamily: 'Outfit, sans-serif' 
+                    fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
                   }}
                 >
                   {approach.title}
@@ -201,7 +237,7 @@ export default function RSWInvestmentsSection() {
                     color: activeCard === approach.id 
                       ? 'rgba(255, 255, 255, 0.85)' 
                       : 'rgba(67, 44, 150, 0.65)',
-                    fontFamily: 'Outfit, sans-serif' 
+                    fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
                   }}
                 >
                   {approach.description}
@@ -215,9 +251,12 @@ export default function RSWInvestmentsSection() {
         <div>
           <h3 
             className="text-2xl md:text-3xl font-semibold text-center mb-10"
-            style={{ color: purple, fontFamily: 'Outfit, sans-serif' }}
+            style={{ 
+              color: purple, 
+              fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
+            }}
           >
-            Investment Sectors
+            {t('investments.sectorsTitle')}
           </h3>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -257,7 +296,7 @@ export default function RSWInvestmentsSection() {
                       color: activeInvestment === investment.id 
                         ? purple 
                         : 'rgba(67, 44, 150, 0.9)',
-                      fontFamily: 'Outfit, sans-serif' 
+                      fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
                     }}
                   >
                     {investment.title}
@@ -267,7 +306,7 @@ export default function RSWInvestmentsSection() {
                     className="text-sm leading-relaxed mb-5"
                     style={{ 
                       color: 'rgba(67, 44, 150, 0.7)',
-                      fontFamily: 'Outfit, sans-serif' 
+                      fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
                     }}
                   >
                     {investment.description}
@@ -275,11 +314,18 @@ export default function RSWInvestmentsSection() {
 
                   <button 
                     className="flex items-center gap-2 text-sm font-medium group/btn"
-                    style={{ color: purple, fontFamily: 'Outfit, sans-serif' }}
+                    style={{ 
+                      color: purple, 
+                      fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
+                    }}
                   >
-                    <span>Learn More</span>
+                    <span>{t('investments.learnMore')}</span>
                     <ArrowUpRight 
-                      className="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" 
+                      className={`w-4 h-4 transition-transform ${
+                        locale === 'ar' 
+                          ? 'rotate-180 group-hover/btn:-translate-x-1 group-hover/btn:-translate-y-1' 
+                          : 'group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1'
+                      }`}
                       strokeWidth={2}
                     />
                   </button>

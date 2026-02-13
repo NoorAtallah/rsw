@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { useI18n } from '@/i18n/I18nProvider'
 
 const RSWCTASection = () => {
+  const { t, locale, direction } = useI18n();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,49 +24,51 @@ const RSWCTASection = () => {
     setFormData({ name: '', email: '', company: '', interest: '', message: '' });
   };
 
-  const interests = [
-    'Real Estate Investment',
-    'Commercial Brokerage',
-    'Technology Ventures',
-    'Construction Projects',
-    'Partnership Inquiry',
-    'General Inquiry'
-  ];
+  const interests = t('contact.form.interests');
 
   const contactMethods = [
     {
       icon: Phone,
-      label: '+971 2 612 3456',
-      sublabel: 'Direct Line',
+      label: t('contact.methods.phone.label'),
+      sublabel: t('contact.methods.phone.sublabel'),
       href: 'tel:+97126123456'
     },
     {
       icon: Mail,
-      label: 'invest@rswinvestment.ae',
-      sublabel: 'Email Us',
+      label: t('contact.methods.email.label'),
+      sublabel: t('contact.methods.email.sublabel'),
       href: 'mailto:invest@rswinvestment.ae'
     },
     {
       icon: MessageCircle,
-      label: 'WhatsApp',
-      sublabel: 'Quick Response',
+      label: t('contact.methods.whatsapp.label'),
+      sublabel: t('contact.methods.whatsapp.sublabel'),
       href: 'https://wa.me/97126123456'
     }
   ];
 
   return (
-    <section className="relative overflow-hidden py-16 lg:py-24" style={{ background: '#ffffff' }}>
+    <section className="relative overflow-hidden py-16 lg:py-24" style={{ background: '#ffffff' }} dir={direction}>
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Tajawal:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
         
-        .cta-title {
+        [dir="ltr"] .cta-title {
           font-family: 'Playfair Display', serif;
           font-weight: 700;
           letter-spacing: -0.02em;
         }
         
-        .cta-body {
+        [dir="rtl"] .cta-title {
+          font-family: 'Tajawal', sans-serif;
+          font-weight: 700;
+        }
+        
+        [dir="ltr"] .cta-body {
           font-family: 'Inter', sans-serif;
+        }
+        
+        [dir="rtl"] .cta-body {
+          font-family: 'IBM Plex Sans Arabic', sans-serif;
         }
       `}</style>
 
@@ -84,7 +88,7 @@ const RSWCTASection = () => {
               className="cta-body text-[10px] tracking-[0.25em] uppercase font-medium"
               style={{ color: 'rgba(67, 44, 150, 0.6)' }}
             >
-              Get in Touch
+              {t('contact.eyebrow')}
             </span>
             <div className="w-8 h-px" style={{ background: '#432c96' }} />
           </motion.div>
@@ -97,7 +101,7 @@ const RSWCTASection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Let's Start a Conversation
+            {t('contact.title')}
           </motion.h2>
 
           <motion.p 
@@ -108,7 +112,7 @@ const RSWCTASection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Connect with our team to explore investment opportunities tailored to your goals
+            {t('contact.description')}
           </motion.p>
         </div>
 
@@ -117,7 +121,7 @@ const RSWCTASection = () => {
           
           {/* Left - Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: locale === 'ar' ? 20 : -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -171,11 +175,10 @@ const RSWCTASection = () => {
                 </div>
                 <div>
                   <p className="cta-body text-sm font-semibold mb-1" style={{ color: '#432c96' }}>
-                    RSW Group HQ
+                    {t('contact.location.title')}
                   </p>
                   <p className="cta-body text-[10px] leading-relaxed" style={{ color: 'rgba(67, 44, 150, 0.6)' }}>
-                    Al Maryah Island, Abu Dhabi Global Market<br />
-                    Abu Dhabi, United Arab Emirates
+                    {t('contact.location.address')}
                   </p>
                 </div>
               </div>
@@ -184,7 +187,7 @@ const RSWCTASection = () => {
 
           {/* Right - Form */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: locale === 'ar' ? -20 : 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -200,13 +203,13 @@ const RSWCTASection = () => {
                 className="cta-body text-lg font-semibold mb-1"
                 style={{ color: '#432c96' }}
               >
-                Send us a Message
+                {t('contact.form.title')}
               </h3>
               <p 
                 className="cta-body text-[10px] mb-6"
                 style={{ color: 'rgba(67, 44, 150, 0.5)' }}
               >
-                We'll respond within 24 hours
+                {t('contact.form.subtitle')}
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -216,7 +219,7 @@ const RSWCTASection = () => {
                     className="cta-body text-[10px] font-medium mb-1.5 block"
                     style={{ color: '#432c96' }}
                   >
-                    Full Name *
+                    {t('contact.form.fields.name')}
                   </label>
                   <input
                     type="text"
@@ -229,7 +232,7 @@ const RSWCTASection = () => {
                       border: '1px solid rgba(67, 44, 150, 0.15)',
                       color: '#432c96'
                     }}
-                    placeholder="John Smith"
+                    placeholder={t('contact.form.placeholders.name')}
                   />
                 </div>
 
@@ -239,7 +242,7 @@ const RSWCTASection = () => {
                     className="cta-body text-[10px] font-medium mb-1.5 block"
                     style={{ color: '#432c96' }}
                   >
-                    Email Address *
+                    {t('contact.form.fields.email')}
                   </label>
                   <input
                     type="email"
@@ -252,7 +255,7 @@ const RSWCTASection = () => {
                       border: '1px solid rgba(67, 44, 150, 0.15)',
                       color: '#432c96'
                     }}
-                    placeholder="john@company.com"
+                    placeholder={t('contact.form.placeholders.email')}
                   />
                 </div>
 
@@ -262,7 +265,7 @@ const RSWCTASection = () => {
                     className="cta-body text-[10px] font-medium mb-1.5 block"
                     style={{ color: '#432c96' }}
                   >
-                    Area of Interest *
+                    {t('contact.form.fields.interest')}
                   </label>
                   <select
                     required
@@ -275,8 +278,8 @@ const RSWCTASection = () => {
                       color: formData.interest ? '#432c96' : 'rgba(67, 44, 150, 0.4)'
                     }}
                   >
-                    <option value="">Select an option</option>
-                    {interests.map((interest, idx) => (
+                    <option value="">{t('contact.form.placeholders.interest')}</option>
+                    {interests.map((interest: string, idx: number) => (
                       <option key={idx} value={interest}>{interest}</option>
                     ))}
                   </select>
@@ -288,7 +291,7 @@ const RSWCTASection = () => {
                     className="cta-body text-[10px] font-medium mb-1.5 block"
                     style={{ color: '#432c96' }}
                   >
-                    Message
+                    {t('contact.form.fields.message')}
                   </label>
                   <textarea
                     rows={3}
@@ -300,7 +303,7 @@ const RSWCTASection = () => {
                       border: '1px solid rgba(67, 44, 150, 0.15)',
                       color: '#432c96'
                     }}
-                    placeholder="Tell us about your investment goals..."
+                    placeholder={t('contact.form.placeholders.message')}
                   />
                 </div>
 
@@ -317,12 +320,18 @@ const RSWCTASection = () => {
                   {isSubmitting ? (
                     <>
                       <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      Sending...
+                      {t('contact.form.submitting')}
                     </>
                   ) : (
                     <>
-                      Send Message
-                      <Send className="w-3.5 h-3.5" strokeWidth={2} />
+                      {t('contact.form.submit')}
+                      <Send 
+                        className="w-3.5 h-3.5" 
+                        strokeWidth={2}
+                        style={{
+                          transform: locale === 'ar' ? 'scaleX(-1)' : 'none'
+                        }}
+                      />
                     </>
                   )}
                 </button>
@@ -331,7 +340,7 @@ const RSWCTASection = () => {
                   className="cta-body text-[9px] text-center"
                   style={{ color: 'rgba(67, 44, 150, 0.4)' }}
                 >
-                  By submitting, you agree to our Privacy Policy
+                  {t('contact.form.privacy')}
                 </p>
               </form>
             </div>
@@ -352,10 +361,10 @@ const RSWCTASection = () => {
               className="cta-body text-[10px] text-center"
               style={{ color: 'rgba(67, 44, 150, 0.5)' }}
             >
-              Regulated by UAE Financial Authorities
+              {t('contact.badges.regulated')}
             </p>
             <div className="flex items-center gap-3">
-              {['SCA', 'DFM', 'ADGM'].map((badge, idx) => (
+              {t('contact.badges.authorities').map((badge: string, idx: number) => (
                 <div 
                   key={idx}
                   className="px-3 py-1.5 rounded-lg cta-body text-[10px] font-semibold"

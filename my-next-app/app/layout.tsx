@@ -4,7 +4,7 @@ import RSWNavigation from "./components/ClientNavbar";
 import RSWFooter from "./components/footer";
 import SocialPopup from "./components/popUp";
 import "./globals.css";
-
+import { ClientProviders } from "./components/ClientProviders";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -31,10 +31,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
          
+     <ClientProviders>
         <RSWNavigation />
          <SocialPopup />
+          
         {children}
-        <RSWFooter />
+        {/* <RSWFooter /> */}
+         </ClientProviders>
       </body>
     </html>
   );

@@ -3,67 +3,81 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Instagram, Send, Facebook, Heart, Star, TrendingUp } from 'lucide-react';
+import { useI18n } from '@/i18n/I18nProvider'
 
 const SocialPopup = () => {
+  const { t, locale, direction } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-useEffect(() => {
-  console.log('SocialPopup mounted');
-  
-  // Check if user has opted to not see the popup again
-  const dontShowAgain = localStorage.getItem('socialPopupDontShowAgain');
-  
-  if (dontShowAgain === 'true') {
-    console.log('User opted out of popup');
-    return;
-  }
-  
-  const timer = setTimeout(() => {
-    console.log('Timer triggered');
-    setIsOpen(true);
-    console.log('Opening popup');
-  }, 1500);
+  useEffect(() => {
+    console.log('SocialPopup mounted');
+    
+    // Check if user has opted to not see the popup again
+    const dontShowAgain = localStorage.getItem('socialPopupDontShowAgain');
+    
+    if (dontShowAgain === 'true') {
+      console.log('User opted out of popup');
+      return;
+    }
+    
+    const timer = setTimeout(() => {
+      console.log('Timer triggered');
+      setIsOpen(true);
+      console.log('Opening popup');
+    }, 1500);
 
-  return () => clearTimeout(timer);
-}, []);
+    return () => clearTimeout(timer);
+  }, []);
 
   const slides = [
     {
       icon: Send,
-      platform: "Telegram",
-      title: "Join 12K+ Members",
-      subtitle: "Get Instant Updates",
-      description: "Exclusive deals, project updates, and direct support from our team",
+      platform: t('socialPopup.slides.telegram.platform'),
+      title: t('socialPopup.slides.telegram.title'),
+      subtitle: t('socialPopup.slides.telegram.subtitle'),
+      description: t('socialPopup.slides.telegram.description'),
       gradient: "linear-gradient(180deg, #0088cc 0%, #005f8a 100%)",
       accentGradient: "linear-gradient(135deg, #00a0e9 0%, #0088cc 100%)",
       link: "https://t.me/yourgroup",
       image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
-      stats: { icon: TrendingUp, value: "12K+", label: "Active Members" }
+      stats: { 
+        icon: TrendingUp, 
+        value: t('socialPopup.slides.telegram.stats.value'), 
+        label: t('socialPopup.slides.telegram.stats.label')
+      }
     },
     {
       icon: Instagram,
-      platform: "Instagram",
-      title: "Follow @rsw.group",
-      subtitle: "Daily Inspiration",
-      description: "Behind-the-scenes content, project showcases, and design inspiration",
+      platform: t('socialPopup.slides.instagram.platform'),
+      title: t('socialPopup.slides.instagram.title'),
+      subtitle: t('socialPopup.slides.instagram.subtitle'),
+      description: t('socialPopup.slides.instagram.description'),
       gradient: "linear-gradient(180deg, #E1306C 0%, #C13584 100%)",
       accentGradient: "linear-gradient(135deg, #fd1d1d 0%, #833ab4 100%)",
       link: "https://instagram.com/yourpage",
       image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&q=80",
-      stats: { icon: Heart, value: "25K+", label: "Followers" }
+      stats: { 
+        icon: Heart, 
+        value: t('socialPopup.slides.instagram.stats.value'), 
+        label: t('socialPopup.slides.instagram.stats.label')
+      }
     },
     {
       icon: Facebook,
-      platform: "Facebook",
-      title: "Like Our Page",
-      subtitle: "Community & Events",
-      description: "Latest news, community events, and engaging discussions with experts",
+      platform: t('socialPopup.slides.facebook.platform'),
+      title: t('socialPopup.slides.facebook.title'),
+      subtitle: t('socialPopup.slides.facebook.subtitle'),
+      description: t('socialPopup.slides.facebook.description'),
       gradient: "linear-gradient(180deg, #1877f2 0%, #0e5dc1 100%)",
       accentGradient: "linear-gradient(135deg, #42a5f5 0%, #1877f2 100%)",
       link: "https://facebook.com/yourpage",
       image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80",
-      stats: { icon: Star, value: "18K+", label: "Likes" }
+      stats: { 
+        icon: Star, 
+        value: t('socialPopup.slides.facebook.stats.value'), 
+        label: t('socialPopup.slides.facebook.stats.label')
+      }
     }
   ];
 
@@ -106,7 +120,7 @@ useEffect(() => {
           />
 
           {/* Popup Container */}
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none" dir={direction}>
             <motion.div
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -116,10 +130,14 @@ useEffect(() => {
               onClick={(e) => e.stopPropagation()}
             >
               <style jsx global>{`
-                @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+                @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;600;700;800;900&display=swap');
                 
-                .story-text {
+                [dir="ltr"] .story-text {
                   font-family: 'Poppins', sans-serif;
+                }
+                
+                [dir="rtl"] .story-text {
+                  font-family: 'Tajawal', sans-serif;
                 }
               `}</style>
 
@@ -187,19 +205,19 @@ useEffect(() => {
                 <div className="absolute inset-0 flex z-10">
                   <div 
                     className="w-1/3 h-full cursor-pointer active:bg-white/5"
-                    onClick={handlePrevious}
+                    onClick={locale === 'ar' ? handleNext : handlePrevious}
                   />
                   <div className="w-1/3 h-full" />
                   <div 
                     className="w-1/3 h-full cursor-pointer active:bg-white/5"
-                    onClick={handleNext}
+                    onClick={locale === 'ar' ? handlePrevious : handleNext}
                   />
                 </div>
 
                 {/* Close Button */}
                 <button
                   onClick={handleClose}
-                  className="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center z-20 transition-all duration-300 hover:scale-110 active:scale-95"
+                  className={`absolute top-6 ${locale === 'ar' ? 'left-6' : 'right-6'} w-10 h-10 rounded-full flex items-center justify-center z-20 transition-all duration-300 hover:scale-110 active:scale-95`}
                   style={{
                     background: 'rgba(0, 0, 0, 0.4)',
                     backdropFilter: 'blur(20px)',
@@ -243,7 +261,7 @@ useEffect(() => {
                           {slides[currentSlide].platform}
                         </p>
                         <p className="story-text text-white/80 text-xs font-medium">
-                          RSW Group Official
+                          {t('socialPopup.official')}
                         </p>
                       </div>
                     </div>
@@ -314,7 +332,7 @@ useEffect(() => {
                       >
                         <p className="story-text text-center text-base font-black tracking-wide" 
                            style={{ color: slides[currentSlide].gradient.match(/#[A-Fa-f0-9]{6}/) ?.[0] ?? '#000000' }}>
-                          Join {slides[currentSlide].platform}
+                          {t('socialPopup.cta').replace('{platform}', slides[currentSlide].platform)}
                         </p>
                       </motion.a>
 
@@ -342,14 +360,14 @@ useEffect(() => {
                           onClick={handleClose}
                           className="story-text w-full text-center text-sm font-semibold text-white/70 hover:text-white transition-colors"
                         >
-                          Maybe Later
+                          {t('socialPopup.maybeLater')}
                         </button>
                         
                         <button
                           onClick={handleDontShowAgain}
                           className="story-text w-full text-center text-xs font-medium text-white/50 hover:text-white/70 transition-colors"
                         >
-                          Don't show again
+                          {t('socialPopup.dontShowAgain')}
                         </button>
                       </div>
                     </div>
@@ -364,7 +382,7 @@ useEffect(() => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
               >
-                Tap left or right to navigate • Tap X to close
+                {t('socialPopup.hint')}
               </motion.p>
             </motion.div>
           </div>

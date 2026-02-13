@@ -3,57 +3,63 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FileText, Shield, Users, TrendingUp, Download, ExternalLink, ChevronDown } from 'lucide-react';
+import { useI18n } from '@/i18n/I18nProvider'
 
 const RSWInvestorRelationsSection = () => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0);
+  const { t, locale, direction } = useI18n();
 
   const sections = [
     {
       icon: Shield,
-      title: "Governance Framework",
-      description: "RSW Investment Group operates under a corporate governance framework that clearly defines roles and responsibilities, ensuring effective oversight of investment activities in line with recognized best practices and regulatory standards.",
+      title: t('investorRelations.sections.governance.title'),
+      description: t('investorRelations.sections.governance.description'),
       color: "#432c96"
     },
     {
       icon: FileText,
-      title: "Disclosure Policy",
-      description: "We maintain transparent communication with our investors through regular disclosures, financial reporting, and timely updates on material developments that may impact investment decisions.",
+      title: t('investorRelations.sections.disclosure.title'),
+      description: t('investorRelations.sections.disclosure.description'),
       color: "#5a3fb8"
     },
     {
       icon: Users,
-      title: "Shareholder Information",
-      description: "Access comprehensive information about shareholder rights, voting procedures, dividend policies, and general meeting schedules to stay informed about your investments.",
+      title: t('investorRelations.sections.shareholder.title'),
+      description: t('investorRelations.sections.shareholder.description'),
       color: "#7856d9"
     },
     {
       icon: TrendingUp,
-      title: "Financial Performance",
-      description: "Review our quarterly and annual financial reports, performance metrics, and strategic outlook to understand our growth trajectory and investment returns.",
+      title: t('investorRelations.sections.performance.title'),
+      description: t('investorRelations.sections.performance.description'),
       color: "#8b6fd9"
     }
   ];
 
-  const documents = [
-    { name: "Annual Report 2025", size: "2.4 MB", type: "PDF" },
-    { name: "Q4 2025 Financial Results", size: "1.8 MB", type: "PDF" },
-    { name: "Governance Charter", size: "890 KB", type: "PDF" },
-    { name: "Investor Presentation", size: "5.2 MB", type: "PDF" }
-  ];
+  const documents = t('investorRelations.documents');
 
   return (
-    <section className="relative overflow-hidden py-16 lg:py-24" style={{ background: '#ffffff' }}>
+    <section className="relative overflow-hidden py-16 lg:py-24" style={{ background: '#ffffff' }} dir={direction}>
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Tajawal:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
         
-        .ir-title {
+        [dir="ltr"] .ir-title {
           font-family: 'Playfair Display', serif;
           font-weight: 700;
           letter-spacing: -0.02em;
         }
         
-        .ir-body {
+        [dir="rtl"] .ir-title {
+          font-family: 'Tajawal', sans-serif;
+          font-weight: 700;
+        }
+        
+        [dir="ltr"] .ir-body {
           font-family: 'Inter', sans-serif;
+        }
+        
+        [dir="rtl"] .ir-body {
+          font-family: 'IBM Plex Sans Arabic', sans-serif;
         }
       `}</style>
 
@@ -73,7 +79,7 @@ const RSWInvestorRelationsSection = () => {
               className="ir-body text-[10px] tracking-[0.25em] uppercase font-medium"
               style={{ color: 'rgba(67, 44, 150, 0.6)' }}
             >
-              Investor Relations
+              {t('investorRelations.eyebrow')}
             </span>
             <div className="w-8 h-px" style={{ background: '#432c96' }} />
           </motion.div>
@@ -86,7 +92,7 @@ const RSWInvestorRelationsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Transparent Communication
+            {t('investorRelations.title')}
           </motion.h2>
 
           <motion.p 
@@ -97,7 +103,7 @@ const RSWInvestorRelationsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            At RSW Investment Group, we are committed to transparent and structured communication with our investors. This page provides essential information to support informed investment decisions.
+            {t('investorRelations.description')}
           </motion.p>
         </div>
 
@@ -156,7 +162,7 @@ const RSWInvestorRelationsSection = () => {
                     style={{ overflow: 'hidden' }}
                   >
                     <p 
-                      className="ir-body text-sm leading-relaxed pl-16"
+                      className={`ir-body text-sm leading-relaxed ${locale === 'ar' ? 'pr-16' : 'pl-16'}`}
                       style={{ color: 'rgba(67, 44, 150, 0.7)' }}
                     >
                       {section.description}
@@ -191,16 +197,16 @@ const RSWInvestorRelationsSection = () => {
               </div>
               <div>
                 <h3 className="ir-body text-base font-semibold" style={{ color: '#432c96' }}>
-                  Key Documents
+                  {t('investorRelations.documentsTitle')}
                 </h3>
                 <p className="ir-body text-[10px]" style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
-                  Download essential investor materials
+                  {t('investorRelations.documentsSubtitle')}
                 </p>
               </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-3">
-              {documents.map((doc, index) => (
+              {documents.map((doc: any, index: number) => (
                 <button
                   key={index}
                   className="group flex items-center justify-between p-4 rounded-lg transition-all duration-300 hover:shadow-md"
@@ -248,10 +254,10 @@ const RSWInvestorRelationsSection = () => {
           transition={{ duration: 0.6 }}
         >
           <h3 className="ir-body text-lg font-semibold text-white mb-2">
-            Need More Information?
+            {t('investorRelations.contact.title')}
           </h3>
           <p className="ir-body text-sm text-white/80 mb-4">
-            Our Investor Relations team is here to assist you
+            {t('investorRelations.contact.description')}
           </p>
           
           <a
@@ -263,9 +269,15 @@ const RSWInvestorRelationsSection = () => {
             }}
           >
             <span className="ir-body text-xs font-semibold">
-              Contact IR Team
+              {t('investorRelations.contact.button')}
             </span>
-            <ExternalLink className="w-3.5 h-3.5" strokeWidth={2} />
+            <ExternalLink 
+              className="w-3.5 h-3.5" 
+              strokeWidth={2}
+              style={{
+                transform: locale === 'ar' ? 'scaleX(-1)' : 'none'
+              }}
+            />
           </a>
         </motion.div>
       </div>
