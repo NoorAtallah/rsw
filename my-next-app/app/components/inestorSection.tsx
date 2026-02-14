@@ -37,6 +37,7 @@ const RSWInvestorRelationsSection = () => {
   ];
 
   const documents = t('investorRelations.documents');
+  const isRTL = direction === 'rtl';
 
   return (
     <section className="relative overflow-hidden py-16 lg:py-24" style={{ background: '#ffffff' }} dir={direction}>
@@ -123,26 +124,26 @@ const RSWInvestorRelationsSection = () => {
               >
                 <button
                   onClick={() => setActiveAccordion(isActive ? null : index)}
-                  className="w-full p-5 rounded-xl transition-all duration-300 text-left"
+                  className={`w-full p-5 rounded-xl transition-all duration-300 ${isRTL ? 'text-right' : 'text-left'}`}
                   style={{
                     background: isActive ? 'rgba(67, 44, 150, 0.05)' : 'rgba(67, 44, 150, 0.03)',
                     border: `1px solid ${isActive ? 'rgba(67, 44, 150, 0.15)' : 'rgba(67, 44, 150, 0.1)'}`,
                   }}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
+                  <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+                    <div className={`flex items-center gap-4 flex-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
                       <div 
                         className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
                         style={{ background: 'rgba(67, 44, 150, 0.08)' }}
                       >
                         <Icon className="w-5 h-5" style={{ color: section.color }} strokeWidth={1.5} />
                       </div>
-                      <h3 className="ir-body text-base font-semibold" style={{ color: '#432c96' }}>
+                      <h3 className="ir-body text-base font-semibold flex-1" style={{ color: '#432c96' }}>
                         {section.title}
                       </h3>
                     </div>
                     <ChevronDown 
-                      className="w-5 h-5 transition-transform duration-300"
+                      className="w-5 h-5 transition-transform duration-300 flex-shrink-0"
                       style={{ 
                         color: '#432c96',
                         transform: isActive ? 'rotate(180deg)' : 'rotate(0deg)'
@@ -162,7 +163,7 @@ const RSWInvestorRelationsSection = () => {
                     style={{ overflow: 'hidden' }}
                   >
                     <p 
-                      className={`ir-body text-sm leading-relaxed ${locale === 'ar' ? 'pr-16' : 'pl-16'}`}
+                      className={`ir-body text-sm leading-relaxed ${isRTL ? 'pr-16 text-right' : 'pl-16 text-left'}`}
                       style={{ color: 'rgba(67, 44, 150, 0.7)' }}
                     >
                       {section.description}
@@ -188,14 +189,14 @@ const RSWInvestorRelationsSection = () => {
               border: '1px solid rgba(67, 44, 150, 0.1)'
             }}
           >
-            <div className="flex items-center gap-3 mb-5">
+            <div className={`flex items-center gap-3 mb-5 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <div 
                 className="w-10 h-10 rounded-lg flex items-center justify-center"
                 style={{ background: 'rgba(67, 44, 150, 0.08)' }}
               >
                 <FileText className="w-5 h-5" style={{ color: '#432c96' }} strokeWidth={1.5} />
               </div>
-              <div>
+              <div className="flex-1" style={{ textAlign: isRTL ? 'right' : 'left' }}>
                 <h3 className="ir-body text-base font-semibold" style={{ color: '#432c96' }}>
                   {t('investorRelations.documentsTitle')}
                 </h3>
@@ -209,30 +210,28 @@ const RSWInvestorRelationsSection = () => {
               {documents.map((doc: any, index: number) => (
                 <button
                   key={index}
-                  className="group flex items-center justify-between p-4 rounded-lg transition-all duration-300 hover:shadow-md"
+                  className={`group flex items-center gap-3 p-4 rounded-lg transition-all duration-300 hover:shadow-md ${isRTL ? 'flex-row-reverse' : ''}`}
                   style={{ 
                     background: '#ffffff',
                     border: '1px solid rgba(67, 44, 150, 0.1)'
                   }}
                 >
-                  <div className="flex items-center gap-3">
-                    <div 
-                      className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{ background: 'rgba(67, 44, 150, 0.08)' }}
-                    >
-                      <FileText className="w-4 h-4" style={{ color: '#432c96' }} strokeWidth={1.5} />
-                    </div>
-                    <div className="text-left">
-                      <p className="ir-body text-xs font-semibold" style={{ color: '#432c96' }}>
-                        {doc.name}
-                      </p>
-                      <p className="ir-body text-[9px]" style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
-                        {doc.type} • {doc.size}
-                      </p>
-                    </div>
+                  <div 
+                    className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{ background: 'rgba(67, 44, 150, 0.08)' }}
+                  >
+                    <FileText className="w-4 h-4" style={{ color: '#432c96' }} strokeWidth={1.5} />
+                  </div>
+                  <div className="flex-1 min-w-0" style={{ textAlign: isRTL ? 'right' : 'left' }}>
+                    <p className="ir-body text-xs font-semibold truncate" style={{ color: '#432c96' }}>
+                      {doc.name}
+                    </p>
+                    <p className="ir-body text-[9px]" style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                      {doc.type} • {doc.size}
+                    </p>
                   </div>
                   <Download 
-                    className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" 
+                    className="w-4 h-4 group-hover:translate-y-0.5 transition-transform flex-shrink-0" 
                     style={{ color: '#432c96' }} 
                     strokeWidth={2}
                   />
@@ -262,7 +261,7 @@ const RSWInvestorRelationsSection = () => {
           
           <a
             href="mailto:ir@rswinvestment.ae"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-xl"
+            className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-xl ${isRTL ? 'flex-row-reverse' : ''}`}
             style={{ 
               background: '#ffffff',
               color: '#432c96'
@@ -275,7 +274,7 @@ const RSWInvestorRelationsSection = () => {
               className="w-3.5 h-3.5" 
               strokeWidth={2}
               style={{
-                transform: locale === 'ar' ? 'scaleX(-1)' : 'none'
+                transform: isRTL ? 'scaleX(-1)' : 'none'
               }}
             />
           </a>

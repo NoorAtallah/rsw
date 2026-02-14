@@ -114,100 +114,22 @@ const RSWAboutSection = () => {
               border: '1px solid rgba(67, 44, 150, 0.1)',
             }}
           >
-            <div className="grid lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-2">
-                <h3
-                  className="text-2xl lg:text-3xl mb-4 font-bold"
-                  style={{ color: '#432c96', fontFamily, letterSpacing: '-0.02em' }}
-                >
-                  {tabs[activeTab].title}
-                </h3>
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{ color: 'rgba(67, 44, 150, 0.7)', fontFamily: bodyFont }}
-                >
-                  {tabs[activeTab].content}
-                </p>
-              </div>
-
-              <div className="flex lg:flex-col gap-6 justify-center">
-                {tabs[activeTab].stats.map((stat: any, i: number) => (
-                  <div key={i} className="text-center lg:text-start">
-                    <div className="text-3xl mb-1 font-bold" style={{ color: '#432c96', fontFamily, letterSpacing: '-0.02em' }}>
-                      {stat.value}
-                    </div>
-                    <div className="text-[10px]" style={{ color: 'rgba(67, 44, 150, 0.5)', fontFamily: bodyFont }}>
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="text-center max-w-3xl mx-auto">
+              <h3
+                className="text-2xl lg:text-3xl mb-4 font-bold"
+                style={{ color: '#432c96', fontFamily, letterSpacing: '-0.02em' }}
+              >
+                {tabs[activeTab].title}
+              </h3>
+              <p
+                className="text-sm leading-relaxed"
+                style={{ color: 'rgba(67, 44, 150, 0.7)', fontFamily: bodyFont }}
+              >
+                {tabs[activeTab].content}
+              </p>
             </div>
           </div>
         </motion.div>
-
-        {/* Four Divisions Grid */}
-        <div className="mb-16">
-          <h3
-            className="text-2xl text-center mb-8 font-bold"
-            style={{ color: '#432c96', fontFamily, letterSpacing: '-0.02em' }}
-          >
-            {t('about.divisionsTitle')}
-          </h3>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            {divisions.map((division: any, index: number) => {
-              const Icon = divisionIcons[index]
-              return (
-                <motion.div
-                  key={index}
-                  className="group p-6 rounded-xl cursor-pointer transition-all duration-300 hover:shadow-lg"
-                  style={{
-                    background: '#ffffff',
-                    border: '1px solid rgba(67, 44, 150, 0.1)',
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  whileHover={{ y: -4 }}
-                >
-                  <div className="flex items-start gap-4">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300"
-                      style={{ background: 'rgba(67, 44, 150, 0.08)' }}
-                    >
-                      <Icon
-                        className="w-5 h-5 transition-colors duration-300 group-hover:scale-110"
-                        style={{ color: divisionColors[index] }}
-                        strokeWidth={1.5}
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h4
-                        className="text-base font-semibold mb-1"
-                        style={{ color: '#432c96', fontFamily: bodyFont }}
-                      >
-                        {division.title}
-                      </h4>
-                      <p
-                        className="text-xs leading-relaxed"
-                        style={{ color: 'rgba(67, 44, 150, 0.6)', fontFamily: bodyFont }}
-                      >
-                        {division.description}
-                      </p>
-                    </div>
-                    <ArrowUpRight
-                      className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-                      style={{ color: '#432c96', transform: isRTL ? 'scaleX(-1)' : 'none' }}
-                      strokeWidth={2}
-                    />
-                  </div>
-                </motion.div>
-              )
-            })}
-          </div>
-        </div>
 
         {/* Bottom CTA */}
         <motion.div
