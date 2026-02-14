@@ -122,7 +122,7 @@ const RSWAboutPage = () => {
         }
       `}</style>
 
-      {/* Hero Section with Image */}
+      {/* Hero Section with Image - UNCHANGED */}
       <section className="relative h-screen overflow-hidden" style={{ background: purple }}>
         <div className="absolute inset-0 image-grain">
           <img 
@@ -206,7 +206,7 @@ const RSWAboutPage = () => {
         </div>
       </section>
 
-      {/* Story Section */}
+      {/* Story Section - REDUCED FONT SIZES */}
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-12 gap-16 items-start">
@@ -218,7 +218,7 @@ const RSWAboutPage = () => {
                 viewport={{ once: true }} 
                 className="sticky top-32"
               >
-                <div className="about-title text-[120px] lg:text-[180px] font-light leading-none" style={{ color: 'rgba(67,44,150,0.08)' }}>
+                <div className="about-title text-[100px] lg:text-[140px] font-light leading-none" style={{ color: 'rgba(67,44,150,0.08)' }}>
                   01
                 </div>
               </motion.div>
@@ -235,7 +235,7 @@ const RSWAboutPage = () => {
                   {locale === 'ar' ? 'قصتنا' : 'OUR STORY'}
                 </div>
                 
-                <h2 className="about-title text-4xl lg:text-7xl font-light mb-8 leading-tight" style={{ color: purple }}>
+                <h2 className="about-title text-2xl lg:text-3xl font-light mb-8 leading-tight" style={{ color: purple }}>
                   {locale === 'ar' ? (
                     <>بناء <span className="font-bold">الإرث</span> من خلال<br/>التنويع الاستراتيجي</>
                   ) : (
@@ -243,7 +243,7 @@ const RSWAboutPage = () => {
                   )}
                 </h2>
 
-                <div className="space-y-6 text-lg leading-relaxed about-body" style={{ color: 'rgba(67, 44, 150, 0.8)' }}>
+                <div className="space-y-6 text-base leading-relaxed about-body" style={{ color: 'rgba(67, 44, 150, 0.8)' }}>
                   <p>
                     {locale === 'ar' 
                       ? 'تأسست مجموعة RSW في أبوظبي عام 2020 برؤية واضحة: خلق قيمة دائمة عبر قطاعات متعددة من اقتصاد الإمارات الديناميكي.'
@@ -262,11 +262,11 @@ const RSWAboutPage = () => {
                 <div className="mt-16 grid md:grid-cols-2 gap-8">
                   {timeline.map((item, idx) => (
                     <div key={idx} className={`flex gap-6 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
-                      <div className="about-title text-3xl font-semibold" style={{ color: purple }}>
+                      <div className="about-title text-2xl font-semibold" style={{ color: purple }}>
                         {item.year}
                       </div>
                       <div>
-                        <h4 className="about-body font-semibold text-lg mb-1" style={{ color: purple }}>
+                        <h4 className="about-body font-semibold text-base mb-1" style={{ color: purple }}>
                           {item.title}
                         </h4>
                         <p className="about-body text-sm" style={{ color: 'rgba(67, 44, 150, 0.7)' }}>
@@ -282,14 +282,14 @@ const RSWAboutPage = () => {
         </div>
       </section>
 
-      {/* Sectors Section */}
+      {/* Sectors Section - REDUCED FONT SIZES */}
       <section className="py-24 lg:py-32" style={{ background: '#fafafa' }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="mb-20">
             <div className={`about-mono text-xs mb-6 uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: purple }}>
               {locale === 'ar' ? 'أربعة أقسام' : 'FOUR DIVISIONS'}
             </div>
-            <h2 className="about-title text-4xl lg:text-7xl font-light" style={{ color: purple }}>
+            <h2 className="about-title text-2xl lg:text-3xl font-light" style={{ color: purple }}>
               {locale === 'ar' ? (
                 <>حيث <span className="font-bold">نعمل</span></>
               ) : (
@@ -337,7 +337,7 @@ const RSWAboutPage = () => {
             <div className={isRTL ? 'text-right' : ''}>
               <div className={`flex items-center gap-4 mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 {React.createElement(sectors[activeSector].icon, { 
-                  className: "w-12 h-12", 
+                  className: "w-10 h-10", 
                   style: { color: purple }, 
                   strokeWidth: 1.5 
                 })}
@@ -346,10 +346,10 @@ const RSWAboutPage = () => {
                 </div>
               </div>
 
-              <h3 className="about-title text-4xl lg:text-5xl font-light mb-6" style={{ color: purple }}>
+              <h3 className="about-title text-xl lg:text-2xl font-light mb-6" style={{ color: purple }}>
                 {sectors[activeSector].name}
               </h3>
-              <p className="about-body text-xl mb-8 leading-relaxed" style={{ color: 'rgba(67, 44, 150, 0.75)' }}>
+              <p className="about-body text-base mb-8 leading-relaxed" style={{ color: 'rgba(67, 44, 150, 0.75)' }}>
                 {sectors[activeSector].description}
               </p>
 
@@ -365,14 +365,14 @@ const RSWAboutPage = () => {
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="py-24 lg:py-32 bg-white">
+      {/* Values Section - REDUCED FONT SIZES */}
+      {/* <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className={`max-w-3xl mb-20 ${isRTL ? 'text-right mr-auto ml-0' : ''}`}>
             <div className={`about-mono text-xs mb-6 uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: purple }}>
               {locale === 'ar' ? 'المبادئ الأساسية' : 'CORE PRINCIPLES'}
             </div>
-            <h2 className="about-title text-4xl lg:text-7xl font-light leading-tight" style={{ color: purple }}>
+            <h2 className="about-title text-2xl lg:text-3xl font-light leading-tight" style={{ color: purple }}>
               {locale === 'ar' ? (
                 <>ما يوجه<br/><span className="font-bold">قراراتنا</span></>
               ) : (
@@ -399,14 +399,14 @@ const RSWAboutPage = () => {
                       style={{ color: purple }} 
                       strokeWidth={1.5}
                     />
-                    <div className="about-title text-4xl font-semibold mb-1" style={{ color: purple }}>
+                    <div className="about-title text-3xl font-semibold mb-1" style={{ color: purple }}>
                       {value.metric}
                     </div>
                     <div className={`about-mono text-[10px] uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
                       {value.label}
                     </div>
                   </div>
-                  <h4 className="about-body text-lg font-semibold" style={{ color: purple }}>
+                  <h4 className="about-body text-base font-semibold" style={{ color: purple }}>
                     {value.title}
                   </h4>
                 </motion.div>
@@ -414,9 +414,9 @@ const RSWAboutPage = () => {
             })}
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* CTA Section - White Background */}
+      {/* CTA Section - White Background - REDUCED FONT SIZES */}
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div 
@@ -428,14 +428,14 @@ const RSWAboutPage = () => {
           >
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className={isRTL ? 'text-right' : ''}>
-                <h2 className="about-title text-4xl lg:text-6xl font-light mb-6 leading-tight" style={{ color: purple }}>
+                <h2 className="about-title text-3xl lg:text-4xl font-light mb-6 leading-tight" style={{ color: purple }}>
                   {locale === 'ar' ? (
                     <>هل أنت مستعد<br/>لاستكشاف <span className="font-bold">الفرص؟</span></>
                   ) : (
                     <>Ready to explore<br/><span className="font-bold">opportunities?</span></>
                   )}
                 </h2>
-                <p className="about-body text-xl mb-10 leading-relaxed" style={{ color: 'rgba(67, 44, 150, 0.7)' }}>
+                <p className="about-body text-base mb-10 leading-relaxed" style={{ color: 'rgba(67, 44, 150, 0.7)' }}>
                   {locale === 'ar'
                     ? 'تواصل مع مجموعة RSW لمناقشة شراكات الاستثمار أو التعاون في المشاريع أو الفرص الوظيفية.'
                     : 'Connect with RSW Group to discuss investment partnerships, project collaborations, or career opportunities.'
