@@ -10,7 +10,7 @@ export function ClientProviders({ children }: { children: ReactNode }) {
   return (
     <I18nProvider>
       <RSWNavigation />
-      <SocialPopup />
+
       {children}
       <RSWFooter />
     </I18nProvider>
