@@ -11,9 +11,9 @@ const divisionColors = ['#432c96', '#5a3fb8', '#7856d9', '#8b6fd9']
 
 // Unsplash images for each tab's content area
 const tabContentImages = [
-  'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=480&h=320&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=480&h=320&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=480&h=320&fit=crop&q=80',
+  'https://sagerealty.in/assets/blog/the-new-wave-in-the-real-estate-market.jpg',
+  'https://media.istockphoto.com/id/985389550/photo/blurred-office-building-background.jpg?s=612x612&w=0&k=20&c=OPHJrhKBBHqsaysKbVaMESVIbSkY8-ERJqUrIdTgCAM=',
+  'https://thumbs.dreamstime.com/b/group-people-business-attire-engaged-meeting-discussion-around-large-rectangular-table-modern-pastel-colored-room-351280681.jpg',
 ]
 
 const RSWAboutSection = () => {

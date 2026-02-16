@@ -24,28 +24,28 @@ const RSWAboutPage = () => {
       name: locale === 'ar' ? 'العقارات' : 'Real Estate', 
       number: '01', 
       description: locale === 'ar' ? 'استثمار تجاري استراتيجي وتطوير عقاري في جميع أنحاء الإمارات.' : 'Strategic commercial investment and property development across the UAE.',
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80' 
+      image: 'https://sagerealty.in/assets/blog/the-new-wave-in-the-real-estate-market.jpg' 
     },
     { 
       icon: Cpu, 
       name: locale === 'ar' ? 'التكنولوجيا' : 'Technology', 
       number: '02', 
       description: locale === 'ar' ? 'أبحاث الذكاء الاصطناعي وحلول الأمن السيبراني وخدمات البنية التحتية السحابية.' : 'AI research, cybersecurity solutions, and cloud infrastructure services.',
-      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80' 
+      image: 'https://cdn.wallpapersafari.com/34/29/L81fnX.png' 
     },
     { 
       icon: HardHat, 
       name: locale === 'ar' ? 'البناء' : 'Construction', 
       number: '03', 
       description: locale === 'ar' ? 'منشآت النفط والغاز والتصميم الداخلي التجاري وإدارة المرافق.' : 'Oil & gas facilities, commercial interiors, and facility management.',
-      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80' 
+      image: 'https://media.istockphoto.com/id/985389550/photo/blurred-office-building-background.jpg?s=612x612&w=0&k=20&c=OPHJrhKBBHqsaysKbVaMESVIbSkY8-ERJqUrIdTgCAM=' 
     },
     { 
       icon: Monitor, 
       name: locale === 'ar' ? 'البرمجيات' : 'Software', 
       number: '04', 
       description: locale === 'ar' ? 'تطوير برمجيات مخصصة وحلول التحول الرقمي.' : 'Custom software development and digital transformation solutions.',
-      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80' 
+      image: 'https://masibolaw.co.ke/wp-content/uploads/2022/10/software-development-agreement.jpg' 
     }
   ]
 

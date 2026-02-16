@@ -195,45 +195,26 @@ export interface Translations {
     regulated: string
     backToTop: string
   }
-  socialPopup: {
-    official: string
-    slides: {
-      telegram: {
-        platform: string
-        title: string
-        subtitle: string
-        description: string
-        stats: {
-          value: string
-          label: string
-        }
-      }
-      instagram: {
-        platform: string
-        title: string
-        subtitle: string
-        description: string
-        stats: {
-          value: string
-          label: string
-        }
-      }
-      facebook: {
-        platform: string
-        title: string
-        subtitle: string
-        description: string
-        stats: {
-          value: string
-          label: string
-        }
-      }
+// TypeScript type
+socialPopup: {
+  title: string
+  description: string
+  slides: {
+    telegram: {
+      platform: string
     }
-    cta: string
-    maybeLater: string
-    dontShowAgain: string
-    hint: string
+    instagram: {
+      platform: string
+    }
+    facebook: {
+      platform: string
+    }
   }
+  followUs: string
+  maybeLater: string
+  dontShowAgain: string
+}
+
   news: {
     eyebrow: string
     title: string
@@ -513,46 +494,25 @@ export const translations: Record<Locale, Translations> = {
       regulated: 'Regulated by:',
       backToTop: 'Back to top'
     },
-    socialPopup: {
-      official: 'RSW Group Official',
-      slides: {
-        telegram: {
-          platform: 'Telegram',
-          title: 'Join 12K+ Members',
-          subtitle: 'Get Instant Updates',
-          description: 'Exclusive deals, project updates, and direct support from our team',
-          stats: {
-            value: '12K+',
-            label: 'Active Members'
-          }
-        },
-        instagram: {
-          platform: 'Instagram',
-          title: 'Follow @rsw.group',
-          subtitle: 'Daily Inspiration',
-          description: 'Behind-the-scenes content, project showcases, and design inspiration',
-          stats: {
-            value: '25K+',
-            label: 'Followers'
-          }
-        },
-        facebook: {
-          platform: 'Facebook',
-          title: 'Like Our Page',
-          subtitle: 'Community & Events',
-          description: 'Latest news, community events, and engaging discussions with experts',
-          stats: {
-            value: '18K+',
-            label: 'Likes'
-          }
-        }
-      },
-      cta: 'Join {platform}',
-      maybeLater: 'Maybe Later',
-      dontShowAgain: 'Don\'t show again',
-      hint: 'Tap left or right to navigate • Tap X to close'
+// English
+socialPopup: {
+  title: 'Stay Connected',
+  description: 'Follow us on social media for updates',
+  slides: {
+    telegram: {
+      platform: 'Telegram',
     },
-    news: {
+    instagram: {
+      platform: 'Instagram',
+    },
+    facebook: {
+      platform: 'Facebook',
+    }
+  },
+  followUs: 'Follow us',
+  maybeLater: 'Maybe Later',
+  dontShowAgain: 'Don\'t show again'
+},    news: {
       eyebrow: 'Market Intelligence',
       title: 'Latest News',
       updated: 'Updated February 2026',
@@ -935,45 +895,25 @@ export const translations: Record<Locale, Translations> = {
       regulated: 'منظمة من قبل:',
       backToTop: 'العودة إلى الأعلى'
     },
-    socialPopup: {
-      official: 'مجموعة RSW الرسمية',
-      slides: {
-        telegram: {
-          platform: 'تيليجرام',
-          title: 'انضم إلى +12 ألف عضو',
-          subtitle: 'احصل على التحديثات الفورية',
-          description: 'عروض حصرية، تحديثات المشاريع، ودعم مباشر من فريقنا',
-          stats: {
-            value: '+12 ألف',
-            label: 'عضو نشط'
-          }
-        },
-        instagram: {
-          platform: 'إنستجرام',
-          title: 'تابعنا @rsw.group',
-          subtitle: 'إلهام يومي',
-          description: 'محتوى من وراء الكواليس، عرض المشاريع، وإلهام التصميم',
-          stats: {
-            value: '+25 ألف',
-            label: 'متابع'
-          }
-        },
-        facebook: {
-          platform: 'فيسبوك',
-          title: 'أعجبني للصفحة',
-          subtitle: 'المجتمع والفعاليات',
-          description: 'آخر الأخبار، فعاليات المجتمع، ومناقشات جذابة مع الخبراء',
-          stats: {
-            value: '+18 ألف',
-            label: 'إعجاب'
-          }
-        }
-      },
-      cta: 'انضم إلى {platform}',
-      maybeLater: 'ربما لاحقاً',
-      dontShowAgain: 'عدم الإظهار مرة أخرى',
-      hint: 'اضغط يميناً أو يساراً للتنقل • اضغط X للإغلاق'
+// Arabic
+socialPopup: {
+  title: 'ابقَ على اتصال',
+  description: 'تابعنا على وسائل التواصل الاجتماعي للحصول على التحديثات',
+  slides: {
+    telegram: {
+      platform: 'تيليجرام',
     },
+    instagram: {
+      platform: 'إنستجرام',
+    },
+    facebook: {
+      platform: 'فيسبوك',
+    }
+  },
+  followUs: 'تابعنا',
+  maybeLater: 'ربما لاحقاً',
+  dontShowAgain: 'عدم الإظهار مرة أخرى'
+},
     news: {
       eyebrow: 'معلومات السوق',
       title: 'آخر الأخبار',

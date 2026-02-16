@@ -31,18 +31,7 @@ const SocialPopup = () => {
       link: "https://t.me/yourgroup",
       color: "#0088cc"
     },
-    {
-      icon: Instagram,
-      platform: t('socialPopup.slides.instagram.platform'),
-      link: "https://instagram.com/yourpage",
-      color: "#E1306C"
-    },
-    {
-      icon: Facebook,
-      platform: t('socialPopup.slides.facebook.platform'),
-      link: "https://facebook.com/yourpage",
-      color: "#1877f2"
-    }
+ 
   ];
 
   const handleClose = () => {
