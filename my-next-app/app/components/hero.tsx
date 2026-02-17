@@ -15,14 +15,15 @@ export default function RSWHeroSection() {
     return () => clearTimeout(timer)
   }, [])
 
-  const purple = '#432c96'
+  const gold = '#a79370'
   const white = '#ffffff'
+  const black = '#000000'
   const isRTL = direction === 'rtl'
   const fontFamily = locale === 'ar' ? 'Cairo, sans-serif' : 'Outfit, sans-serif'
   const monoFont = locale === 'ar' ? 'Cairo, sans-serif' : 'Space Mono, monospace'
 
   return (
-    <div className="min-h-screen h-screen relative w-full" style={{ background: purple, overflow: 'hidden' }}>
+    <div className="min-h-screen h-screen relative w-full" style={{ background: black, overflow: 'hidden' }}>
       
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&family=Cairo:wght@200;300;400;500;600;700&display=swap');
@@ -52,26 +53,26 @@ export default function RSWHeroSection() {
         .hero-video-overlay {
           background: linear-gradient(
             135deg,
-            rgba(67, 44, 150, 0.25) 0%,
-            rgba(67, 44, 150, 0.15) 50%,
-            rgba(67, 44, 150, 0.10) 100%
+            rgba(0, 0, 0, 0.4) 0%,
+            rgba(0, 0, 0, 0.3) 50%,
+            rgba(0, 0, 0, 0.2) 100%
           );
         }
         .hero-video-overlay-vignette {
           background: radial-gradient(
             circle at center,
             transparent 0%,
-            rgba(67, 44, 150, 0.08) 100%
+            rgba(0, 0, 0, 0.3) 100%
           );
         }
         .stat-glow {
-          text-shadow: 0 0 40px rgba(255, 255, 255, 0.3), 0 0 80px rgba(255, 255, 255, 0.15);
+          text-shadow: 0 0 40px rgba(167, 147, 112, 0.5), 0 0 80px rgba(167, 147, 112, 0.3);
         }
-        .glass-border-purple {
-          border: 1px solid rgba(255, 255, 255, 0.25);
+        .glass-border-gold {
+          border: 1px solid rgba(167, 147, 112, 0.4);
         }
-        .glass-bg-purple {
-          background: rgba(255, 255, 255, 0.1);
+        .glass-bg-gold {
+          background: rgba(167, 147, 112, 0.1);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
         }
@@ -103,19 +104,19 @@ export default function RSWHeroSection() {
         />
       </div>
 
-      {/* Ambient white glows */}
+      {/* Ambient gold glows */}
       <div 
-        className="absolute top-1/4 w-[250px] h-[250px] md:w-[800px] md:h-[800px] rounded-full blur-[120px] md:blur-[200px] pointer-events-none opacity-20 md:opacity-25 z-[1]"
+        className="absolute top-1/4 w-[250px] h-[250px] md:w-[800px] md:h-[800px] rounded-full blur-[120px] md:blur-[200px] pointer-events-none opacity-10 md:opacity-15 z-[1]"
         style={{ 
-          background: 'rgba(255, 255, 255, 0.15)',
+          background: `rgba(167, 147, 112, 0.2)`,
           [isRTL ? 'left' : 'right']: '0'
         }}
       />
       
       <div 
-        className="absolute bottom-0 w-[200px] h-[200px] md:w-[600px] md:h-[600px] rounded-full blur-[100px] md:blur-[180px] pointer-events-none opacity-15 z-[1]"
+        className="absolute bottom-0 w-[200px] h-[200px] md:w-[600px] md:h-[600px] rounded-full blur-[100px] md:blur-[180px] pointer-events-none opacity-10 z-[1]"
         style={{ 
-          background: 'rgba(255, 255, 255, 0.1)',
+          background: `rgba(167, 147, 112, 0.15)`,
           [isRTL ? 'right' : 'left']: '0'
         }}
       />
@@ -139,10 +140,10 @@ export default function RSWHeroSection() {
           <div className="max-w-3xl">
             {/* Eyebrow */}
             <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-              <div className="w-6 md:w-10 h-px" style={{ background: 'rgba(255, 255, 255, 0.5)' }} />
+              <div className="w-6 md:w-10 h-px" style={{ background: gold }} />
               <span 
                 className={`text-[9px] md:text-xs uppercase ${locale === 'ar' ? '' : 'tracking-[0.3em] md:tracking-[0.4em]'}`}
-                style={{ color: 'rgba(255, 255, 255, 0.7)', fontFamily: monoFont }}
+                style={{ color: gold, fontFamily: monoFont }}
               >
                 {t('hero.eyebrow')}
               </span>
@@ -154,7 +155,7 @@ export default function RSWHeroSection() {
               style={{ color: white, fontFamily }}
             >
               {t('hero.title.line1')}
-              <span className="block font-bold mt-1 md:mt-2 stat-glow" style={{ color: white }}>
+              <span className="block font-bold mt-1 md:mt-2 stat-glow" style={{ color: gold }}>
                 {t('hero.title.line2')}
               </span>
             </h1>
@@ -172,8 +173,8 @@ export default function RSWHeroSection() {
               <button 
                 className="group flex items-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-lg transition-all duration-300 hover:bg-opacity-90 hover:shadow-2xl hover:scale-105"
                 style={{
-                  background: white,
-                  color: purple,
+                  background: gold,
+                  color: black,
                   fontFamily,
                   fontWeight: 500,
                 }}
@@ -187,8 +188,16 @@ export default function RSWHeroSection() {
               </button>
               
               <button 
-                className="group flex items-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-lg transition-all duration-300 hover:bg-white hover:text-[#432c96] hover:shadow-xl glass-bg-purple glass-border-purple"
+                className="group flex items-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-lg transition-all duration-300 hover:bg-white hover:shadow-xl glass-bg-gold glass-border-gold"
                 style={{ fontFamily, fontWeight: 500, color: white }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = white
+                  e.currentTarget.style.color = black
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(167, 147, 112, 0.1)'
+                  e.currentTarget.style.color = white
+                }}
               >
                 <span className="text-sm tracking-wide">{t('hero.cta.investor')}</span>
                 <ArrowUpRight 
@@ -212,11 +221,12 @@ export default function RSWHeroSection() {
           <span 
             className={locale === 'ar' ? 'text-vertical-ar' : 'text-vertical-lr'}
             style={{ 
-              color: 'rgba(255, 255, 255, 0.3)', 
+              color: gold, 
               fontFamily: monoFont,
               fontSize: '0.75rem',
               letterSpacing: locale === 'ar' ? 'normal' : '0.5em',
-              textTransform: locale === 'ar' ? 'none' : 'uppercase'
+              textTransform: locale === 'ar' ? 'none' : 'uppercase',
+              opacity: 0.6
             }}
           >
             {t('hero.verticalText')}
@@ -233,7 +243,7 @@ export default function RSWHeroSection() {
         >
           <span 
             className="text-[280px] font-bold tracking-wider leading-none"
-            style={{ color: white, fontFamily }}
+            style={{ color: gold, fontFamily }}
           >
             RSW
           </span>
@@ -248,13 +258,13 @@ export default function RSWHeroSection() {
         >
           <motion.div
             className="w-[1px] h-12"
-            style={{ background: `linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent)` }}
+            style={{ background: `linear-gradient(to bottom, ${gold}, transparent)` }}
             animate={{ scaleY: [1, 0.5, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />
           <span 
             className={`text-[10px] uppercase ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`}
-            style={{ color: 'rgba(255, 255, 255, 0.6)', fontFamily: monoFont }}
+            style={{ color: gold, fontFamily: monoFont, opacity: 0.8 }}
           >
             {t('hero.scroll')}
           </span>
@@ -267,8 +277,8 @@ export default function RSWHeroSection() {
             top: '24%', 
             [isRTL ? 'right' : 'left']: '20%',
             background: isRTL 
-              ? 'linear-gradient(to left, rgba(255, 255, 255, 0.3), transparent)'
-              : 'linear-gradient(to right, rgba(255, 255, 255, 0.3), transparent)'
+              ? `linear-gradient(to left, ${gold}, transparent)`
+              : `linear-gradient(to right, ${gold}, transparent)`
           }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: isLoaded ? 1 : 0 }}
@@ -280,7 +290,7 @@ export default function RSWHeroSection() {
           style={{ 
             top: '24%', 
             [isRTL ? 'right' : 'left']: '20%',
-            background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent)'
+            background: `linear-gradient(to bottom, ${gold}, transparent)`
           }}
           initial={{ scaleY: 0 }}
           animate={{ scaleY: isLoaded ? 1 : 0 }}
@@ -298,23 +308,33 @@ export default function RSWHeroSection() {
           animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
           transition={{ duration: 1, delay: 1 }}
         >
-          <div className="p-5 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:shadow-xl glass-bg-purple glass-border-purple">
+          <div className="p-5 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl glass-bg-gold glass-border-gold"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(167, 147, 112, 0.2)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(167, 147, 112, 0.1)'
+            }}
+          >
             <div className="flex items-center gap-4">
               <div 
                 className="w-12 h-12 rounded-xl flex items-center justify-center"
-                style={{ background: 'rgba(255, 255, 255, 0.2)' }}
+                style={{ background: gold }}
               >
                 <ArrowUpRight 
-                  className="w-5 h-5 text-white" 
+                  className="w-5 h-5" 
                   strokeWidth={2}
-                  style={{ transform: isRTL ? 'scaleX(-1)' : 'none' }}
+                  style={{ 
+                    color: black,
+                    transform: isRTL ? 'scaleX(-1)' : 'none' 
+                  }}
                 />
               </div>
               <div>
                 <p className="text-sm font-semibold" style={{ color: white, fontFamily }}>
                   {t('hero.ctaCard.title')}
                 </p>
-                <p className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.7)', fontFamily: monoFont }}>
+                <p className="text-xs" style={{ color: gold, fontFamily: monoFont }}>
                   {t('hero.ctaCard.subtitle')}
                 </p>
               </div>

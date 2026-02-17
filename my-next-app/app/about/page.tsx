@@ -12,7 +12,9 @@ const RSWAboutPage = () => {
   const [activeSector, setActiveSector] = useState(0)
   const { t, locale, direction } = useI18n()
   
-  const purple = '#432c96'
+  const gold = '#a79370'
+  const black = '#000000'
+  const white = '#ffffff'
   const isRTL = direction === 'rtl'
   const fontFamily = locale === 'ar' ? 'Tajawal, sans-serif' : 'Playfair Display, serif'
   const bodyFont = locale === 'ar' ? 'IBM Plex Sans Arabic, sans-serif' : 'Inter, sans-serif'
@@ -24,28 +26,28 @@ const RSWAboutPage = () => {
       name: locale === 'ar' ? 'العقارات' : 'Real Estate', 
       number: '01', 
       description: locale === 'ar' ? 'استثمار تجاري استراتيجي وتطوير عقاري في جميع أنحاء الإمارات.' : 'Strategic commercial investment and property development across the UAE.',
-      image: 'https://sagerealty.in/assets/blog/the-new-wave-in-the-real-estate-market.jpg' 
+      image: 'https://i.ytimg.com/vi/puQoxZnrwlA/maxresdefault.jpg' 
     },
     { 
       icon: Cpu, 
       name: locale === 'ar' ? 'التكنولوجيا' : 'Technology', 
       number: '02', 
       description: locale === 'ar' ? 'أبحاث الذكاء الاصطناعي وحلول الأمن السيبراني وخدمات البنية التحتية السحابية.' : 'AI research, cybersecurity solutions, and cloud infrastructure services.',
-      image: 'https://cdn.wallpapersafari.com/34/29/L81fnX.png' 
+      image: 'https://abdullahsakkijha.com/wp-content/uploads/2023/10/ezgif.com-gif-maker.jpg' 
     },
     { 
       icon: HardHat, 
       name: locale === 'ar' ? 'البناء' : 'Construction', 
       number: '03', 
       description: locale === 'ar' ? 'منشآت النفط والغاز والتصميم الداخلي التجاري وإدارة المرافق.' : 'Oil & gas facilities, commercial interiors, and facility management.',
-      image: 'https://media.istockphoto.com/id/985389550/photo/blurred-office-building-background.jpg?s=612x612&w=0&k=20&c=OPHJrhKBBHqsaysKbVaMESVIbSkY8-ERJqUrIdTgCAM=' 
+      image: 'https://media.istockphoto.com/id/862758024/photo/construction-site.jpg?s=612x612&w=0&k=20&c=gYl455m4B91lwQpIidx9YBCxwLaeLKFR632FRaPqffc=' 
     },
     { 
       icon: Monitor, 
       name: locale === 'ar' ? 'البرمجيات' : 'Software', 
       number: '04', 
       description: locale === 'ar' ? 'تطوير برمجيات مخصصة وحلول التحول الرقمي.' : 'Custom software development and digital transformation solutions.',
-      image: 'https://masibolaw.co.ke/wp-content/uploads/2022/10/software-development-agreement.jpg' 
+      image: 'https://img.freepik.com/free-photo/smart-microchip-technology-background-gradient-gold_53876-124642.jpg?semt=ais_hybrid&w=740&q=80' 
     }
   ]
 
@@ -122,18 +124,16 @@ const RSWAboutPage = () => {
         }
       `}</style>
 
-      {/* Hero Section with Image - UNCHANGED */}
-      <section className="relative h-screen overflow-hidden" style={{ background: purple }}>
+      {/* Hero Section with Image */}
+      <section className="relative h-screen overflow-hidden" style={{ background: black }}>
         <div className="absolute inset-0 image-grain">
           <img 
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80" 
             alt="RSW Group" 
             className="w-full h-full object-cover opacity-40"
           />
-          <div className="absolute inset-0" style={{ background: `      rgba(67, 44, 150, 0.25) 0%,
-            rgba(67, 44, 150, 0.15) 0%,
-            rgba(67, 44, 150, 0.10) 0%` }}/>
-          <div className={`absolute inset-0 ${isRTL ? 'bg-gradient-to-l' : 'bg-gradient-to-r'}`} style={{ background: `linear-gradient(${isRTL ? 'to left' : 'to right'}, rgba(67, 44, 150, 0.85) 0%, transparent 0%)` }}/>
+          <div className="absolute inset-0" style={{ background: `rgba(0, 0, 0, 0.4)` }}/>
+          <div className={`absolute inset-0 ${isRTL ? 'bg-gradient-to-l' : 'bg-gradient-to-r'}`} style={{ background: `linear-gradient(${isRTL ? 'to left' : 'to right'}, rgba(0, 0, 0, 0.7) 0%, transparent 60%)` }}/>
         </div>
 
         <div className="relative h-full flex items-end pb-20 lg:pb-32">
@@ -146,23 +146,23 @@ const RSWAboutPage = () => {
             >
               {/* Eyebrow */}
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-px" style={{ background: 'rgba(255, 255, 255, 0.5)' }} />
-                <span className={`about-mono text-xs uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                <div className="w-10 h-px" style={{ background: gold }} />
+                <span className={`about-mono text-xs uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: gold }}>
                   {locale === 'ar' ? 'تأسست 2020 — أبوظبي' : 'EST. 2020 — ABU DHABI'}
                 </span>
               </div>
 
-              <h1 className="about-title text-5xl lg:text-8xl font-light mb-8 leading-[0.95]" style={{ color: 'white' }}>
+              <h1 className="about-title text-5xl lg:text-8xl font-light mb-8 leading-[0.95]" style={{ color: white }}>
                 {locale === 'ar' ? (
                   <>
                     تشكيل<br/>
-                    <span className="font-bold">مستقبل</span><br/>
+                    <span className="font-bold" style={{ color: gold }}>مستقبل</span><br/>
                     الاستثمار
                   </>
                 ) : (
                   <>
                     Shaping the<br/>
-                    <span className="font-bold">Future</span> of<br/>
+                    <span className="font-bold" style={{ color: gold }}>Future</span> of<br/>
                     Investment
                   </>
                 )}
@@ -182,7 +182,7 @@ const RSWAboutPage = () => {
                   { num: '15+', label: locale === 'ar' ? 'سنوات' : 'Years' }
                 ].map((stat, idx) => (
                   <div key={idx}>
-                    <div className="about-title text-5xl mb-1 font-semibold" style={{ color: 'white' }}>{stat.num}</div>
+                    <div className="about-title text-5xl mb-1 font-semibold" style={{ color: gold }}>{stat.num}</div>
                     <div className={`about-mono text-xs uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: 'rgba(255, 255, 255, 0.6)' }}>{stat.label}</div>
                   </div>
                 ))}
@@ -198,15 +198,15 @@ const RSWAboutPage = () => {
             transition={{ duration: 2, repeat: Infinity }} 
             className="flex flex-col items-center gap-3"
           >
-            <div className={`about-mono text-[10px] uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+            <div className={`about-mono text-[10px] uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: gold }}>
               {locale === 'ar' ? 'تمرير' : 'SCROLL'}
             </div>
-            <div className="w-px h-16 bg-gradient-to-b from-white/50 to-transparent"/>
+            <div className="w-px h-16" style={{ background: `linear-gradient(to bottom, ${gold}, transparent)` }}/>
           </motion.div>
         </div>
       </section>
 
-      {/* Story Section - REDUCED FONT SIZES */}
+      {/* Story Section */}
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-12 gap-16 items-start">
@@ -218,7 +218,7 @@ const RSWAboutPage = () => {
                 viewport={{ once: true }} 
                 className="sticky top-32"
               >
-                <div className="about-title text-[100px] lg:text-[140px] font-light leading-none" style={{ color: 'rgba(67,44,150,0.08)' }}>
+                <div className="about-title text-[100px] lg:text-[140px] font-light leading-none" style={{ color: 'rgba(167, 147, 112, 0.1)' }}>
                   01
                 </div>
               </motion.div>
@@ -231,19 +231,19 @@ const RSWAboutPage = () => {
                 transition={{ duration: 0.8 }} 
                 viewport={{ once: true }}
               >
-                <div className={`about-mono text-xs mb-6 uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: purple }}>
+                <div className={`about-mono text-xs mb-6 uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: gold }}>
                   {locale === 'ar' ? 'قصتنا' : 'OUR STORY'}
                 </div>
                 
-                <h2 className="about-title text-2xl lg:text-3xl font-light mb-8 leading-tight" style={{ color: purple }}>
+                <h2 className="about-title text-2xl lg:text-3xl font-light mb-8 leading-tight" style={{ color: black }}>
                   {locale === 'ar' ? (
-                    <>بناء <span className="font-bold">الإرث</span> من خلال<br/>التنويع الاستراتيجي</>
+                    <>بناء <span className="font-bold" style={{ color: gold }}>الإرث</span> من خلال<br/>التنويع الاستراتيجي</>
                   ) : (
-                    <>Building <span className="font-bold">legacy</span> through<br/>strategic diversification</>
+                    <>Building <span className="font-bold" style={{ color: gold }}>legacy</span> through<br/>strategic diversification</>
                   )}
                 </h2>
 
-                <div className="space-y-6 text-base leading-relaxed about-body" style={{ color: 'rgba(67, 44, 150, 0.8)' }}>
+                <div className="space-y-6 text-base leading-relaxed about-body" style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
                   <p>
                     {locale === 'ar' 
                       ? 'تأسست مجموعة RSW في أبوظبي عام 2020 برؤية واضحة: خلق قيمة دائمة عبر قطاعات متعددة من اقتصاد الإمارات الديناميكي.'
@@ -262,14 +262,14 @@ const RSWAboutPage = () => {
                 <div className="mt-16 grid md:grid-cols-2 gap-8">
                   {timeline.map((item, idx) => (
                     <div key={idx} className={`flex gap-6 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
-                      <div className="about-title text-2xl font-semibold" style={{ color: purple }}>
+                      <div className="about-title text-2xl font-semibold" style={{ color: gold }}>
                         {item.year}
                       </div>
                       <div>
-                        <h4 className="about-body font-semibold text-base mb-1" style={{ color: purple }}>
+                        <h4 className="about-body font-semibold text-base mb-1" style={{ color: black }}>
                           {item.title}
                         </h4>
-                        <p className="about-body text-sm" style={{ color: 'rgba(67, 44, 150, 0.7)' }}>
+                        <p className="about-body text-sm" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>
                           {item.desc}
                         </p>
                       </div>
@@ -282,18 +282,18 @@ const RSWAboutPage = () => {
         </div>
       </section>
 
-      {/* Sectors Section - REDUCED FONT SIZES */}
+      {/* Sectors Section */}
       <section className="py-24 lg:py-32" style={{ background: '#fafafa' }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="mb-20">
-            <div className={`about-mono text-xs mb-6 uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: purple }}>
+            <div className={`about-mono text-xs mb-6 uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: gold }}>
               {locale === 'ar' ? 'أربعة أقسام' : 'FOUR DIVISIONS'}
             </div>
-            <h2 className="about-title text-2xl lg:text-3xl font-light" style={{ color: purple }}>
+            <h2 className="about-title text-2xl lg:text-3xl font-light" style={{ color: black }}>
               {locale === 'ar' ? (
-                <>حيث <span className="font-bold">نعمل</span></>
+                <>حيث <span className="font-bold" style={{ color: gold }}>نعمل</span></>
               ) : (
-                <>Where we <span className="font-bold">operate</span></>
+                <>Where we <span className="font-bold" style={{ color: gold }}>operate</span></>
               )}
             </h2>
           </div>
@@ -306,9 +306,9 @@ const RSWAboutPage = () => {
                 onClick={() => setActiveSector(idx)}
                 className="about-body flex items-center gap-3 px-6 py-3 rounded-full whitespace-nowrap transition-all"
                 style={{
-                  background: activeSector === idx ? purple : 'white',
-                  color: activeSector === idx ? 'white' : purple,
-                  border: activeSector === idx ? 'none' : `1px solid rgba(67, 44, 150, 0.2)`
+                  background: activeSector === idx ? gold : white,
+                  color: activeSector === idx ? black : gold,
+                  border: activeSector === idx ? 'none' : `1px solid rgba(167, 147, 112, 0.3)`
                 }}
               >
                 <span className="about-mono text-xs">{sector.number}</span>
@@ -338,22 +338,22 @@ const RSWAboutPage = () => {
               <div className={`flex items-center gap-4 mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 {React.createElement(sectors[activeSector].icon, { 
                   className: "w-10 h-10", 
-                  style: { color: purple }, 
+                  style: { color: gold }, 
                   strokeWidth: 1.5 
                 })}
-                <div className={`about-mono text-sm ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: purple }}>
+                <div className={`about-mono text-sm ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: gold }}>
                   {sectors[activeSector].number}
                 </div>
               </div>
 
-              <h3 className="about-title text-xl lg:text-2xl font-light mb-6" style={{ color: purple }}>
+              <h3 className="about-title text-xl lg:text-2xl font-light mb-6" style={{ color: black }}>
                 {sectors[activeSector].name}
               </h3>
-              <p className="about-body text-base mb-8 leading-relaxed" style={{ color: 'rgba(67, 44, 150, 0.75)' }}>
+              <p className="about-body text-base mb-8 leading-relaxed" style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
                 {sectors[activeSector].description}
               </p>
 
-              <button className={`about-body flex items-center gap-2 text-sm font-semibold group ${isRTL ? 'flex-row-reverse' : ''}`} style={{ color: purple }}>
+              <button className={`about-body flex items-center gap-2 text-sm font-semibold group ${isRTL ? 'flex-row-reverse' : ''}`} style={{ color: gold }}>
                 <span>{locale === 'ar' ? 'استكشاف القسم' : 'Explore Division'}</span>
                 <ArrowRight 
                   className="w-4 h-4 group-hover:translate-x-1 transition-transform" 
@@ -365,77 +365,26 @@ const RSWAboutPage = () => {
         </div>
       </section>
 
-      {/* Values Section - REDUCED FONT SIZES */}
-      {/* <section className="py-24 lg:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className={`max-w-3xl mb-20 ${isRTL ? 'text-right mr-auto ml-0' : ''}`}>
-            <div className={`about-mono text-xs mb-6 uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: purple }}>
-              {locale === 'ar' ? 'المبادئ الأساسية' : 'CORE PRINCIPLES'}
-            </div>
-            <h2 className="about-title text-2xl lg:text-3xl font-light leading-tight" style={{ color: purple }}>
-              {locale === 'ar' ? (
-                <>ما يوجه<br/><span className="font-bold">قراراتنا</span></>
-              ) : (
-                <>What guides our<br/><span className="font-bold">decision making</span></>
-              )}
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, idx) => {
-              const Icon = value.icon
-              return (
-                <motion.div 
-                  key={idx} 
-                  initial={{ opacity: 0, y: 30 }} 
-                  whileInView={{ opacity: 1, y: 0 }} 
-                  transition={{ duration: 0.6, delay: idx*0.1 }} 
-                  viewport={{ once: true }} 
-                  className={`group ${isRTL ? 'text-right' : ''}`}
-                >
-                  <div className="mb-6">
-                    <Icon 
-                      className="w-10 h-10 mb-4 transition-transform group-hover:scale-110" 
-                      style={{ color: purple }} 
-                      strokeWidth={1.5}
-                    />
-                    <div className="about-title text-3xl font-semibold mb-1" style={{ color: purple }}>
-                      {value.metric}
-                    </div>
-                    <div className={`about-mono text-[10px] uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
-                      {value.label}
-                    </div>
-                  </div>
-                  <h4 className="about-body text-base font-semibold" style={{ color: purple }}>
-                    {value.title}
-                  </h4>
-                </motion.div>
-              )
-            })}
-          </div>
-        </div>
-      </section> */}
-
-      {/* CTA Section - White Background - REDUCED FONT SIZES */}
+      {/* CTA Section - White Background */}
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div 
             className="rounded-3xl p-12 lg:p-16"
             style={{ 
-              background: 'white',
-              border: `2px solid ${purple}`
+              background: white,
+              border: `2px solid ${gold}`
             }}
           >
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className={isRTL ? 'text-right' : ''}>
-                <h2 className="about-title text-3xl lg:text-4xl font-light mb-6 leading-tight" style={{ color: purple }}>
+                <h2 className="about-title text-3xl lg:text-4xl font-light mb-6 leading-tight" style={{ color: black }}>
                   {locale === 'ar' ? (
-                    <>هل أنت مستعد<br/>لاستكشاف <span className="font-bold">الفرص؟</span></>
+                    <>هل أنت مستعد<br/>لاستكشاف <span className="font-bold" style={{ color: gold }}>الفرص؟</span></>
                   ) : (
-                    <>Ready to explore<br/><span className="font-bold">opportunities?</span></>
+                    <>Ready to explore<br/><span className="font-bold" style={{ color: gold }}>opportunities?</span></>
                   )}
                 </h2>
-                <p className="about-body text-base mb-10 leading-relaxed" style={{ color: 'rgba(67, 44, 150, 0.7)' }}>
+                <p className="about-body text-base mb-10 leading-relaxed" style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
                   {locale === 'ar'
                     ? 'تواصل مع مجموعة RSW لمناقشة شراكات الاستثمار أو التعاون في المشاريع أو الفرص الوظيفية.'
                     : 'Connect with RSW Group to discuss investment partnerships, project collaborations, or career opportunities.'
@@ -444,11 +393,10 @@ const RSWAboutPage = () => {
 
                 <div className={`flex flex-col sm:flex-row gap-4 ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
                   <button 
-                    className="about-body px-8 py-4 rounded-full font-semibold text-sm flex items-center justify-center gap-2 group transition-all hover:shadow-lg"
+                    className="about-body px-8 py-4 rounded-full font-semibold text-sm flex items-center justify-center gap-2 group transition-all hover:shadow-lg hover:scale-105"
                     style={{ 
-                      background: 'white', 
-                      color: purple,
-                      border: `2px solid ${purple}`
+                      background: gold, 
+                      color: black
                     }}
                   >
                     <span>{locale === 'ar' ? 'تواصل معنا' : 'Get in Touch'}</span>
@@ -459,11 +407,19 @@ const RSWAboutPage = () => {
                   </button>
 
                   <button 
-                    className="about-body px-8 py-4 rounded-full font-semibold text-sm flex items-center justify-center gap-2 hover:bg-opacity-90 transition-all"
+                    className="about-body px-8 py-4 rounded-full font-semibold text-sm flex items-center justify-center gap-2 transition-all"
                     style={{ 
-                      background: 'white', 
-                      color: purple,
-                      border: `1px solid rgba(67, 44, 150, 0.3)`
+                      background: white, 
+                      color: gold,
+                      border: `1px solid ${gold}`
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = gold
+                      e.currentTarget.style.color = black
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = white
+                      e.currentTarget.style.color = gold
                     }}
                   >
                     <span>{locale === 'ar' ? 'عرض الفرص' : 'View Opportunities'}</span>
@@ -480,8 +436,8 @@ const RSWAboutPage = () => {
                   const Icon = badge.icon
                   return (
                     <div key={idx} className={`text-center ${isRTL ? 'text-right' : ''}`}>
-                      <Icon className="w-8 h-8 mx-auto mb-2" style={{ color: purple, opacity: 0.6 }} strokeWidth={1.5}/>
-                      <div className={`about-mono text-[10px] uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: 'rgba(67, 44, 150, 0.6)' }}>
+                      <Icon className="w-8 h-8 mx-auto mb-2" style={{ color: gold, opacity: 0.8 }} strokeWidth={1.5}/>
+                      <div className={`about-mono text-[10px] uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: gold }}>
                         {badge.label}
                       </div>
                     </div>

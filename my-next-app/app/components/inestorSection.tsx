@@ -9,30 +9,34 @@ const RSWInvestorRelationsSection = () => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0);
   const { t, locale, direction } = useI18n();
 
+  const gold = '#a79370';
+  const black = '#000000';
+  const white = '#ffffff';
+
   const sections = [
     {
       icon: Shield,
       title: t('investorRelations.sections.governance.title'),
       description: t('investorRelations.sections.governance.description'),
-      color: "#432c96"
+      color: gold
     },
     {
       icon: FileText,
       title: t('investorRelations.sections.disclosure.title'),
       description: t('investorRelations.sections.disclosure.description'),
-      color: "#5a3fb8"
+      color: '#b8a482'
     },
     {
       icon: Users,
       title: t('investorRelations.sections.shareholder.title'),
       description: t('investorRelations.sections.shareholder.description'),
-      color: "#7856d9"
+      color: '#c9b594'
     },
     {
       icon: TrendingUp,
       title: t('investorRelations.sections.performance.title'),
       description: t('investorRelations.sections.performance.description'),
-      color: "#8b6fd9"
+      color: '#dac6a6'
     }
   ];
 
@@ -40,7 +44,7 @@ const RSWInvestorRelationsSection = () => {
   const isRTL = direction === 'rtl';
 
   return (
-    <section className="relative overflow-hidden py-16 lg:py-24" style={{ background: '#ffffff' }} dir={direction}>
+    <section className="relative overflow-hidden py-16 lg:py-24" style={{ background: white }} dir={direction}>
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Tajawal:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
         
@@ -75,19 +79,19 @@ const RSWInvestorRelationsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="w-8 h-px" style={{ background: '#432c96' }} />
+            <div className="w-8 h-px" style={{ background: gold }} />
             <span 
               className="ir-body text-[10px] tracking-[0.25em] uppercase font-medium"
-              style={{ color: 'rgba(67, 44, 150, 0.6)' }}
+              style={{ color: gold }}
             >
               {t('investorRelations.eyebrow')}
             </span>
-            <div className="w-8 h-px" style={{ background: '#432c96' }} />
+            <div className="w-8 h-px" style={{ background: gold }} />
           </motion.div>
           
           <motion.h2 
             className="ir-title text-4xl lg:text-5xl leading-tight mb-4"
-            style={{ color: '#432c96' }}
+            style={{ color: black }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -98,7 +102,7 @@ const RSWInvestorRelationsSection = () => {
 
           <motion.p 
             className="ir-body text-sm max-w-2xl mx-auto"
-            style={{ color: 'rgba(67, 44, 150, 0.6)' }}
+            style={{ color: 'rgba(0, 0, 0, 0.6)' }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -126,26 +130,26 @@ const RSWInvestorRelationsSection = () => {
                   onClick={() => setActiveAccordion(isActive ? null : index)}
                   className={`w-full p-5 rounded-xl transition-all duration-300 ${isRTL ? 'text-right' : 'text-left'}`}
                   style={{
-                    background: isActive ? 'rgba(67, 44, 150, 0.05)' : 'rgba(67, 44, 150, 0.03)',
-                    border: `1px solid ${isActive ? 'rgba(67, 44, 150, 0.15)' : 'rgba(67, 44, 150, 0.1)'}`,
+                    background: isActive ? 'rgba(167, 147, 112, 0.08)' : 'rgba(167, 147, 112, 0.03)',
+                    border: `1px solid ${isActive ? 'rgba(167, 147, 112, 0.25)' : 'rgba(167, 147, 112, 0.15)'}`,
                   }}
                 >
                   <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <div className={`flex items-center gap-4 flex-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
                       <div 
                         className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
-                        style={{ background: 'rgba(67, 44, 150, 0.08)' }}
+                        style={{ background: 'rgba(167, 147, 112, 0.12)' }}
                       >
                         <Icon className="w-5 h-5" style={{ color: section.color }} strokeWidth={1.5} />
                       </div>
-                      <h3 className="ir-body text-base font-semibold flex-1" style={{ color: '#432c96' }}>
+                      <h3 className="ir-body text-base font-semibold flex-1" style={{ color: black }}>
                         {section.title}
                       </h3>
                     </div>
                     <ChevronDown 
                       className="w-5 h-5 transition-transform duration-300 flex-shrink-0"
                       style={{ 
-                        color: '#432c96',
+                        color: gold,
                         transform: isActive ? 'rotate(180deg)' : 'rotate(0deg)'
                       }}
                       strokeWidth={2}
@@ -164,7 +168,7 @@ const RSWInvestorRelationsSection = () => {
                   >
                     <p 
                       className={`ir-body text-sm leading-relaxed ${isRTL ? 'pr-16 text-right' : 'pl-16 text-left'}`}
-                      style={{ color: 'rgba(67, 44, 150, 0.7)' }}
+                      style={{ color: 'rgba(0, 0, 0, 0.7)' }}
                     >
                       {section.description}
                     </p>
@@ -185,22 +189,22 @@ const RSWInvestorRelationsSection = () => {
           <div 
             className="p-6 rounded-xl"
             style={{ 
-              background: 'rgba(67, 44, 150, 0.03)',
-              border: '1px solid rgba(67, 44, 150, 0.1)'
+              background: 'rgba(167, 147, 112, 0.05)',
+              border: '1px solid rgba(167, 147, 112, 0.2)'
             }}
           >
             <div className={`flex items-center gap-3 mb-5 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <div 
                 className="w-10 h-10 rounded-lg flex items-center justify-center"
-                style={{ background: 'rgba(67, 44, 150, 0.08)' }}
+                style={{ background: 'rgba(167, 147, 112, 0.15)' }}
               >
-                <FileText className="w-5 h-5" style={{ color: '#432c96' }} strokeWidth={1.5} />
+                <FileText className="w-5 h-5" style={{ color: gold }} strokeWidth={1.5} />
               </div>
               <div className="flex-1" style={{ textAlign: isRTL ? 'right' : 'left' }}>
-                <h3 className="ir-body text-base font-semibold" style={{ color: '#432c96' }}>
+                <h3 className="ir-body text-base font-semibold" style={{ color: black }}>
                   {t('investorRelations.documentsTitle')}
                 </h3>
-                <p className="ir-body text-[10px]" style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                <p className="ir-body text-[10px]" style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                   {t('investorRelations.documentsSubtitle')}
                 </p>
               </div>
@@ -212,27 +216,33 @@ const RSWInvestorRelationsSection = () => {
                   key={index}
                   className={`group flex items-center gap-3 p-4 rounded-lg transition-all duration-300 hover:shadow-md ${isRTL ? 'flex-row-reverse' : ''}`}
                   style={{ 
-                    background: '#ffffff',
-                    border: '1px solid rgba(67, 44, 150, 0.1)'
+                    background: white,
+                    border: '1px solid rgba(167, 147, 112, 0.2)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = gold
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(167, 147, 112, 0.2)'
                   }}
                 >
                   <div 
                     className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'rgba(67, 44, 150, 0.08)' }}
+                    style={{ background: 'rgba(167, 147, 112, 0.12)' }}
                   >
-                    <FileText className="w-4 h-4" style={{ color: '#432c96' }} strokeWidth={1.5} />
+                    <FileText className="w-4 h-4" style={{ color: gold }} strokeWidth={1.5} />
                   </div>
                   <div className="flex-1 min-w-0" style={{ textAlign: isRTL ? 'right' : 'left' }}>
-                    <p className="ir-body text-xs font-semibold truncate" style={{ color: '#432c96' }}>
+                    <p className="ir-body text-xs font-semibold truncate" style={{ color: black }}>
                       {doc.name}
                     </p>
-                    <p className="ir-body text-[9px]" style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                    <p className="ir-body text-[9px]" style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                       {doc.type} • {doc.size}
                     </p>
                   </div>
                   <Download 
                     className="w-4 h-4 group-hover:translate-y-0.5 transition-transform flex-shrink-0" 
-                    style={{ color: '#432c96' }} 
+                    style={{ color: gold }} 
                     strokeWidth={2}
                   />
                 </button>
@@ -245,7 +255,7 @@ const RSWInvestorRelationsSection = () => {
         <motion.div 
           className="mt-8 text-center p-6 rounded-xl"
           style={{ 
-            background: '#432c96'
+            background: black
           }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -261,10 +271,10 @@ const RSWInvestorRelationsSection = () => {
           
           <a
             href="mailto:ir@rswinvestment.ae"
-            className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-xl ${isRTL ? 'flex-row-reverse' : ''}`}
+            className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-xl hover:scale-105 ${isRTL ? 'flex-row-reverse' : ''}`}
             style={{ 
-              background: '#ffffff',
-              color: '#432c96'
+              background: gold,
+              color: black
             }}
           >
             <span className="ir-body text-xs font-semibold">

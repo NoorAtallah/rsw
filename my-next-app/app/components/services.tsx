@@ -10,9 +10,10 @@ export default function RSWInvestmentsSection() {
   const [activeInvestment, setActiveInvestment] = useState<number | null>(null)
   const { t, locale, direction } = useI18n()
 
-  const purple = '#432c96'
+  const gold = '#a79370'
   const white = '#ffffff'
-  const lightPurple = '#f5f3fb'
+  const black = '#000000'
+  const lightGold = '#f8f6f3'
 
   const approaches = [
     {
@@ -46,19 +47,19 @@ export default function RSWInvestmentsSection() {
       id: 1,
       title: t('investments.sectors.realEstate.title'),
       description: t('investments.sectors.realEstate.description'),
-      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80',
+      image: 'https://img.freepik.com/free-photo/skyscrapers-view_1112-268.jpg?semt=ais_user_personalization&w=740&q=80',
     },
     {
       id: 2,
       title: t('investments.sectors.infrastructure.title'),
       description: t('investments.sectors.infrastructure.description'),
-      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80',
+      image: 'https://media.istockphoto.com/id/608601538/photo/moden-glass-building.jpg?s=612x612&w=0&k=20&c=WdEJCI2pi6IgYX0aZQOZbNCCQHdVlpegjhA0LbG7xoo=',
     },
     {
       id: 3,
       title: t('investments.sectors.technology.title'),
       description: t('investments.sectors.technology.description'),
-      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80',
+      image: 'https://cdn.alromaizan.com/image/upload/v1732525687/media/images/i31wglsx3wqnf0cp55ya.webp',
     },
   ]
 
@@ -77,8 +78,8 @@ export default function RSWInvestmentsSection() {
         .investment-image-overlay {
           background: linear-gradient(
             to top,
-            rgba(67, 44, 150, 0.9) 0%,
-            rgba(67, 44, 150, 0.4) 60%,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(0, 0, 0, 0.4) 60%,
             transparent 100%
           );
         }
@@ -93,10 +94,10 @@ export default function RSWInvestmentsSection() {
         }
       `}</style>
 
-      {/* Subtle purple gradient background */}
+      {/* Subtle gold gradient background */}
       <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full blur-[180px] pointer-events-none opacity-10"
-        style={{ background: purple }}
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full blur-[180px] pointer-events-none opacity-5"
+        style={{ background: gold }}
       />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-10">
@@ -104,24 +105,24 @@ export default function RSWInvestmentsSection() {
         {/* Header - Centered */}
         <div className="text-center mb-12 md:mb-16">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-12 h-px" style={{ background: purple }} />
+            <div className="w-12 h-px" style={{ background: gold }} />
             <span 
               className="text-xs tracking-[0.3em] uppercase"
               style={{ 
-                color: purple, 
+                color: gold, 
                 fontFamily: locale === 'ar' ? 'IBM Plex Sans Arabic, sans-serif' : 'Space Mono, monospace',
                 fontWeight: locale === 'ar' ? 500 : 400 
               }}
             >
               {t('investments.eyebrow')}
             </span>
-            <div className="w-12 h-px" style={{ background: purple }} />
+            <div className="w-12 h-px" style={{ background: gold }} />
           </div>
 
           <h2 
             className="text-3xl md:text-4xl lg:text-5xl font-light leading-tight mb-6"
             style={{ 
-              color: purple, 
+              color: black, 
               fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
             }}
           >
@@ -129,7 +130,7 @@ export default function RSWInvestmentsSection() {
               <span className="font-bold">{t('investments.title')}</span>
             ) : (
               <>
-                Our <span className="font-bold">Investments</span>
+                Our <span className="font-bold" style={{ color: gold }}>Investments</span>
               </>
             )}
           </h2>
@@ -137,7 +138,7 @@ export default function RSWInvestmentsSection() {
           <p 
             className="text-base md:text-lg font-light leading-relaxed max-w-3xl mx-auto mb-8"
             style={{ 
-              color: 'rgba(67, 44, 150, 0.75)', 
+              color: 'rgba(0, 0, 0, 0.7)', 
               fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
             }}
           >
@@ -147,14 +148,14 @@ export default function RSWInvestmentsSection() {
           <div 
             className="max-w-2xl mx-auto p-6 md:p-8 rounded-2xl"
             style={{ 
-              background: lightPurple,
-              border: `1px solid rgba(67, 44, 150, 0.1)`
+              background: lightGold,
+              border: `1px solid rgba(167, 147, 112, 0.2)`
             }}
           >
             <h3 
               className="text-lg md:text-xl font-semibold mb-3"
               style={{ 
-                color: purple, 
+                color: gold, 
                 fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
               }}
             >
@@ -163,7 +164,7 @@ export default function RSWInvestmentsSection() {
             <p 
               className="text-sm md:text-base leading-relaxed"
               style={{ 
-                color: 'rgba(67, 44, 150, 0.7)', 
+                color: 'rgba(0, 0, 0, 0.7)', 
                 fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
               }}
             >
@@ -177,7 +178,7 @@ export default function RSWInvestmentsSection() {
           <h3 
             className="text-2xl md:text-3xl font-semibold text-center mb-10"
             style={{ 
-              color: purple, 
+              color: black, 
               fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
             }}
           >
@@ -191,8 +192,8 @@ export default function RSWInvestmentsSection() {
                 key={approach.id}
                 className="relative p-6 md:p-7 rounded-xl cursor-pointer group transition-all duration-300"
                 style={{
-                  background: activeCard === approach.id ? purple : lightPurple,
-                  border: `1px solid ${activeCard === approach.id ? purple : 'rgba(67, 44, 150, 0.1)'}`,
+                  background: activeCard === approach.id ? gold : lightGold,
+                  border: `1px solid ${activeCard === approach.id ? gold : 'rgba(167, 147, 112, 0.2)'}`,
                 }}
                 onMouseEnter={() => setActiveCard(approach.id)}
                 onMouseLeave={() => setActiveCard(null)}
@@ -206,14 +207,14 @@ export default function RSWInvestmentsSection() {
                   className="w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-all duration-300"
                   style={{
                     background: activeCard === approach.id 
-                      ? 'rgba(255, 255, 255, 0.15)' 
+                      ? 'rgba(0, 0, 0, 0.15)' 
                       : white,
                   }}
                 >
                   <approach.icon 
                     className="w-5 h-5 transition-colors duration-300"
                     style={{ 
-                      color: activeCard === approach.id ? white : purple,
+                      color: activeCard === approach.id ? black : gold,
                       strokeWidth: 1.5 
                     }}
                   />
@@ -223,7 +224,7 @@ export default function RSWInvestmentsSection() {
                 <h4 
                   className="text-base font-semibold mb-3 transition-colors duration-300"
                   style={{ 
-                    color: activeCard === approach.id ? white : purple,
+                    color: activeCard === approach.id ? black : black,
                     fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
                   }}
                 >
@@ -235,8 +236,8 @@ export default function RSWInvestmentsSection() {
                   className="text-xs leading-relaxed transition-colors duration-300"
                   style={{ 
                     color: activeCard === approach.id 
-                      ? 'rgba(255, 255, 255, 0.85)' 
-                      : 'rgba(67, 44, 150, 0.65)',
+                      ? 'rgba(0, 0, 0, 0.7)' 
+                      : 'rgba(0, 0, 0, 0.65)',
                     fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
                   }}
                 >
@@ -252,7 +253,7 @@ export default function RSWInvestmentsSection() {
           <h3 
             className="text-2xl md:text-3xl font-semibold text-center mb-10"
             style={{ 
-              color: purple, 
+              color: black, 
               fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
             }}
           >
@@ -266,10 +267,10 @@ export default function RSWInvestmentsSection() {
                 className="investment-card-hover group cursor-pointer rounded-2xl overflow-hidden"
                 style={{
                   background: white,
-                  border: `1px solid rgba(67, 44, 150, 0.15)`,
+                  border: `1px solid rgba(167, 147, 112, 0.25)`,
                   boxShadow: activeInvestment === investment.id 
-                    ? '0 20px 60px rgba(67, 44, 150, 0.25)' 
-                    : '0 4px 20px rgba(67, 44, 150, 0.08)',
+                    ? '0 20px 60px rgba(167, 147, 112, 0.3)' 
+                    : '0 4px 20px rgba(167, 147, 112, 0.1)',
                 }}
                 onMouseEnter={() => setActiveInvestment(investment.id)}
                 onMouseLeave={() => setActiveInvestment(null)}
@@ -286,6 +287,15 @@ export default function RSWInvestmentsSection() {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="investment-image-overlay absolute inset-0" />
+                  
+                  {/* Gold accent overlay on hover */}
+                  <div 
+                    className="absolute inset-0 transition-opacity duration-500"
+                    style={{
+                      background: `linear-gradient(to top, rgba(167, 147, 112, 0.3) 0%, transparent 50%)`,
+                      opacity: activeInvestment === investment.id ? 1 : 0
+                    }}
+                  />
                 </div>
 
                 {/* Content */}
@@ -294,8 +304,8 @@ export default function RSWInvestmentsSection() {
                     className="text-xl font-bold mb-3 transition-colors duration-300"
                     style={{ 
                       color: activeInvestment === investment.id 
-                        ? purple 
-                        : 'rgba(67, 44, 150, 0.9)',
+                        ? gold 
+                        : black,
                       fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
                     }}
                   >
@@ -305,7 +315,7 @@ export default function RSWInvestmentsSection() {
                   <p 
                     className="text-sm leading-relaxed mb-5"
                     style={{ 
-                      color: 'rgba(67, 44, 150, 0.7)',
+                      color: 'rgba(0, 0, 0, 0.7)',
                       fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
                     }}
                   >
@@ -315,7 +325,7 @@ export default function RSWInvestmentsSection() {
                   <button 
                     className="flex items-center gap-2 text-sm font-medium group/btn"
                     style={{ 
-                      color: purple, 
+                      color: gold, 
                       fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
                     }}
                   >

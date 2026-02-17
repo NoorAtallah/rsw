@@ -27,7 +27,9 @@ const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   
-  const purple = '#432c96';
+  const gold = '#a79370';
+  const black = '#000000';
+  const white = '#ffffff';
   const isRTL = direction === 'rtl';
 
   // Get translations
@@ -107,7 +109,7 @@ const ContactPage = () => {
       `}</style>
       
       {/* Hero - Editorial Masthead */}
-      <section className="relative h-screen overflow-hidden" style={{ background: purple }}>
+      <section className="relative h-screen overflow-hidden" style={{ background: black }}>
         
         <div className="absolute inset-0 image-grain">
           <img 
@@ -115,7 +117,7 @@ const ContactPage = () => {
             alt="Contact RSW" 
             className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0" style={{ background: 'rgba(67, 44, 150, 0.5)' }}/>
+          <div className="absolute inset-0" style={{ background: 'rgba(0, 0, 0, 0.5)' }}/>
         </div>
 
         <div className="relative h-full flex items-center">
@@ -129,13 +131,13 @@ const ContactPage = () => {
               {/* Issue/Edition Style */}
               <div className="mb-8">
                 <div className={`contact-mono text-xs uppercase mb-2 ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} 
-                  style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                  style={{ color: gold }}>
                   {locale === 'ar' ? 'مجموعة RSW للاستثمار' : 'RSW Investment Group'}
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="h-px w-12" style={{ background: 'rgba(255, 255, 255, 0.4)' }} />
+                  <div className="h-px w-12" style={{ background: gold }} />
                   <div className={`contact-mono text-xs ${locale === 'ar' ? '' : 'tracking-widest'}`} 
-                    style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                    style={{ color: gold }}>
                     {contact.eyebrow}
                   </div>
                 </div>
@@ -155,8 +157,8 @@ const ContactPage = () => {
 
                 {/* Byline Style */}
                 <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <Minus className="w-6 h-6 text-white/60" strokeWidth={1} />
-                  <span className="contact-body text-sm text-white/70">
+                  <Minus className="w-6 h-6" style={{ color: gold }} strokeWidth={1} />
+                  <span className="contact-body text-sm" style={{ color: gold }}>
                     {locale === 'ar' ? 'نحن هنا للمساعدة' : 'We\'re Here to Help'}
                   </span>
                 </div>
@@ -172,7 +174,7 @@ const ContactPage = () => {
             transition={{ duration: 2, repeat: Infinity }}
             className="flex flex-col items-center gap-2"
           >
-            <div className="w-px h-16" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.5), transparent)' }} />
+            <div className="w-px h-16" style={{ background: `linear-gradient(to bottom, ${gold}, transparent)` }} />
           </motion.div>
         </div>
       </section>
@@ -183,11 +185,11 @@ const ContactPage = () => {
           
           <div className={`mb-16 ${isRTL ? 'text-right' : ''}`}>
             <div className={`contact-mono text-[10px] uppercase mb-6 ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} 
-              style={{ color: purple }}>
+              style={{ color: gold }}>
               {locale === 'ar' ? 'طرق التواصل' : 'Contact Methods'}
             </div>
             <h2 className="contact-title text-3xl lg:text-4xl font-light" 
-              style={{ color: purple, letterSpacing: '-0.01em' }}>
+              style={{ color: black, letterSpacing: '-0.01em' }}>
               {locale === 'ar' ? 'تواصل معنا مباشرة' : 'Reach Us Directly'}
             </h2>
           </div>
@@ -204,19 +206,25 @@ const ContactPage = () => {
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   viewport={{ once: true }}
                   className={`group p-8 bg-white transition-all duration-300 hover:shadow-lg ${isRTL ? 'text-right' : ''}`}
-                  style={{ border: '1px solid rgba(67, 44, 150, 0.1)' }}
+                  style={{ border: '1px solid rgba(167, 147, 112, 0.2)' }}
                   whileHover={{ y: -4 }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = gold
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(167, 147, 112, 0.2)'
+                  }}
                 >
                   <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-6 transition-all duration-300"
-                    style={{ background: 'rgba(67, 44, 150, 0.08)' }}>
+                    style={{ background: 'rgba(167, 147, 112, 0.12)' }}>
                     <Icon className="w-6 h-6 group-hover:scale-110 transition-transform" 
-                      style={{ color: purple }} strokeWidth={1.5} />
+                      style={{ color: gold }} strokeWidth={1.5} />
                   </div>
                   <div className={`contact-mono text-[9px] uppercase mb-2 ${locale === 'ar' ? '' : 'tracking-wider'}`} 
-                    style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                    style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                     {method.sublabel}
                   </div>
-                  <div className="contact-body text-lg font-semibold" style={{ color: purple }}>
+                  <div className="contact-body text-lg font-semibold" style={{ color: black }}>
                     {method.label}
                   </div>
                 </motion.a>
@@ -235,18 +243,18 @@ const ContactPage = () => {
             {/* Left - Contact Form */}
             <div className={isRTL ? 'text-right' : ''}>
               <div className={`contact-mono text-[10px] uppercase mb-6 ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} 
-                style={{ color: purple }}>
+                style={{ color: gold }}>
                 {contact.form.title}
               </div>
 
               <h2 className="contact-title text-3xl lg:text-4xl font-light mb-4" 
-                style={{ color: purple, letterSpacing: '-0.01em' }}>
+                style={{ color: black, letterSpacing: '-0.01em' }}>
                 {contact.form.subtitle}
               </h2>
 
               <div className={`flex items-center gap-2 mb-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <Clock className="w-4 h-4" style={{ color: 'rgba(67, 44, 150, 0.5)' }} strokeWidth={1.5} />
-                <span className="contact-body text-sm" style={{ color: 'rgba(67, 44, 150, 0.6)' }}>
+                <Clock className="w-4 h-4" style={{ color: gold }} strokeWidth={1.5} />
+                <span className="contact-body text-sm" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>
                   {locale === 'ar' ? 'الرد خلال 24 ساعة' : 'Response within 24 hours'}
                 </span>
               </div>
@@ -254,7 +262,7 @@ const ContactPage = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Name Field */}
                 <div>
-                  <label className="contact-body text-sm font-medium mb-2 block" style={{ color: purple }}>
+                  <label className="contact-body text-sm font-medium mb-2 block" style={{ color: black }}>
                     {contact.form.fields.name}
                   </label>
                   <input
@@ -264,17 +272,23 @@ const ContactPage = () => {
                     onChange={handleChange}
                     placeholder={contact.form.placeholders.name}
                     required
-                    className="contact-body w-full px-4 py-3 bg-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple/20"
+                    className="contact-body w-full px-4 py-3 bg-white transition-all duration-300 focus:outline-none"
                     style={{ 
-                      border: '1px solid rgba(67, 44, 150, 0.2)',
-                      color: purple
+                      border: '1px solid rgba(167, 147, 112, 0.3)',
+                      color: black
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = gold
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(167, 147, 112, 0.3)'
                     }}
                   />
                 </div>
 
                 {/* Email Field */}
                 <div>
-                  <label className="contact-body text-sm font-medium mb-2 block" style={{ color: purple }}>
+                  <label className="contact-body text-sm font-medium mb-2 block" style={{ color: black }}>
                     {contact.form.fields.email}
                   </label>
                   <input
@@ -284,17 +298,23 @@ const ContactPage = () => {
                     onChange={handleChange}
                     placeholder={contact.form.placeholders.email}
                     required
-                    className="contact-body w-full px-4 py-3 bg-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple/20"
+                    className="contact-body w-full px-4 py-3 bg-white transition-all duration-300 focus:outline-none"
                     style={{ 
-                      border: '1px solid rgba(67, 44, 150, 0.2)',
-                      color: purple
+                      border: '1px solid rgba(167, 147, 112, 0.3)',
+                      color: black
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = gold
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(167, 147, 112, 0.3)'
                     }}
                   />
                 </div>
 
                 {/* Interest Field */}
                 <div>
-                  <label className="contact-body text-sm font-medium mb-2 block" style={{ color: purple }}>
+                  <label className="contact-body text-sm font-medium mb-2 block" style={{ color: black }}>
                     {contact.form.fields.interest}
                   </label>
                   <select
@@ -302,10 +322,16 @@ const ContactPage = () => {
                     value={formState.interest}
                     onChange={handleChange}
                     required
-                    className="contact-body w-full px-4 py-3 bg-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple/20"
+                    className="contact-body w-full px-4 py-3 bg-white transition-all duration-300 focus:outline-none"
                     style={{ 
-                      border: '1px solid rgba(67, 44, 150, 0.2)',
-                      color: formState.interest ? purple : 'rgba(67, 44, 150, 0.5)'
+                      border: '1px solid rgba(167, 147, 112, 0.3)',
+                      color: formState.interest ? black : 'rgba(0, 0, 0, 0.5)'
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = gold
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(167, 147, 112, 0.3)'
                     }}
                   >
                     <option value="">{contact.form.placeholders.interest}</option>
@@ -317,7 +343,7 @@ const ContactPage = () => {
 
                 {/* Message Field */}
                 <div>
-                  <label className="contact-body text-sm font-medium mb-2 block" style={{ color: purple }}>
+                  <label className="contact-body text-sm font-medium mb-2 block" style={{ color: black }}>
                     {contact.form.fields.message}
                   </label>
                   <textarea
@@ -326,16 +352,22 @@ const ContactPage = () => {
                     onChange={handleChange}
                     placeholder={contact.form.placeholders.message}
                     rows={6}
-                    className="contact-body w-full px-4 py-3 bg-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple/20 resize-none"
+                    className="contact-body w-full px-4 py-3 bg-white transition-all duration-300 focus:outline-none resize-none"
                     style={{ 
-                      border: '1px solid rgba(67, 44, 150, 0.2)',
-                      color: purple
+                      border: '1px solid rgba(167, 147, 112, 0.3)',
+                      color: black
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = gold
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(167, 147, 112, 0.3)'
                     }}
                   />
                 </div>
 
                 {/* Privacy Notice */}
-                <p className="contact-body text-xs" style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                <p className="contact-body text-xs" style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                   {contact.form.privacy}
                 </p>
 
@@ -345,8 +377,8 @@ const ContactPage = () => {
                   disabled={isSubmitting || isSubmitted}
                   className={`contact-body w-full flex items-center justify-center gap-2 px-8 py-4 text-sm font-semibold transition-all duration-300 ${isRTL ? 'flex-row-reverse' : ''}`}
                   style={{ 
-                    background: isSubmitted ? '#10b981' : purple,
-                    color: 'white',
+                    background: isSubmitted ? '#10b981' : gold,
+                    color: black,
                     opacity: isSubmitting ? 0.7 : 1
                   }}
                 >
@@ -373,13 +405,13 @@ const ContactPage = () => {
               {/* Location */}
               <div>
                 <div className={`flex items-center gap-3 mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <MapPin className="w-6 h-6" style={{ color: purple }} strokeWidth={1.5} />
-                  <h3 className="contact-title text-2xl font-light" style={{ color: purple }}>
+                  <MapPin className="w-6 h-6" style={{ color: gold }} strokeWidth={1.5} />
+                  <h3 className="contact-title text-2xl font-light" style={{ color: black }}>
                     {contact.location.title}
                   </h3>
                 </div>
                 <p className="contact-body text-base leading-relaxed whitespace-pre-line" 
-                  style={{ color: 'rgba(67, 44, 150, 0.7)' }}>
+                  style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
                   {contact.location.address}
                 </p>
 
@@ -394,12 +426,12 @@ const ContactPage = () => {
               </div>
 
               {/* Compliance Badges */}
-              <div className="pt-8" style={{ borderTop: '1px solid rgba(67, 44, 150, 0.1)' }}>
+              <div className="pt-8" style={{ borderTop: '1px solid rgba(167, 147, 112, 0.2)' }}>
                 <div className={`flex items-center gap-3 mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <Shield className="w-6 h-6" style={{ color: purple }} strokeWidth={1.5} />
+                  <Shield className="w-6 h-6" style={{ color: gold }} strokeWidth={1.5} />
                   <div>
                     <div className={`contact-mono text-[9px] uppercase ${locale === 'ar' ? '' : 'tracking-wider'}`} 
-                      style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                      style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                       {contact.badges.regulated}
                     </div>
                   </div>
@@ -411,12 +443,12 @@ const ContactPage = () => {
                       key={idx}
                       className="px-4 py-2"
                       style={{ 
-                        background: 'rgba(67, 44, 150, 0.08)',
-                        border: '1px solid rgba(67, 44, 150, 0.1)'
+                        background: 'rgba(167, 147, 112, 0.12)',
+                        border: '1px solid rgba(167, 147, 112, 0.2)'
                       }}
                     >
                       <span className={`contact-mono text-xs font-bold ${locale === 'ar' ? '' : 'tracking-wide'}`} 
-                        style={{ color: purple }}>
+                        style={{ color: gold }}>
                         {authority}
                       </span>
                     </div>
@@ -425,12 +457,12 @@ const ContactPage = () => {
               </div>
 
               {/* Office Hours */}
-              <div className="pt-8" style={{ borderTop: '1px solid rgba(67, 44, 150, 0.1)' }}>
+              <div className="pt-8" style={{ borderTop: '1px solid rgba(167, 147, 112, 0.2)' }}>
                 <div className={`contact-mono text-[9px] uppercase mb-3 ${locale === 'ar' ? '' : 'tracking-wider'}`} 
-                  style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                  style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                   {locale === 'ar' ? 'ساعات العمل' : 'Office Hours'}
                 </div>
-                <div className="contact-body text-sm space-y-2" style={{ color: purple }}>
+                <div className="contact-body text-sm space-y-2" style={{ color: black }}>
                   <div>{locale === 'ar' ? 'الأحد - الخميس: 9:00 - 18:00' : 'Sunday - Thursday: 9:00 AM - 6:00 PM'}</div>
                   <div>{locale === 'ar' ? 'الجمعة - السبت: مغلق' : 'Friday - Saturday: Closed'}</div>
                 </div>

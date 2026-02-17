@@ -10,6 +10,10 @@ const RSWNewsSection = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [showAll, setShowAll] = useState(false);
 
+  const gold = '#a79370';
+  const black = '#000000';
+  const white = '#ffffff';
+
   const categories = t('news.categories');
   const newsItems = t('news.items');
 
@@ -22,7 +26,7 @@ const RSWNewsSection = () => {
   return (
     <section 
       className="relative min-h-screen overflow-hidden py-16 lg:py-24"
-      style={{ background: '#ffffff' }}
+      style={{ background: white }}
       dir={direction}
     >
       <style jsx global>{`
@@ -59,19 +63,19 @@ const RSWNewsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="w-8 h-px" style={{ background: '#432c96' }} />
+            <div className="w-8 h-px" style={{ background: gold }} />
             <span 
               className="news-body text-[10px] tracking-[0.25em] uppercase font-medium"
-              style={{ color: 'rgba(67, 44, 150, 0.6)' }}
+              style={{ color: gold }}
             >
               {t('news.eyebrow')}
             </span>
-            <div className="w-8 h-px" style={{ background: '#432c96' }} />
+            <div className="w-8 h-px" style={{ background: gold }} />
           </motion.div>
           
           <motion.h2 
             className="news-title text-4xl lg:text-5xl leading-tight mb-4"
-            style={{ color: '#432c96' }}
+            style={{ color: black }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -87,8 +91,8 @@ const RSWNewsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Calendar className="w-4 h-4" style={{ color: '#432c96' }} />
-            <span className="news-body text-xs font-medium" style={{ color: '#432c96' }}>
+            <Calendar className="w-4 h-4" style={{ color: gold }} />
+            <span className="news-body text-xs font-medium" style={{ color: gold }}>
               {t('news.updated')}
             </span>
           </motion.div>
@@ -110,9 +114,9 @@ const RSWNewsSection = () => {
                 }}
                 className="px-4 py-2 rounded-full transition-all duration-300 news-body text-xs font-medium capitalize"
                 style={{
-                  background: activeCategory === cat.key ? '#432c96' : 'rgba(67, 44, 150, 0.05)',
-                  color: activeCategory === cat.key ? '#ffffff' : '#432c96',
-                  border: activeCategory === cat.key ? 'none' : '1px solid rgba(67, 44, 150, 0.15)'
+                  background: activeCategory === cat.key ? gold : 'rgba(167, 147, 112, 0.05)',
+                  color: activeCategory === cat.key ? white : gold,
+                  border: activeCategory === cat.key ? 'none' : '1px solid rgba(167, 147, 112, 0.25)'
                 }}
               >
                 {cat.label}
@@ -147,7 +151,7 @@ const RSWNewsSection = () => {
                 <div 
                   className="absolute inset-0 transition-opacity duration-500"
                   style={{
-                    background: 'linear-gradient(to top, rgba(67, 44, 150, 0.7) 0%, transparent 50%)'
+                    background: `linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 50%)`
                   }}
                 />
                 
@@ -155,9 +159,8 @@ const RSWNewsSection = () => {
                 <div 
                   className={`absolute top-3 ${locale === 'ar' ? 'right-3' : 'left-3'} px-2.5 py-1 rounded-full backdrop-blur-sm news-body text-[9px] font-bold uppercase tracking-wider`}
                   style={{
-                    background: 'rgba(255, 255, 255, 0.2)',
-                    color: '#ffffff',
-                    border: '1px solid rgba(255, 255, 255, 0.3)'
+                    background: gold,
+                    color: black,
                   }}
                 >
                   {news.tag}
@@ -166,11 +169,11 @@ const RSWNewsSection = () => {
 
               {/* Content */}
               <div className="flex items-center gap-2 mb-3">
-                <span className="news-body text-[10px]" style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                <span className="news-body text-[10px]" style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                   {news.date}
                 </span>
-                <div className="w-1 h-1 rounded-full" style={{ background: 'rgba(67, 44, 150, 0.3)' }} />
-                <div className="flex items-center gap-1 text-[10px]" style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                <div className="w-1 h-1 rounded-full" style={{ background: gold }} />
+                <div className="flex items-center gap-1 text-[10px]" style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                   <Clock className="w-3 h-3" />
                   <span className="news-body">{news.readTime}</span>
                 </div>
@@ -178,19 +181,19 @@ const RSWNewsSection = () => {
 
               <h3 
                 className="news-title text-lg lg:text-xl leading-tight mb-2 group-hover:text-opacity-80 transition-all"
-                style={{ color: '#432c96' }}
+                style={{ color: black }}
               >
                 {news.title}
               </h3>
 
               <p 
                 className="news-body text-xs leading-relaxed mb-4 line-clamp-2"
-                style={{ color: 'rgba(67, 44, 150, 0.6)' }}
+                style={{ color: 'rgba(0, 0, 0, 0.6)' }}
               >
                 {news.excerpt}
               </p>
 
-              <div className="flex items-center gap-2 text-xs font-semibold group-hover:gap-3 transition-all" style={{ color: '#432c96' }}>
+              <div className="flex items-center gap-2 text-xs font-semibold group-hover:gap-3 transition-all" style={{ color: gold }}>
                 <span className="news-body">{t('news.readMore')}</span>
                 <ArrowUpRight 
                   className="w-3 h-3" 
@@ -215,11 +218,11 @@ const RSWNewsSection = () => {
           >
             <button 
               onClick={() => setShowAll(!showAll)}
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg"
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105"
               style={{
-                background: showAll ? 'rgba(67, 44, 150, 0.1)' : '#432c96',
-                color: showAll ? '#432c96' : '#ffffff',
-                border: showAll ? '1px solid rgba(67, 44, 150, 0.2)' : 'none'
+                background: showAll ? 'rgba(167, 147, 112, 0.1)' : gold,
+                color: showAll ? gold : black,
+                border: showAll ? `1px solid ${gold}` : 'none'
               }}
             >
               <span className="news-body text-sm font-semibold">

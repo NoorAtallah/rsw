@@ -16,6 +16,10 @@ const RSWCTASection = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const gold = '#a79370';
+  const black = '#000000';
+  const white = '#ffffff';
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -48,7 +52,7 @@ const RSWCTASection = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden py-16 lg:py-24" style={{ background: '#ffffff' }} dir={direction}>
+    <section className="relative overflow-hidden py-16 lg:py-24" style={{ background: white }} dir={direction}>
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Tajawal:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
         
@@ -83,19 +87,19 @@ const RSWCTASection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="w-8 h-px" style={{ background: '#432c96' }} />
+            <div className="w-8 h-px" style={{ background: gold }} />
             <span 
               className="cta-body text-[10px] tracking-[0.25em] uppercase font-medium"
-              style={{ color: 'rgba(67, 44, 150, 0.6)' }}
+              style={{ color: gold }}
             >
               {t('contact.eyebrow')}
             </span>
-            <div className="w-8 h-px" style={{ background: '#432c96' }} />
+            <div className="w-8 h-px" style={{ background: gold }} />
           </motion.div>
           
           <motion.h2 
             className="cta-title text-4xl lg:text-5xl leading-tight mb-4"
-            style={{ color: '#432c96' }}
+            style={{ color: black }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -106,7 +110,7 @@ const RSWCTASection = () => {
 
           <motion.p 
             className="cta-body text-sm max-w-2xl mx-auto"
-            style={{ color: 'rgba(67, 44, 150, 0.6)' }}
+            style={{ color: 'rgba(0, 0, 0, 0.6)' }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -136,21 +140,27 @@ const RSWCTASection = () => {
                   target={method.href.startsWith('http') ? '_blank' : undefined}
                   className="flex items-center gap-4 p-4 rounded-xl transition-all duration-300 hover:shadow-lg group"
                   style={{ 
-                    background: 'rgba(67, 44, 150, 0.03)',
-                    border: '1px solid rgba(67, 44, 150, 0.1)'
+                    background: 'rgba(167, 147, 112, 0.05)',
+                    border: '1px solid rgba(167, 147, 112, 0.2)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = gold
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(167, 147, 112, 0.2)'
                   }}
                 >
                   <div 
                     className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
-                    style={{ background: 'rgba(67, 44, 150, 0.08)' }}
+                    style={{ background: 'rgba(167, 147, 112, 0.15)' }}
                   >
-                    <Icon className="w-5 h-5" style={{ color: '#432c96' }} strokeWidth={1.5} />
+                    <Icon className="w-5 h-5" style={{ color: gold }} strokeWidth={1.5} />
                   </div>
                   <div>
-                    <p className="cta-body text-sm font-semibold group-hover:underline" style={{ color: '#432c96' }}>
+                    <p className="cta-body text-sm font-semibold group-hover:underline" style={{ color: black }}>
                       {method.label}
                     </p>
-                    <p className="cta-body text-[10px]" style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                    <p className="cta-body text-[10px]" style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                       {method.sublabel}
                     </p>
                   </div>
@@ -162,22 +172,22 @@ const RSWCTASection = () => {
             <div 
               className="p-4 rounded-xl"
               style={{ 
-                background: 'rgba(67, 44, 150, 0.03)',
-                border: '1px solid rgba(67, 44, 150, 0.1)'
+                background: 'rgba(167, 147, 112, 0.05)',
+                border: '1px solid rgba(167, 147, 112, 0.2)'
               }}
             >
               <div className="flex items-start gap-4">
                 <div 
                   className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'rgba(67, 44, 150, 0.08)' }}
+                  style={{ background: 'rgba(167, 147, 112, 0.15)' }}
                 >
-                  <MapPin className="w-5 h-5" style={{ color: '#432c96' }} strokeWidth={1.5} />
+                  <MapPin className="w-5 h-5" style={{ color: gold }} strokeWidth={1.5} />
                 </div>
                 <div>
-                  <p className="cta-body text-sm font-semibold mb-1" style={{ color: '#432c96' }}>
+                  <p className="cta-body text-sm font-semibold mb-1" style={{ color: black }}>
                     {t('contact.location.title')}
                   </p>
-                  <p className="cta-body text-[10px] leading-relaxed" style={{ color: 'rgba(67, 44, 150, 0.6)' }}>
+                  <p className="cta-body text-[10px] leading-relaxed" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>
                     {t('contact.location.address')}
                   </p>
                 </div>
@@ -195,19 +205,19 @@ const RSWCTASection = () => {
             <div 
               className="p-6 rounded-xl"
               style={{ 
-                background: 'rgba(67, 44, 150, 0.03)',
-                border: '1px solid rgba(67, 44, 150, 0.1)'
+                background: 'rgba(167, 147, 112, 0.05)',
+                border: '1px solid rgba(167, 147, 112, 0.2)'
               }}
             >
               <h3 
                 className="cta-body text-lg font-semibold mb-1"
-                style={{ color: '#432c96' }}
+                style={{ color: black }}
               >
                 {t('contact.form.title')}
               </h3>
               <p 
                 className="cta-body text-[10px] mb-6"
-                style={{ color: 'rgba(67, 44, 150, 0.5)' }}
+                style={{ color: 'rgba(0, 0, 0, 0.5)' }}
               >
                 {t('contact.form.subtitle')}
               </p>
@@ -217,7 +227,7 @@ const RSWCTASection = () => {
                 <div>
                   <label 
                     className="cta-body text-[10px] font-medium mb-1.5 block"
-                    style={{ color: '#432c96' }}
+                    style={{ color: black }}
                   >
                     {t('contact.form.fields.name')}
                   </label>
@@ -228,9 +238,15 @@ const RSWCTASection = () => {
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     className="w-full px-4 py-2.5 rounded-lg cta-body text-xs transition-all duration-300 focus:outline-none"
                     style={{ 
-                      background: '#ffffff',
-                      border: '1px solid rgba(67, 44, 150, 0.15)',
-                      color: '#432c96'
+                      background: white,
+                      border: '1px solid rgba(167, 147, 112, 0.25)',
+                      color: black
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = gold
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(167, 147, 112, 0.25)'
                     }}
                     placeholder={t('contact.form.placeholders.name')}
                   />
@@ -240,7 +256,7 @@ const RSWCTASection = () => {
                 <div>
                   <label 
                     className="cta-body text-[10px] font-medium mb-1.5 block"
-                    style={{ color: '#432c96' }}
+                    style={{ color: black }}
                   >
                     {t('contact.form.fields.email')}
                   </label>
@@ -251,9 +267,15 @@ const RSWCTASection = () => {
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                     className="w-full px-4 py-2.5 rounded-lg cta-body text-xs transition-all duration-300 focus:outline-none"
                     style={{ 
-                      background: '#ffffff',
-                      border: '1px solid rgba(67, 44, 150, 0.15)',
-                      color: '#432c96'
+                      background: white,
+                      border: '1px solid rgba(167, 147, 112, 0.25)',
+                      color: black
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = gold
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(167, 147, 112, 0.25)'
                     }}
                     placeholder={t('contact.form.placeholders.email')}
                   />
@@ -263,7 +285,7 @@ const RSWCTASection = () => {
                 <div>
                   <label 
                     className="cta-body text-[10px] font-medium mb-1.5 block"
-                    style={{ color: '#432c96' }}
+                    style={{ color: black }}
                   >
                     {t('contact.form.fields.interest')}
                   </label>
@@ -273,9 +295,15 @@ const RSWCTASection = () => {
                     onChange={(e) => setFormData({...formData, interest: e.target.value})}
                     className="w-full px-4 py-2.5 rounded-lg cta-body text-xs transition-all duration-300 focus:outline-none appearance-none cursor-pointer"
                     style={{ 
-                      background: '#ffffff',
-                      border: '1px solid rgba(67, 44, 150, 0.15)',
-                      color: formData.interest ? '#432c96' : 'rgba(67, 44, 150, 0.4)'
+                      background: white,
+                      border: '1px solid rgba(167, 147, 112, 0.25)',
+                      color: formData.interest ? black : 'rgba(0, 0, 0, 0.4)'
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = gold
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(167, 147, 112, 0.25)'
                     }}
                   >
                     <option value="">{t('contact.form.placeholders.interest')}</option>
@@ -289,7 +317,7 @@ const RSWCTASection = () => {
                 <div>
                   <label 
                     className="cta-body text-[10px] font-medium mb-1.5 block"
-                    style={{ color: '#432c96' }}
+                    style={{ color: black }}
                   >
                     {t('contact.form.fields.message')}
                   </label>
@@ -299,9 +327,15 @@ const RSWCTASection = () => {
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
                     className="w-full px-4 py-2.5 rounded-lg cta-body text-xs transition-all duration-300 focus:outline-none resize-none"
                     style={{ 
-                      background: '#ffffff',
-                      border: '1px solid rgba(67, 44, 150, 0.15)',
-                      color: '#432c96'
+                      background: white,
+                      border: '1px solid rgba(167, 147, 112, 0.25)',
+                      color: black
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = gold
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(167, 147, 112, 0.25)'
                     }}
                     placeholder={t('contact.form.placeholders.message')}
                   />
@@ -311,15 +345,21 @@ const RSWCTASection = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 rounded-lg cta-body text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg disabled:opacity-70"
+                  className="w-full py-3 rounded-lg cta-body text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg hover:scale-105 disabled:opacity-70"
                   style={{ 
-                    background: '#432c96',
-                    color: '#ffffff'
+                    background: gold,
+                    color: black
                   }}
                 >
                   {isSubmitting ? (
                     <>
-                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <div 
+                        className="w-4 h-4 border-2 rounded-full animate-spin" 
+                        style={{
+                          borderColor: 'rgba(0, 0, 0, 0.3)',
+                          borderTopColor: black
+                        }}
+                      />
                       {t('contact.form.submitting')}
                     </>
                   ) : (
@@ -338,7 +378,7 @@ const RSWCTASection = () => {
 
                 <p 
                   className="cta-body text-[9px] text-center"
-                  style={{ color: 'rgba(67, 44, 150, 0.4)' }}
+                  style={{ color: 'rgba(0, 0, 0, 0.4)' }}
                 >
                   {t('contact.form.privacy')}
                 </p>
@@ -350,7 +390,7 @@ const RSWCTASection = () => {
         {/* Trust Badges */}
         <motion.div 
           className="pt-8"
-          style={{ borderTop: '1px solid rgba(67, 44, 150, 0.1)' }}
+          style={{ borderTop: '1px solid rgba(167, 147, 112, 0.2)' }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -359,7 +399,7 @@ const RSWCTASection = () => {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <p 
               className="cta-body text-[10px] text-center"
-              style={{ color: 'rgba(67, 44, 150, 0.5)' }}
+              style={{ color: 'rgba(0, 0, 0, 0.5)' }}
             >
               {t('contact.badges.regulated')}
             </p>
@@ -369,8 +409,8 @@ const RSWCTASection = () => {
                   key={idx}
                   className="px-3 py-1.5 rounded-lg cta-body text-[10px] font-semibold"
                   style={{ 
-                    background: 'rgba(67, 44, 150, 0.08)',
-                    color: '#432c96'
+                    background: 'rgba(167, 147, 112, 0.12)',
+                    color: gold
                   }}
                 >
                   {badge}

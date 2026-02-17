@@ -15,7 +15,9 @@ const VenturesPage = () => {
   const [activeVenture, setActiveVenture] = useState(0);
   const { t, locale, direction } = useI18n();
 
-  const purple = '#432c96';
+  const gold = '#a79370';
+  const black = '#000000';
+  const white = '#ffffff';
   const isRTL = direction === 'rtl';
 
   const ventures = [
@@ -26,7 +28,7 @@ const VenturesPage = () => {
       title: locale === 'ar' ? 'العقارات' : 'Real Estate',
       subtitle: locale === 'ar' ? 'الاستثمار التجاري' : 'Commercial Investment',
       description: locale === 'ar' ? 'استثمارات عقارية استراتيجية، تأجير تجاري، وتطوير عقاري عبر أكثر الأسواق الإماراتية الواعدة. نركز على المواقع الاستراتيجية والعقارات عالية الجودة التي توفر عوائد طويلة الأجل.' : 'Strategic real estate investments, commercial leasing, and property development across UAE\'s most promising markets. We focus on prime locations and high-quality properties that deliver long-term value.',
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80',
+      image: 'https://img.freepik.com/free-photo/tokyo-japan-cityscape-filtered-image-processed-vintage-effect_1232-2427.jpg?semt=ais_hybrid&w=740&q=80',
       capabilities: [
         {
           title: locale === 'ar' ? 'التأجير التجاري' : 'Commercial Leasing',
@@ -49,7 +51,7 @@ const VenturesPage = () => {
       title: locale === 'ar' ? 'البناء' : 'Construction',
       subtitle: locale === 'ar' ? 'التنفيذ المتكامل' : 'Integrated Execution',
       description: locale === 'ar' ? 'حلول إنشائية شاملة من منشآت النفط والغاز إلى المباني التجارية والتصميم الداخلي. نقدم خبرة تقنية متخصصة وإدارة مشاريع من الطراز العالمي.' : 'Full-spectrum construction solutions from oil & gas facilities to commercial buildings and interior design. We deliver specialized technical expertise and world-class project management.',
-      image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80',
+      image: 'https://media.istockphoto.com/id/2247515387/photo/industrial-plant-structure-with-pipes-and-metal-beams-shows-complex-manufacturing-system.jpg?s=612x612&w=0&k=20&c=hXGM3pe643J0HwBdgHU8Zb4tAQa4zO5OCS0UAA9y9Eg=',
       capabilities: [
         {
           title: locale === 'ar' ? 'مقاولات البناء' : 'Building Contracting',
@@ -72,7 +74,7 @@ const VenturesPage = () => {
       title: locale === 'ar' ? 'التكنولوجيا' : 'Technology',
       subtitle: locale === 'ar' ? 'الابتكار الرقمي' : 'Digital Innovation',
       description: locale === 'ar' ? 'حلول تكنولوجية متطورة تشمل أبحاث الذكاء الاصطناعي، الأمن السيبراني، الخدمات السحابية، وتطوير البرمجيات. نقود التحول الرقمي من خلال التكنولوجيا المتقدمة.' : 'Cutting-edge technology solutions spanning AI research, cybersecurity, cloud services, and software development. We drive digital transformation through advanced technology.',
-      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80',
+      image: 'https://images.stockcake.com/public/2/b/f/2bf29317-f749-4092-8312-023ebf60baa5_large/server-room-technician-stockcake.jpg',
       capabilities: [
         {
           title: locale === 'ar' ? 'أبحاث الذكاء الاصطناعي' : 'AI Research',
@@ -114,7 +116,7 @@ const VenturesPage = () => {
       `}</style>
       
       {/* Hero - Editorial Masthead */}
-      <section className="relative h-screen overflow-hidden" style={{ background: purple }}>
+      <section className="relative h-screen overflow-hidden" style={{ background: black }}>
         
         <div className="absolute inset-0 image-grain">
           <img 
@@ -122,7 +124,7 @@ const VenturesPage = () => {
             alt="RSW Ventures" 
             className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0" style={{ background: 'rgba(67, 44, 150, 0.5)' }}/>
+          <div className="absolute inset-0" style={{ background: 'rgba(0, 0, 0, 0.5)' }}/>
         </div>
 
         <div className="relative h-full flex items-center">
@@ -136,13 +138,13 @@ const VenturesPage = () => {
               {/* Issue/Edition Style */}
               <div className="mb-8">
                 <div className={`ventures-mono text-xs uppercase mb-2 ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} 
-                  style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                  style={{ color: gold }}>
                   {locale === 'ar' ? 'مجموعة RSW للاستثمار' : 'RSW Investment Group'}
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="h-px w-12" style={{ background: 'rgba(255, 255, 255, 0.4)' }} />
+                  <div className="h-px w-12" style={{ background: gold }} />
                   <div className={`ventures-mono text-xs ${locale === 'ar' ? '' : 'tracking-widest'}`} 
-                    style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                    style={{ color: gold }}>
                     {locale === 'ar' ? '2026' : 'MMXXVI'}
                   </div>
                 </div>
@@ -154,13 +156,13 @@ const VenturesPage = () => {
                 {locale === 'ar' ? (
                   <>
                     استثمارات<br/>
-                    <span className="italic font-serif">استراتيجية</span><br/>
+                    <span className="italic font-serif" style={{ color: gold }}>استراتيجية</span><br/>
                     عبر ثلاثة قطاعات
                   </>
                 ) : (
                   <>
                     Strategic<br/>
-                    <span className="italic font-serif">Investments</span><br/>
+                    <span className="italic font-serif" style={{ color: gold }}>Investments</span><br/>
                     Across Three Sectors
                   </>
                 )}
@@ -177,8 +179,8 @@ const VenturesPage = () => {
 
                 {/* Byline Style */}
                 <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <Minus className="w-6 h-6 text-white/60" strokeWidth={1} />
-                  <span className="ventures-body text-sm text-white/70">
+                  <Minus className="w-6 h-6" style={{ color: gold }} strokeWidth={1} />
+                  <span className="ventures-body text-sm" style={{ color: gold }}>
                     {locale === 'ar' ? 'أبوظبي، الإمارات العربية المتحدة' : 'Abu Dhabi, United Arab Emirates'}
                   </span>
                 </div>
@@ -194,16 +196,16 @@ const VenturesPage = () => {
             transition={{ duration: 2, repeat: Infinity }}
             className="flex flex-col items-center gap-2"
           >
-            <div className="w-px h-16" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.5), transparent)' }} />
+            <div className="w-px h-16" style={{ background: `linear-gradient(to bottom, ${gold}, transparent)` }} />
           </motion.div>
         </div>
       </section>
 
       {/* Table of Contents / Index */}
-      <section className="py-16 border-b" style={{ borderColor: 'rgba(67, 44, 150, 0.1)' }}>
+      <section className="py-16 border-b" style={{ borderColor: 'rgba(167, 147, 112, 0.2)' }}>
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           <div className={`ventures-mono text-[10px] uppercase mb-8 ${locale === 'ar' ? 'text-right' : ''} ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} 
-            style={{ color: purple }}>
+            style={{ color: gold }}>
             {locale === 'ar' ? 'المحتويات' : 'Contents'}
           </div>
 
@@ -216,20 +218,20 @@ const VenturesPage = () => {
                   onClick={() => setActiveVenture(idx)}
                   className={`group text-left p-8 transition-all duration-300 ${isRTL ? 'text-right' : ''}`}
                   style={{
-                    background: activeVenture === idx ? 'rgba(67, 44, 150, 0.03)' : 'transparent',
-                    borderBottom: activeVenture === idx ? `2px solid ${purple}` : '2px solid transparent'
+                    background: activeVenture === idx ? 'rgba(167, 147, 112, 0.08)' : 'transparent',
+                    borderBottom: activeVenture === idx ? `2px solid ${gold}` : '2px solid transparent'
                   }}
                 >
                   <div className={`flex items-start gap-4 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                    <span className="ventures-mono text-xs" style={{ color: 'rgba(67, 44, 150, 0.4)' }}>
+                    <span className="ventures-mono text-xs" style={{ color: 'rgba(167, 147, 112, 0.5)' }}>
                       {venture.number}
                     </span>
-                    <Icon className="w-5 h-5" style={{ color: purple }} strokeWidth={1.5} />
+                    <Icon className="w-5 h-5" style={{ color: gold }} strokeWidth={1.5} />
                   </div>
-                  <h3 className="ventures-title text-2xl font-light mb-1" style={{ color: purple }}>
+                  <h3 className="ventures-title text-2xl font-light mb-1" style={{ color: black }}>
                     {venture.title}
                   </h3>
-                  <p className="ventures-body text-xs" style={{ color: 'rgba(67, 44, 150, 0.6)' }}>
+                  <p className="ventures-body text-xs" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>
                     {venture.subtitle}
                   </p>
                 </button>
@@ -257,18 +259,18 @@ const VenturesPage = () => {
                 {/* Article Header */}
                 <div className={`mb-16 ${isRTL ? 'text-right' : ''}`}>
                   <div className={`flex items-center gap-4 mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                    <span className="ventures-mono text-sm" style={{ color: 'rgba(67, 44, 150, 0.4)' }}>
+                    <span className="ventures-mono text-sm" style={{ color: 'rgba(167, 147, 112, 0.5)' }}>
                       {venture.number}
                     </span>
-                    <Minus className="w-8 h-8" style={{ color: 'rgba(67, 44, 150, 0.2)' }} strokeWidth={1} />
+                    <Minus className="w-8 h-8" style={{ color: 'rgba(167, 147, 112, 0.3)' }} strokeWidth={1} />
                     <span className={`ventures-mono text-xs uppercase ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} 
-                      style={{ color: 'rgba(67, 44, 150, 0.6)' }}>
+                      style={{ color: gold }}>
                       {venture.subtitle}
                     </span>
                   </div>
 
                   <h2 className="ventures-title text-5xl lg:text-7xl font-light mb-8 leading-[1.05]" 
-                    style={{ color: purple, letterSpacing: '-0.01em' }}>
+                    style={{ color: black, letterSpacing: '-0.01em' }}>
                     {venture.title}
                   </h2>
                 </div>
@@ -284,11 +286,11 @@ const VenturesPage = () => {
                         alt={venture.title}
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(67, 44, 150, 0.1) 0%, transparent 50%)' }} />
+                      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(167, 147, 112, 0.15) 0%, transparent 50%)' }} />
                     </div>
                     {/* Photo Credit Style */}
                     <div className={`ventures-body text-xs italic ${isRTL ? 'text-right' : ''}`} 
-                      style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                      style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                       {locale === 'ar' ? `${venture.title} — نظرة عامة على القطاع` : `${venture.title} — Sector Overview`}
                     </div>
                   </div>
@@ -298,7 +300,7 @@ const VenturesPage = () => {
                     
                     {/* Drop Cap Style Intro */}
                     <div className="mb-12">
-                      <p className="ventures-body text-lg leading-relaxed" style={{ color: 'rgba(67, 44, 150, 0.8)' }}>
+                      <p className="ventures-body text-lg leading-relaxed" style={{ color: 'rgba(0, 0, 0, 0.8)' }}>
                         {venture.description}
                       </p>
                     </div>
@@ -306,7 +308,7 @@ const VenturesPage = () => {
                     {/* Capabilities Section */}
                     <div>
                       <h3 className={`ventures-mono text-[10px] uppercase mb-8 ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} 
-                        style={{ color: purple }}>
+                        style={{ color: gold }}>
                         {locale === 'ar' ? 'القدرات الأساسية' : 'Core Capabilities'}
                       </h3>
 
@@ -318,13 +320,13 @@ const VenturesPage = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: capIdx * 0.1 }}
                             className="pb-8"
-                            style={{ borderBottom: '1px solid rgba(67, 44, 150, 0.1)' }}
+                            style={{ borderBottom: '1px solid rgba(167, 147, 112, 0.2)' }}
                           >
-                            <h4 className="ventures-title text-xl font-light mb-3" style={{ color: purple }}>
+                            <h4 className="ventures-title text-xl font-light mb-3" style={{ color: black }}>
                               {cap.title}
                             </h4>
                             <p className="ventures-body text-sm leading-relaxed" 
-                              style={{ color: 'rgba(67, 44, 150, 0.7)' }}>
+                              style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
                               {cap.desc}
                             </p>
                           </motion.div>
@@ -333,14 +335,14 @@ const VenturesPage = () => {
                     </div>
 
                     {/* Read More Link */}
-                    <div className="mt-12 pt-8" style={{ borderTop: '1px solid rgba(67, 44, 150, 0.1)' }}>
+                    <div className="mt-12 pt-8" style={{ borderTop: '1px solid rgba(167, 147, 112, 0.2)' }}>
                       <button className={`group inline-flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                        <span className="ventures-body text-sm font-medium" style={{ color: purple }}>
+                        <span className="ventures-body text-sm font-medium" style={{ color: gold }}>
                           {locale === 'ar' ? 'استكشف المزيد' : 'Explore Further'}
                         </span>
                         <ArrowUpRight 
                           className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" 
-                          style={{ color: purple, transform: isRTL ? 'scaleX(-1)' : 'none' }}
+                          style={{ color: gold, transform: isRTL ? 'scaleX(-1)' : 'none' }}
                           strokeWidth={1.5}
                         />
                       </button>
@@ -354,7 +356,7 @@ const VenturesPage = () => {
       </AnimatePresence>
 
       {/* Editorial Footer / Colophon */}
-      <section className="py-24 border-t" style={{ borderColor: 'rgba(67, 44, 150, 0.1)' }}>
+      <section className="py-24 border-t" style={{ borderColor: 'rgba(167, 147, 112, 0.2)' }}>
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -362,21 +364,21 @@ const VenturesPage = () => {
             {/* Left - Info Block */}
             <div className={isRTL ? 'text-right' : ''}>
               <div className={`ventures-mono text-[10px] uppercase mb-6 ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} 
-                style={{ color: 'rgba(67, 44, 150, 0.6)' }}>
+                style={{ color: gold }}>
                 {locale === 'ar' ? 'ابدأ المحادثة' : 'Begin the Conversation'}
               </div>
 
               <h2 className="ventures-title text-4xl lg:text-5xl font-light mb-6 leading-tight" 
-                style={{ color: purple, letterSpacing: '-0.01em' }}>
+                style={{ color: black, letterSpacing: '-0.01em' }}>
                 {locale === 'ar' ? (
-                  <>استثمر في<br/>المستقبل</>
+                  <>استثمر في<br/><span style={{ color: gold }}>المستقبل</span></>
                 ) : (
-                  <>Invest in<br/>the Future</>
+                  <>Invest in<br/><span style={{ color: gold }}>the Future</span></>
                 )}
               </h2>
 
               <p className="ventures-body text-base leading-relaxed mb-8" 
-                style={{ color: 'rgba(67, 44, 150, 0.7)' }}>
+                style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
                 {locale === 'ar'
                   ? 'تواصل مع فريقنا لمناقشة فرص الاستثمار عبر محفظتنا المتنوعة من العقارات والبناء والتكنولوجيا.'
                   : 'Connect with our team to discuss investment opportunities across our diversified portfolio of real estate, construction, and technology.'
@@ -385,10 +387,10 @@ const VenturesPage = () => {
 
               <div className={`flex flex-col sm:flex-row gap-4 ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
                 <button 
-                  className="ventures-body inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-medium transition-all hover:shadow-lg"
+                  className="ventures-body inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-medium transition-all hover:shadow-lg hover:scale-105"
                   style={{ 
-                    background: purple,
-                    color: 'white'
+                    background: gold,
+                    color: black
                   }}>
                   <span>{locale === 'ar' ? 'طلب معلومات' : 'Request Information'}</span>
                   <ArrowUpRight 
@@ -402,8 +404,16 @@ const VenturesPage = () => {
                   className="ventures-body inline-flex items-center justify-center px-8 py-4 text-sm font-medium transition-all"
                   style={{ 
                     background: 'transparent',
-                    color: purple,
-                    border: `1px solid ${purple}`
+                    color: gold,
+                    border: `1px solid ${gold}`
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = gold
+                    e.currentTarget.style.color = black
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent'
+                    e.currentTarget.style.color = gold
                   }}>
                   <span>{locale === 'ar' ? 'حدد استشارة' : 'Schedule Consultation'}</span>
                 </button>
@@ -412,32 +422,32 @@ const VenturesPage = () => {
 
             {/* Right - Metadata */}
             <div className={`space-y-8 ${isRTL ? 'text-right' : ''}`}>
-              <div className="pb-8" style={{ borderBottom: '1px solid rgba(67, 44, 150, 0.1)' }}>
+              <div className="pb-8" style={{ borderBottom: '1px solid rgba(167, 147, 112, 0.2)' }}>
                 <div className={`ventures-mono text-[9px] uppercase mb-2 ${locale === 'ar' ? '' : 'tracking-wider'}`} 
-                  style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                  style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                   {locale === 'ar' ? 'المقر الرئيسي' : 'Headquarters'}
                 </div>
-                <div className="ventures-body text-sm" style={{ color: purple }}>
+                <div className="ventures-body text-sm" style={{ color: gold }}>
                   {locale === 'ar' ? 'أبوظبي، الإمارات' : 'Abu Dhabi, UAE'}
                 </div>
               </div>
 
-              <div className="pb-8" style={{ borderBottom: '1px solid rgba(67, 44, 150, 0.1)' }}>
+              <div className="pb-8" style={{ borderBottom: '1px solid rgba(167, 147, 112, 0.2)' }}>
                 <div className={`ventures-mono text-[9px] uppercase mb-2 ${locale === 'ar' ? '' : 'tracking-wider'}`} 
-                  style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                  style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                   {locale === 'ar' ? 'القطاعات' : 'Sectors'}
                 </div>
-                <div className="ventures-body text-sm" style={{ color: purple }}>
+                <div className="ventures-body text-sm" style={{ color: gold }}>
                   {locale === 'ar' ? 'العقارات • البناء • التكنولوجيا' : 'Real Estate • Construction • Technology'}
                 </div>
               </div>
 
               <div>
                 <div className={`ventures-mono text-[9px] uppercase mb-2 ${locale === 'ar' ? '' : 'tracking-wider'}`} 
-                  style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                  style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                   {locale === 'ar' ? 'الامتثال' : 'Compliance'}
                 </div>
-                <div className="ventures-body text-sm" style={{ color: purple }}>
+                <div className="ventures-body text-sm" style={{ color: gold }}>
                   {locale === 'ar' ? 'متوافق مع هيئة الأوراق المالية في الإمارات' : 'UAE DFM Compliant'}
                 </div>
               </div>

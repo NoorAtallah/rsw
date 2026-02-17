@@ -21,7 +21,9 @@ import { useI18n } from '@/i18n/I18nProvider';
 const InvestorRelationsPage = () => {
   const { t, locale, direction } = useI18n();
   
-  const purple = '#432c96';
+  const gold = '#a79370';
+  const black = '#000000';
+  const white = '#ffffff';
   const isRTL = direction === 'rtl';
 
   // Get translations
@@ -89,7 +91,7 @@ const InvestorRelationsPage = () => {
       `}</style>
       
       {/* Hero - Editorial Masthead */}
-      <section className="relative h-screen overflow-hidden" style={{ background: purple }}>
+      <section className="relative h-screen overflow-hidden" style={{ background: black }}>
         
         <div className="absolute inset-0 image-grain">
           <img 
@@ -97,7 +99,7 @@ const InvestorRelationsPage = () => {
             alt="Investor Relations" 
             className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0" style={{ background: 'rgba(67, 44, 150, 0.5)' }}/>
+          <div className="absolute inset-0" style={{ background: 'rgba(0, 0, 0, 0.5)' }}/>
         </div>
 
         <div className="relative h-full flex items-center">
@@ -111,13 +113,13 @@ const InvestorRelationsPage = () => {
               {/* Issue/Edition Style */}
               <div className="mb-8">
                 <div className={`ir-mono text-xs uppercase mb-2 ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} 
-                  style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                  style={{ color: gold }}>
                   {locale === 'ar' ? 'مجموعة RSW للاستثمار' : 'RSW Investment Group'}
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="h-px w-12" style={{ background: 'rgba(255, 255, 255, 0.4)' }} />
+                  <div className="h-px w-12" style={{ background: gold }} />
                   <div className={`ir-mono text-xs ${locale === 'ar' ? '' : 'tracking-widest'}`} 
-                    style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                    style={{ color: gold }}>
                     {ir.eyebrow}
                   </div>
                 </div>
@@ -137,8 +139,8 @@ const InvestorRelationsPage = () => {
 
                 {/* Byline Style */}
                 <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <Minus className="w-6 h-6 text-white/60" strokeWidth={1} />
-                  <span className="ir-body text-sm text-white/70">
+                  <Minus className="w-6 h-6" style={{ color: gold }} strokeWidth={1} />
+                  <span className="ir-body text-sm" style={{ color: gold }}>
                     {locale === 'ar' ? 'أبوظبي، الإمارات العربية المتحدة' : 'Abu Dhabi, United Arab Emirates'}
                   </span>
                 </div>
@@ -154,7 +156,7 @@ const InvestorRelationsPage = () => {
             transition={{ duration: 2, repeat: Infinity }}
             className="flex flex-col items-center gap-2"
           >
-            <div className="w-px h-16" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.5), transparent)' }} />
+            <div className="w-px h-16" style={{ background: `linear-gradient(to bottom, ${gold}, transparent)` }} />
           </motion.div>
         </div>
       </section>
@@ -166,11 +168,11 @@ const InvestorRelationsPage = () => {
           {/* Section Header */}
           <div className={`mb-20 ${isRTL ? 'text-right' : ''}`}>
             <div className={`ir-mono text-[10px] uppercase mb-6 ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} 
-              style={{ color: purple }}>
+              style={{ color: gold }}>
               {locale === 'ar' ? 'الإطار التنظيمي' : 'Governance Framework'}
             </div>
             <h2 className="ir-title text-4xl lg:text-5xl font-light mb-6 leading-tight" 
-              style={{ color: purple, letterSpacing: '-0.01em' }}>
+              style={{ color: black, letterSpacing: '-0.01em' }}>
               {locale === 'ar' ? 'التزامنا بالشفافية' : 'Our Commitment to Transparency'}
             </h2>
           </div>
@@ -187,19 +189,19 @@ const InvestorRelationsPage = () => {
                   transition={{ duration: 0.6, delay: idx * 0.1 }}
                   viewport={{ once: true }}
                   className={`pb-12 ${isRTL ? 'text-right' : ''}`}
-                  style={{ borderBottom: '1px solid rgba(67, 44, 150, 0.1)' }}
+                  style={{ borderBottom: '1px solid rgba(167, 147, 112, 0.2)' }}
                 >
                   <div className={`flex items-start gap-4 mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <div className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{ background: 'rgba(67, 44, 150, 0.08)' }}>
-                      <Icon className="w-5 h-5" style={{ color: purple }} strokeWidth={1.5} />
+                      style={{ background: 'rgba(167, 147, 112, 0.12)' }}>
+                      <Icon className="w-5 h-5" style={{ color: gold }} strokeWidth={1.5} />
                     </div>
                     <div className="flex-1">
-                      <h3 className="ir-title text-2xl font-light mb-3" style={{ color: purple }}>
+                      <h3 className="ir-title text-2xl font-light mb-3" style={{ color: black }}>
                         {section.data.title}
                       </h3>
                       <p className="ir-body text-base leading-relaxed" 
-                        style={{ color: 'rgba(67, 44, 150, 0.7)' }}>
+                        style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
                         {section.data.description}
                       </p>
                     </div>
@@ -217,11 +219,11 @@ const InvestorRelationsPage = () => {
           
           <div className={`mb-16 ${isRTL ? 'text-right' : ''}`}>
             <div className={`ir-mono text-[10px] uppercase mb-4 ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} 
-              style={{ color: purple }}>
+              style={{ color: gold }}>
               {ir.documentsTitle}
             </div>
             <h2 className="ir-title text-3xl lg:text-4xl font-light mb-3" 
-              style={{ color: purple, letterSpacing: '-0.01em' }}>
+              style={{ color: black, letterSpacing: '-0.01em' }}>
               {ir.documentsSubtitle}
             </h2>
           </div>
@@ -235,27 +237,33 @@ const InvestorRelationsPage = () => {
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                 viewport={{ once: true }}
                 className={`group flex items-center justify-between p-6 bg-white transition-all duration-300 hover:shadow-lg ${isRTL ? 'flex-row-reverse text-right' : ''}`}
-                style={{ border: '1px solid rgba(67, 44, 150, 0.1)' }}
+                style={{ border: `1px solid rgba(167, 147, 112, 0.2)` }}
                 whileHover={{ y: -4 }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = gold
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(167, 147, 112, 0.2)'
+                }}
               >
                 <div className={`flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <div className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center"
-                    style={{ background: 'rgba(67, 44, 150, 0.08)' }}>
-                    <FileText className="w-5 h-5" style={{ color: purple }} strokeWidth={1.5} />
+                    style={{ background: 'rgba(167, 147, 112, 0.12)' }}>
+                    <FileText className="w-5 h-5" style={{ color: gold }} strokeWidth={1.5} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="ir-body text-base font-semibold mb-1" style={{ color: purple }}>
+                    <h3 className="ir-body text-base font-semibold mb-1" style={{ color: black }}>
                       {doc.name}
                     </h3>
                     <div className={`ir-mono text-xs ${locale === 'ar' ? '' : 'tracking-wide'}`} 
-                      style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                      style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                       {doc.type} • {doc.size}
                     </div>
                   </div>
                 </div>
                 <Download 
                   className="w-5 h-5 group-hover:translate-y-0.5 transition-transform" 
-                  style={{ color: purple }} 
+                  style={{ color: gold }} 
                   strokeWidth={1.5}
                 />
               </motion.button>
@@ -270,11 +278,11 @@ const InvestorRelationsPage = () => {
           
           <div className={`text-center mb-16 ${isRTL ? 'text-right' : ''}`}>
             <div className={`ir-mono text-[10px] uppercase mb-6 ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} 
-              style={{ color: purple }}>
+              style={{ color: gold }}>
               {locale === 'ar' ? 'الامتثال التنظيمي' : 'Regulatory Compliance'}
             </div>
             <h2 className="ir-title text-3xl lg:text-4xl font-light max-w-3xl mx-auto" 
-              style={{ color: purple, letterSpacing: '-0.01em' }}>
+              style={{ color: black, letterSpacing: '-0.01em' }}>
               {locale === 'ar' 
                 ? 'الالتزام الكامل بالمعايير التنظيمية في الإمارات'
                 : 'Full Adherence to UAE Regulatory Standards'
@@ -293,14 +301,14 @@ const InvestorRelationsPage = () => {
                 className={`text-center p-8 ${isRTL ? 'text-right' : ''}`}
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6"
-                  style={{ background: 'rgba(67, 44, 150, 0.08)' }}>
-                  <CheckCircle2 className="w-7 h-7" style={{ color: purple }} strokeWidth={1.5} />
+                  style={{ background: 'rgba(167, 147, 112, 0.12)' }}>
+                  <CheckCircle2 className="w-7 h-7" style={{ color: gold }} strokeWidth={1.5} />
                 </div>
                 <div className={`ir-mono text-2xl font-bold mb-2 ${locale === 'ar' ? '' : 'tracking-wide'}`} 
-                  style={{ color: purple }}>
+                  style={{ color: gold }}>
                   {item.abbr}
                 </div>
-                <p className="ir-body text-sm" style={{ color: 'rgba(67, 44, 150, 0.7)' }}>
+                <p className="ir-body text-sm" style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
                   {item.title}
                 </p>
               </motion.div>
@@ -318,25 +326,25 @@ const InvestorRelationsPage = () => {
             {/* Left - Info */}
             <div className={isRTL ? 'text-right' : ''}>
               <div className={`ir-mono text-[10px] uppercase mb-6 ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} 
-                style={{ color: 'rgba(67, 44, 150, 0.6)' }}>
+                style={{ color: gold }}>
                 {locale === 'ar' ? 'اتصل بنا' : 'Contact Us'}
               </div>
 
               <h2 className="ir-title text-4xl lg:text-5xl font-light mb-6 leading-tight" 
-                style={{ color: purple, letterSpacing: '-0.01em' }}>
+                style={{ color: black, letterSpacing: '-0.01em' }}>
                 {ir.contact.title}
               </h2>
 
               <p className="ir-body text-base leading-relaxed mb-8" 
-                style={{ color: 'rgba(67, 44, 150, 0.7)' }}>
+                style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
                 {ir.contact.description}
               </p>
 
               <button 
-                className={`ir-body group inline-flex items-center gap-2 px-8 py-4 text-sm font-medium transition-all hover:shadow-lg ${isRTL ? 'flex-row-reverse' : ''}`}
+                className={`ir-body group inline-flex items-center gap-2 px-8 py-4 text-sm font-medium transition-all hover:shadow-lg hover:scale-105 ${isRTL ? 'flex-row-reverse' : ''}`}
                 style={{ 
-                  background: purple,
-                  color: 'white'
+                  background: gold,
+                  color: black
                 }}>
                 <span>{ir.contact.button}</span>
                 <ArrowUpRight 
@@ -350,41 +358,41 @@ const InvestorRelationsPage = () => {
             {/* Right - Contact Details */}
             <div className={`space-y-8 ${isRTL ? 'text-right' : ''}`}>
               
-              <div className="pb-8" style={{ borderBottom: '1px solid rgba(67, 44, 150, 0.1)' }}>
+              <div className="pb-8" style={{ borderBottom: '1px solid rgba(167, 147, 112, 0.2)' }}>
                 <div className={`flex items-center gap-3 mb-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <Mail className="w-5 h-5" style={{ color: purple }} strokeWidth={1.5} />
+                  <Mail className="w-5 h-5" style={{ color: gold }} strokeWidth={1.5} />
                   <div className={`ir-mono text-[9px] uppercase ${locale === 'ar' ? '' : 'tracking-wider'}`} 
-                    style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                    style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                     {locale === 'ar' ? 'البريد الإلكتروني' : 'Email'}
                   </div>
                 </div>
-                <div className="ir-body text-base" style={{ color: purple }}>
+                <div className="ir-body text-base" style={{ color: gold }}>
                   ir@rswinvestment.ae
                 </div>
               </div>
 
-              <div className="pb-8" style={{ borderBottom: '1px solid rgba(67, 44, 150, 0.1)' }}>
+              <div className="pb-8" style={{ borderBottom: '1px solid rgba(167, 147, 112, 0.2)' }}>
                 <div className={`flex items-center gap-3 mb-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <Phone className="w-5 h-5" style={{ color: purple }} strokeWidth={1.5} />
+                  <Phone className="w-5 h-5" style={{ color: gold }} strokeWidth={1.5} />
                   <div className={`ir-mono text-[9px] uppercase ${locale === 'ar' ? '' : 'tracking-wider'}`} 
-                    style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                    style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                     {locale === 'ar' ? 'الهاتف' : 'Phone'}
                   </div>
                 </div>
-                <div className="ir-body text-base" style={{ color: purple }}>
+                <div className="ir-body text-base" style={{ color: gold }}>
                   +971 2 612 3456
                 </div>
               </div>
 
               <div>
                 <div className={`flex items-center gap-3 mb-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <Building2 className="w-5 h-5" style={{ color: purple }} strokeWidth={1.5} />
+                  <Building2 className="w-5 h-5" style={{ color: gold }} strokeWidth={1.5} />
                   <div className={`ir-mono text-[9px] uppercase ${locale === 'ar' ? '' : 'tracking-wider'}`} 
-                    style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+                    style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
                     {locale === 'ar' ? 'المكتب' : 'Office'}
                   </div>
                 </div>
-                <div className="ir-body text-base leading-relaxed" style={{ color: purple }}>
+                <div className="ir-body text-base leading-relaxed" style={{ color: gold }}>
                   {locale === 'ar' 
                     ? 'جزيرة المارية، سوق أبوظبي العالمي\nأبوظبي، الإمارات العربية المتحدة'
                     : 'Al Maryah Island, Abu Dhabi Global Market\nAbu Dhabi, United Arab Emirates'
@@ -397,10 +405,10 @@ const InvestorRelationsPage = () => {
       </section>
 
       {/* Disclaimer */}
-      <section className="py-16 border-t" style={{ borderColor: 'rgba(67, 44, 150, 0.1)' }}>
+      <section className="py-16 border-t" style={{ borderColor: 'rgba(167, 147, 112, 0.2)' }}>
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           <div className={`ir-body text-xs leading-relaxed ${isRTL ? 'text-right' : ''}`} 
-            style={{ color: 'rgba(67, 44, 150, 0.5)' }}>
+            style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
             {locale === 'ar' 
               ? 'إخلاء المسؤولية: المعلومات المقدمة هنا لأغراض إعلامية فقط ولا تشكل عرضاً أو دعوة لشراء أو بيع أي أوراق مالية. يجب على المستثمرين المحتملين إجراء العناية الواجبة الخاصة بهم واستشارة مستشاريهم الماليين والقانونيين قبل اتخاذ أي قرارات استثمارية. الأداء السابق لا يضمن النتائج المستقبلية.'
               : 'Disclaimer: The information provided herein is for informational purposes only and does not constitute an offer or solicitation to buy or sell any securities. Prospective investors should conduct their own due diligence and consult with their financial and legal advisors before making any investment decisions. Past performance does not guarantee future results.'

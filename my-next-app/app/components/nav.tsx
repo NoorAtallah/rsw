@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Building2, Menu, X, Globe } from 'lucide-react'
+import { Menu, X, Globe } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useI18n } from '@/i18n/I18nProvider'
+import Image from 'next/image'
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -13,8 +14,9 @@ export default function Navbar() {
   const pathname = usePathname()
   const { locale, direction, switchLanguage, t } = useI18n()
 
-  const purple = '#432c96'
+  const gold = '#a79370'
   const white = '#ffffff'
+  const black = '#000000'
   const isRTL = direction === 'rtl'
 
   useEffect(() => {
@@ -72,26 +74,25 @@ export default function Navbar() {
           dir={isRTL ? 'rtl' : 'ltr'}
           className="flex items-center justify-between gap-6 transition-all duration-500"
           style={{
-            background: scrolled ? 'rgba(67, 44, 150, 0.9)' : 'transparent',
+            background: scrolled ? 'rgba(0, 0, 0, 0.9)' : 'transparent',
             backdropFilter: scrolled ? 'blur(20px)' : 'none',
             WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
             padding: scrolled ? '0.75rem 1.5rem' : '0',
             borderRadius: scrolled ? '1rem' : '0',
-            border: scrolled ? '1px solid rgba(255, 255, 255, 0.2)' : 'none',
-            boxShadow: scrolled ? '0 8px 32px 0 rgba(67, 44, 150, 0.3)' : 'none',
+            border: scrolled ? `1px solid ${gold}` : 'none',
+            boxShadow: scrolled ? `0 8px 32px 0 rgba(167, 147, 112, 0.3)` : 'none',
           }}
         >
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 md:gap-3 shrink-0">
-            <div
-              className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl flex items-center justify-center"
-              style={{
-                background: 'rgba(255, 255, 255, 0.15)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.25)',
-              }}
-            >
-              <Building2 className="w-4 h-4 md:w-5 md:h-5 text-white" strokeWidth={1.5} />
+            {/* Replace the src with your actual logo path */}
+            <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl overflow-hidden relative">
+              <Image 
+                src="/1.png" 
+                alt="RSW Logo" 
+                fill
+                className="object-contain"
+              />
             </div>
             <div>
               <span
@@ -101,8 +102,11 @@ export default function Navbar() {
                 RSW
               </span>
               <span
-                className="text-[8px] md:text-[10px] tracking-[0.2em] block text-white opacity-70"
-                style={{ fontFamily: locale === 'ar' ? 'Cairo, sans-serif' : monoFont }}
+                className="text-[8px] md:text-[10px] tracking-[0.2em] block opacity-70"
+                style={{ 
+                  fontFamily: locale === 'ar' ? 'Cairo, sans-serif' : monoFont,
+                  color: gold
+                }}
               >
                 {t('nav.investments')}
               </span>
@@ -133,11 +137,11 @@ export default function Navbar() {
               className="flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300"
               style={{
                 background: 'rgba(255, 255, 255, 0.1)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
+                border: `1px solid ${gold}`,
                 fontFamily: monoFont,
               }}
             >
-              <Globe className="w-4 h-4 text-white" strokeWidth={1.5} />
+              <Globe className="w-4 h-4" style={{ color: gold }} strokeWidth={1.5} />
               <button
                 onClick={() => switchLanguage('en')}
                 className={`text-xs font-medium transition-opacity duration-300 ${
@@ -146,7 +150,7 @@ export default function Navbar() {
               >
                 EN
               </button>
-              <span className="text-xs text-white opacity-50">|</span>
+              <span className="text-xs opacity-50" style={{ color: gold }}>|</span>
               <button
                 onClick={() => switchLanguage('ar')}
                 className={`text-xs font-medium transition-opacity duration-300 ${
@@ -159,16 +163,20 @@ export default function Navbar() {
 
             {/* CTA Button */}
             <button
-              className="px-6 py-3 rounded-full text-xs tracking-wider font-medium transition-all duration-300 hover:bg-white"
+              className="px-6 py-3 rounded-full text-xs tracking-wider font-medium transition-all duration-300"
               style={{
-                background: 'rgba(255, 255, 255, 0.15)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.25)',
-                color: white,
+                background: gold,
+                color: black,
                 fontFamily,
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = purple)}
-              onMouseLeave={(e) => (e.currentTarget.style.color = white)}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = white
+                e.currentTarget.style.color = black
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = gold
+                e.currentTarget.style.color = black
+              }}
             >
               {t('nav.requestDemo')}
             </button>
@@ -178,9 +186,9 @@ export default function Navbar() {
           <button
             className="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
             style={{
-              background: 'rgba(255, 255, 255, 0.15)',
+              background: 'rgba(255, 255, 255, 0.1)',
               backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.25)',
+              border: `1px solid ${gold}`,
             }}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
@@ -199,11 +207,11 @@ export default function Navbar() {
         className="lg:hidden fixed z-40 top-20 rounded-2xl overflow-hidden"
         style={{
           ...(isRTL ? { right: '1rem' } : { right: '1rem' }),
-          background: 'rgba(67, 44, 150, 0.95)',
+          background: 'rgba(0, 0, 0, 0.95)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.2)',
-          boxShadow: '0 8px 32px 0 rgba(67, 44, 150, 0.3)',
+          border: `1px solid ${gold}`,
+          boxShadow: `0 8px 32px 0 rgba(167, 147, 112, 0.3)`,
         }}
         initial={{ opacity: 0, y: -20 }}
         animate={{
@@ -234,12 +242,12 @@ export default function Navbar() {
             className="flex items-center justify-center gap-3 px-4 py-3 rounded-full mt-2"
             style={{
               background: 'rgba(255, 255, 255, 0.1)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              border: `1px solid ${gold}`,
               fontFamily: monoFont,
               direction: 'ltr',
             }}
           >
-            <Globe className="w-4 h-4 text-white" strokeWidth={1.5} />
+            <Globe className="w-4 h-4" style={{ color: gold }} strokeWidth={1.5} />
             <button
               onClick={() => switchLanguage('en')}
               className={`text-sm font-medium transition-opacity duration-300 ${
@@ -248,7 +256,7 @@ export default function Navbar() {
             >
               EN
             </button>
-            <span className="text-sm text-white opacity-50">|</span>
+            <span className="text-sm opacity-50" style={{ color: gold }}>|</span>
             <button
               onClick={() => switchLanguage('ar')}
               className={`text-sm font-medium transition-opacity duration-300 ${
@@ -262,9 +270,8 @@ export default function Navbar() {
           <button
             className="px-6 py-3 rounded-full text-xs tracking-wider font-medium transition-all duration-300"
             style={{
-              background: 'rgba(255, 255, 255, 0.15)',
-              border: '1px solid rgba(255, 255, 255, 0.25)',
-              color: white,
+              background: gold,
+              color: black,
               fontFamily,
             }}
           >
