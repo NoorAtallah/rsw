@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { useI18n } from '@/i18n/I18nProvider'
+import Link from 'next/link'
 
 export default function RSWHeroSection() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -170,42 +171,48 @@ export default function RSWHeroSection() {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4">
-              <button 
-                className="group flex items-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-lg transition-all duration-300 hover:bg-opacity-90 hover:shadow-2xl hover:scale-105"
-                style={{
-                  background: gold,
-                  color: black,
-                  fontFamily,
-                  fontWeight: 500,
-                }}
-              >
-                <span className="text-sm tracking-wide">{t('hero.cta.explore')}</span>
-                <ArrowUpRight 
-                  className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" 
-                  strokeWidth={2}
-                  style={{ transform: isRTL ? 'scaleX(-1)' : 'none' }}
-                />
-              </button>
+              {/* Explore Ventures → /ventures */}
+              <Link href="/ventures">
+                <button 
+                  className="group flex items-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-lg transition-all duration-300 hover:bg-opacity-90 hover:shadow-2xl hover:scale-105"
+                  style={{
+                    background: gold,
+                    color: black,
+                    fontFamily,
+                    fontWeight: 500,
+                  }}
+                >
+                  <span className="text-sm tracking-wide">{t('hero.cta.explore')}</span>
+                  <ArrowUpRight 
+                    className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" 
+                    strokeWidth={2}
+                    style={{ transform: isRTL ? 'scaleX(-1)' : 'none' }}
+                  />
+                </button>
+              </Link>
               
-              <button 
-                className="group flex items-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-lg transition-all duration-300 hover:bg-white hover:shadow-xl glass-bg-gold glass-border-gold"
-                style={{ fontFamily, fontWeight: 500, color: white }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = white
-                  e.currentTarget.style.color = black
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(167, 147, 112, 0.1)'
-                  e.currentTarget.style.color = white
-                }}
-              >
-                <span className="text-sm tracking-wide">{t('hero.cta.investor')}</span>
-                <ArrowUpRight 
-                  className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" 
-                  strokeWidth={2}
-                  style={{ transform: isRTL ? 'scaleX(-1)' : 'none' }}
-                />
-              </button>
+              {/* Investor Relations → /investor-relations */}
+              <Link href="/investor-relations">
+                <button 
+                  className="group flex items-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-lg transition-all duration-300 glass-bg-gold glass-border-gold"
+                  style={{ fontFamily, fontWeight: 500, color: white }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = white
+                    e.currentTarget.style.color = black
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(167, 147, 112, 0.1)'
+                    e.currentTarget.style.color = white
+                  }}
+                >
+                  <span className="text-sm tracking-wide">{t('hero.cta.investor')}</span>
+                  <ArrowUpRight 
+                    className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" 
+                    strokeWidth={2}
+                    style={{ transform: isRTL ? 'scaleX(-1)' : 'none' }}
+                  />
+                </button>
+              </Link>
             </div>
           </div>
         </motion.section>
@@ -297,7 +304,7 @@ export default function RSWHeroSection() {
           transition={{ duration: 0.8, delay: 1.3 }}
         />
 
-        {/* CTA Card - Bottom */}
+        {/* CTA Card - Bottom right → /contact */}
         <motion.div
           className="hidden lg:block absolute z-30"
           style={{
@@ -308,38 +315,41 @@ export default function RSWHeroSection() {
           animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
           transition={{ duration: 1, delay: 1 }}
         >
-          <div className="p-5 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl glass-bg-gold glass-border-gold"
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(167, 147, 112, 0.2)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(167, 147, 112, 0.1)'
-            }}
-          >
-            <div className="flex items-center gap-4">
-              <div 
-                className="w-12 h-12 rounded-xl flex items-center justify-center"
-                style={{ background: gold }}
-              >
-                <ArrowUpRight 
-                  className="w-5 h-5" 
-                  strokeWidth={2}
-                  style={{ 
-                    color: black,
-                    transform: isRTL ? 'scaleX(-1)' : 'none' 
-                  }}
-                />
-              </div>
-              <div>
-                <p className="text-sm font-semibold" style={{ color: white, fontFamily }}>
-                  {t('hero.ctaCard.title')}
-                </p>
-                <p className="text-xs" style={{ color: gold, fontFamily: monoFont }}>
-                  {t('hero.ctaCard.subtitle')}
-                </p>
+          <Link href="/contact">
+            <div
+              className="p-5 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl glass-bg-gold glass-border-gold"
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(167, 147, 112, 0.2)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(167, 147, 112, 0.1)'
+              }}
+            >
+              <div className="flex items-center gap-4">
+                <div 
+                  className="w-12 h-12 rounded-xl flex items-center justify-center"
+                  style={{ background: gold }}
+                >
+                  <ArrowUpRight 
+                    className="w-5 h-5" 
+                    strokeWidth={2}
+                    style={{ 
+                      color: black,
+                      transform: isRTL ? 'scaleX(-1)' : 'none' 
+                    }}
+                  />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold" style={{ color: white, fontFamily }}>
+                    {t('hero.ctaCard.title')}
+                  </p>
+                  <p className="text-xs" style={{ color: gold, fontFamily: monoFont }}>
+                    {t('hero.ctaCard.subtitle')}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         </motion.div>
       </div>
     </div>

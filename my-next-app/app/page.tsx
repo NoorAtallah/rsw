@@ -7,6 +7,7 @@ import RSWCTASection from "./components/CTA";
 import RSWFooter from "./components/footer";
 import RSWNewsSection from "./components/newsSection";
 import RSWInvestorRelationsSection from "./components/inestorSection";
+import InvestmentMap from "./components/Investmentmap";
 export default function Home() {
   return (
     <main >
@@ -14,6 +15,7 @@ export default function Home() {
        <RSWAboutSection />
       <RSWNewsSection />
       <LuxuryServicesSection />
+        <InvestmentMap />
      
       <RSWInvestorRelationsSection />
       {/* <RSWEcosystemSection /> */}

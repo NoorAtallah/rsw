@@ -17,7 +17,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
-
+import InvestorDashboard from '../components/Investordashboard';
 const InvestorRelationsPage = () => {
   const { t, locale, direction } = useI18n();
   
@@ -212,7 +212,7 @@ const InvestorRelationsPage = () => {
           </div>
         </div>
       </section>
-
+<InvestorDashboard />
       {/* Key Documents Section */}
       <section className="py-24 lg:py-32" style={{ background: '#fafafa' }}>
         <div className="max-w-6xl mx-auto px-6 lg:px-12">

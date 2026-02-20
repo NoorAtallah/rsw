@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Shield, Wrench, Handshake, Leaf, ArrowUpRight } from 'lucide-react'
 import { useI18n } from '@/i18n/I18nProvider'
+import Link from 'next/link'
 
 export default function RSWInvestmentsSection() {
   const [activeCard, setActiveCard] = useState<number | null>(null)
@@ -16,30 +17,10 @@ export default function RSWInvestmentsSection() {
   const lightGold = '#f8f6f3'
 
   const approaches = [
-    {
-      id: 1,
-      icon: Shield,
-      title: t('investments.approach.risk.title'),
-      description: t('investments.approach.risk.description'),
-    },
-    {
-      id: 2,
-      icon: Wrench,
-      title: t('investments.approach.operational.title'),
-      description: t('investments.approach.operational.description'),
-    },
-    {
-      id: 3,
-      icon: Handshake,
-      title: t('investments.approach.partnerships.title'),
-      description: t('investments.approach.partnerships.description'),
-    },
-    {
-      id: 4,
-      icon: Leaf,
-      title: t('investments.approach.sustainable.title'),
-      description: t('investments.approach.sustainable.description'),
-    },
+    { id: 1, icon: Shield, title: t('investments.approach.risk.title'), description: t('investments.approach.risk.description') },
+    { id: 2, icon: Wrench, title: t('investments.approach.operational.title'), description: t('investments.approach.operational.description') },
+    { id: 3, icon: Handshake, title: t('investments.approach.partnerships.title'), description: t('investments.approach.partnerships.description') },
+    { id: 4, icon: Leaf, title: t('investments.approach.sustainable.title'), description: t('investments.approach.sustainable.description') },
   ]
 
   const investments = [
@@ -48,18 +29,21 @@ export default function RSWInvestmentsSection() {
       title: t('investments.sectors.realEstate.title'),
       description: t('investments.sectors.realEstate.description'),
       image: 'https://img.freepik.com/free-photo/skyscrapers-view_1112-268.jpg?semt=ais_user_personalization&w=740&q=80',
+      href: '/ventures/real-estate',
     },
     {
       id: 2,
       title: t('investments.sectors.infrastructure.title'),
       description: t('investments.sectors.infrastructure.description'),
       image: 'https://media.istockphoto.com/id/608601538/photo/moden-glass-building.jpg?s=612x612&w=0&k=20&c=WdEJCI2pi6IgYX0aZQOZbNCCQHdVlpegjhA0LbG7xoo=',
+      href: '/ventures/infrastructure',
     },
     {
       id: 3,
       title: t('investments.sectors.technology.title'),
       description: t('investments.sectors.technology.description'),
       image: 'https://cdn.alromaizan.com/image/upload/v1732525687/media/images/i31wglsx3wqnf0cp55ya.webp',
+      href: '/ventures/technology',
     },
   ]
 
@@ -76,97 +60,58 @@ export default function RSWInvestmentsSection() {
           transform: translateY(-4px);
         }
         .investment-image-overlay {
-          background: linear-gradient(
-            to top,
-            rgba(0, 0, 0, 0.8) 0%,
-            rgba(0, 0, 0, 0.4) 60%,
-            transparent 100%
-          );
-        }
-        
-        /* RTL-specific styles */
-        [dir="rtl"] {
-          font-family: 'Tajawal', 'IBM Plex Sans Arabic', sans-serif;
-        }
-        
-        [dir="ltr"] {
-          font-family: 'Outfit', 'Space Mono', sans-serif;
+          background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
         }
       `}</style>
 
-      {/* Subtle gold gradient background */}
-      <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full blur-[180px] pointer-events-none opacity-5"
-        style={{ background: gold }}
-      />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full blur-[180px] pointer-events-none opacity-5" style={{ background: gold }} />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-10">
-        
-        {/* Header - Centered */}
+
+        {/* Header */}
         <div className="text-center mb-12 md:mb-16">
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="w-12 h-px" style={{ background: gold }} />
-            <span 
+            <span
               className="text-xs tracking-[0.3em] uppercase"
-              style={{ 
-                color: gold, 
-                fontFamily: locale === 'ar' ? 'IBM Plex Sans Arabic, sans-serif' : 'Space Mono, monospace',
-                fontWeight: locale === 'ar' ? 500 : 400 
-              }}
+              style={{ color: gold, fontFamily: locale === 'ar' ? 'IBM Plex Sans Arabic, sans-serif' : 'Space Mono, monospace', fontWeight: locale === 'ar' ? 500 : 400 }}
             >
               {t('investments.eyebrow')}
             </span>
             <div className="w-12 h-px" style={{ background: gold }} />
           </div>
 
-          <h2 
+          <h2
             className="text-3xl md:text-4xl lg:text-5xl font-light leading-tight mb-6"
-            style={{ 
-              color: black, 
-              fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
-            }}
+            style={{ color: black, fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif' }}
           >
             {locale === 'ar' ? (
               <span className="font-bold">{t('investments.title')}</span>
             ) : (
-              <>
-                Our <span className="font-bold" style={{ color: gold }}>Investments</span>
-              </>
+              <>Our <span className="font-bold" style={{ color: gold }}>Investments</span></>
             )}
           </h2>
 
-          <p 
+          <p
             className="text-base md:text-lg font-light leading-relaxed max-w-3xl mx-auto mb-8"
-            style={{ 
-              color: 'rgba(0, 0, 0, 0.7)', 
-              fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
-            }}
+            style={{ color: 'rgba(0,0,0,0.7)', fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif' }}
           >
             {t('investments.description')}
           </p>
 
-          <div 
+          <div
             className="max-w-2xl mx-auto p-6 md:p-8 rounded-2xl"
-            style={{ 
-              background: lightGold,
-              border: `1px solid rgba(167, 147, 112, 0.2)`
-            }}
+            style={{ background: lightGold, border: `1px solid rgba(167,147,112,0.2)` }}
           >
-            <h3 
+            <h3
               className="text-lg md:text-xl font-semibold mb-3"
-              style={{ 
-                color: gold, 
-                fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
-              }}
+              style={{ color: gold, fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif' }}
             >
               {t('investments.vision.title')}
             </h3>
-            <p 
+            <p
               className="text-sm md:text-base leading-relaxed"
-              style={{ 
-                color: 'rgba(0, 0, 0, 0.7)', 
-                fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
-              }}
+              style={{ color: 'rgba(0,0,0,0.7)', fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif' }}
             >
               {t('investments.vision.description')}
             </p>
@@ -175,17 +120,13 @@ export default function RSWInvestmentsSection() {
 
         {/* Our Approach */}
         <div className="mb-12 md:mb-16">
-          <h3 
+          <h3
             className="text-2xl md:text-3xl font-semibold text-center mb-10"
-            style={{ 
-              color: black, 
-              fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
-            }}
+            style={{ color: black, fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif' }}
           >
             {t('investments.approachTitle')}
           </h3>
 
-          {/* Approach Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {approaches.map((approach, index) => (
               <motion.div
@@ -193,7 +134,7 @@ export default function RSWInvestmentsSection() {
                 className="relative p-6 md:p-7 rounded-xl cursor-pointer group transition-all duration-300"
                 style={{
                   background: activeCard === approach.id ? gold : lightGold,
-                  border: `1px solid ${activeCard === approach.id ? gold : 'rgba(167, 147, 112, 0.2)'}`,
+                  border: `1px solid ${activeCard === approach.id ? gold : 'rgba(167,147,112,0.2)'}`,
                 }}
                 onMouseEnter={() => setActiveCard(approach.id)}
                 onMouseLeave={() => setActiveCard(null)}
@@ -202,44 +143,24 @@ export default function RSWInvestmentsSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                {/* Icon */}
-                <div 
+                <div
                   className="w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-all duration-300"
-                  style={{
-                    background: activeCard === approach.id 
-                      ? 'rgba(0, 0, 0, 0.15)' 
-                      : white,
-                  }}
+                  style={{ background: activeCard === approach.id ? 'rgba(0,0,0,0.15)' : white }}
                 >
-                  <approach.icon 
+                  <approach.icon
                     className="w-5 h-5 transition-colors duration-300"
-                    style={{ 
-                      color: activeCard === approach.id ? black : gold,
-                      strokeWidth: 1.5 
-                    }}
+                    style={{ color: activeCard === approach.id ? black : gold, strokeWidth: 1.5 }}
                   />
                 </div>
-
-                {/* Title */}
-                <h4 
-                  className="text-base font-semibold mb-3 transition-colors duration-300"
-                  style={{ 
-                    color: activeCard === approach.id ? black : black,
-                    fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
-                  }}
+                <h4
+                  className="text-base font-semibold mb-3"
+                  style={{ color: black, fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif' }}
                 >
                   {approach.title}
                 </h4>
-
-                {/* Description */}
-                <p 
-                  className="text-xs leading-relaxed transition-colors duration-300"
-                  style={{ 
-                    color: activeCard === approach.id 
-                      ? 'rgba(0, 0, 0, 0.7)' 
-                      : 'rgba(0, 0, 0, 0.65)',
-                    fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
-                  }}
+                <p
+                  className="text-xs leading-relaxed"
+                  style={{ color: activeCard === approach.id ? 'rgba(0,0,0,0.7)' : 'rgba(0,0,0,0.65)', fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif' }}
                 >
                   {approach.description}
                 </p>
@@ -248,99 +169,79 @@ export default function RSWInvestmentsSection() {
           </div>
         </div>
 
-        {/* Investment Sectors */}
+        {/* Investment Sectors — now with links */}
         <div>
-          <h3 
+          <h3
             className="text-2xl md:text-3xl font-semibold text-center mb-10"
-            style={{ 
-              color: black, 
-              fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
-            }}
+            style={{ color: black, fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif' }}
           >
             {t('investments.sectorsTitle')}
           </h3>
 
           <div className="grid md:grid-cols-3 gap-6">
             {investments.map((investment, index) => (
-              <motion.div
-                key={investment.id}
-                className="investment-card-hover group cursor-pointer rounded-2xl overflow-hidden"
-                style={{
-                  background: white,
-                  border: `1px solid rgba(167, 147, 112, 0.25)`,
-                  boxShadow: activeInvestment === investment.id 
-                    ? '0 20px 60px rgba(167, 147, 112, 0.3)' 
-                    : '0 4px 20px rgba(167, 147, 112, 0.1)',
-                }}
-                onMouseEnter={() => setActiveInvestment(investment.id)}
-                onMouseLeave={() => setActiveInvestment(null)}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-              >
-                {/* Image */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img 
-                    src={investment.image} 
-                    alt={investment.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="investment-image-overlay absolute inset-0" />
-                  
-                  {/* Gold accent overlay on hover */}
-                  <div 
-                    className="absolute inset-0 transition-opacity duration-500"
-                    style={{
-                      background: `linear-gradient(to top, rgba(167, 147, 112, 0.3) 0%, transparent 50%)`,
-                      opacity: activeInvestment === investment.id ? 1 : 0
-                    }}
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h4 
-                    className="text-xl font-bold mb-3 transition-colors duration-300"
-                    style={{ 
-                      color: activeInvestment === investment.id 
-                        ? gold 
-                        : black,
-                      fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
-                    }}
-                  >
-                    {investment.title}
-                  </h4>
-
-                  <p 
-                    className="text-sm leading-relaxed mb-5"
-                    style={{ 
-                      color: 'rgba(0, 0, 0, 0.7)',
-                      fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
-                    }}
-                  >
-                    {investment.description}
-                  </p>
-
-                  <button 
-                    className="flex items-center gap-2 text-sm font-medium group/btn"
-                    style={{ 
-                      color: gold, 
-                      fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
-                    }}
-                  >
-                    <span>{t('investments.learnMore')}</span>
-                    <ArrowUpRight 
-                      className={`w-4 h-4 transition-transform ${
-                        locale === 'ar' 
-                          ? 'rotate-180 group-hover/btn:-translate-x-1 group-hover/btn:-translate-y-1' 
-                          : 'group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1'
-                      }`}
-                      strokeWidth={2}
+              <Link href={investment.href} key={investment.id}>
+                <motion.div
+                  className="investment-card-hover group cursor-pointer rounded-2xl overflow-hidden"
+                  style={{
+                    background: white,
+                    border: `1px solid rgba(167,147,112,0.25)`,
+                    boxShadow: activeInvestment === investment.id
+                      ? '0 20px 60px rgba(167,147,112,0.3)'
+                      : '0 4px 20px rgba(167,147,112,0.1)',
+                  }}
+                  onMouseEnter={() => setActiveInvestment(investment.id)}
+                  onMouseLeave={() => setActiveInvestment(null)}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.15 }}
+                >
+                  {/* Image */}
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img
+                      src={investment.image}
+                      alt={investment.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                  </button>
-                </div>
-              </motion.div>
+                    <div className="investment-image-overlay absolute inset-0" />
+                    <div
+                      className="absolute inset-0 transition-opacity duration-500"
+                      style={{
+                        background: `linear-gradient(to top, rgba(167,147,112,0.3) 0%, transparent 50%)`,
+                        opacity: activeInvestment === investment.id ? 1 : 0,
+                      }}
+                    />
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <h4
+                      className="text-xl font-bold mb-3 transition-colors duration-300"
+                      style={{ color: activeInvestment === investment.id ? gold : black, fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif' }}
+                    >
+                      {investment.title}
+                    </h4>
+                    <p
+                      className="text-sm leading-relaxed mb-5"
+                      style={{ color: 'rgba(0,0,0,0.7)', fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif' }}
+                    >
+                      {investment.description}
+                    </p>
+                    <div
+                      className="flex items-center gap-2 text-sm font-medium group/btn transition-all duration-300 group-hover:gap-3"
+                      style={{ color: gold, fontFamily: locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif' }}
+                    >
+                      <span>{t('investments.learnMore')}</span>
+                      <ArrowUpRight
+                        className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        strokeWidth={2}
+                        style={{ transform: locale === 'ar' ? 'scaleX(-1)' : 'none' }}
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              </Link>
             ))}
           </div>
         </div>

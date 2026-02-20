@@ -15,6 +15,7 @@ export default function Navbar() {
   const { locale, direction, switchLanguage, t } = useI18n()
 
   const gold = '#a79370'
+  const cream = '#f5f0e8'
   const white = '#ffffff'
   const black = '#000000'
   const isRTL = direction === 'rtl'
@@ -51,7 +52,7 @@ export default function Navbar() {
           ${isRTL ? 'right: 0;' : 'left: 0;'}
           width: 0;
           height: 1px;
-          background: ${white};
+          background: ${scrolled ? gold : white};
           transition: width 0.4s ease;
         }
         .link-hover:hover::after {
@@ -74,18 +75,17 @@ export default function Navbar() {
           dir={isRTL ? 'rtl' : 'ltr'}
           className="flex items-center justify-between gap-6 transition-all duration-500"
           style={{
-            background: scrolled ? 'rgba(0, 0, 0, 0.9)' : 'transparent',
+            background: scrolled ? cream : 'transparent',
             backdropFilter: scrolled ? 'blur(20px)' : 'none',
             WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
             padding: scrolled ? '0.75rem 1.5rem' : '0',
             borderRadius: scrolled ? '1rem' : '0',
             border: scrolled ? `1px solid ${gold}` : 'none',
-            boxShadow: scrolled ? `0 8px 32px 0 rgba(167, 147, 112, 0.3)` : 'none',
+            boxShadow: scrolled ? `0 8px 32px 0 rgba(167, 147, 112, 0.25)` : 'none',
           }}
         >
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 md:gap-3 shrink-0">
-            {/* Replace the src with your actual logo path */}
             <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl overflow-hidden relative">
               <Image 
                 src="/1.png" 
@@ -94,23 +94,7 @@ export default function Navbar() {
                 className="object-contain"
               />
             </div>
-            <div>
-              <span
-                className="text-lg md:text-xl font-semibold text-white tracking-wide"
-                style={{ fontFamily }}
-              >
-                RSW
-              </span>
-              <span
-                className="text-[8px] md:text-[10px] tracking-[0.2em] block opacity-70"
-                style={{ 
-                  fontFamily: locale === 'ar' ? 'Cairo, sans-serif' : monoFont,
-                  color: gold
-                }}
-              >
-                {t('nav.investments')}
-              </span>
-            </div>
+            <div></div>
           </Link>
 
           {/* Desktop Nav Links */}
@@ -119,10 +103,11 @@ export default function Navbar() {
               <Link
                 key={i}
                 href={item.path}
-                className="text-sm font-light transition-all duration-300 cursor-pointer link-hover text-white hover:opacity-100 whitespace-nowrap"
+                className="text-sm font-light transition-all duration-300 cursor-pointer link-hover whitespace-nowrap"
                 style={{
-                  opacity: pathname === item.path ? 1 : 0.85,
+                  opacity: pathname === item.path ? 1 : 0.75,
                   fontFamily,
+                  color: scrolled ? black : white,
                 }}
               >
                 {item.name}
@@ -136,7 +121,7 @@ export default function Navbar() {
             <div
               className="flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300"
               style={{
-                background: 'rgba(255, 255, 255, 0.1)',
+                background: scrolled ? 'rgba(167,147,112,0.12)' : 'rgba(255, 255, 255, 0.1)',
                 border: `1px solid ${gold}`,
                 fontFamily: monoFont,
               }}
@@ -144,18 +129,22 @@ export default function Navbar() {
               <Globe className="w-4 h-4" style={{ color: gold }} strokeWidth={1.5} />
               <button
                 onClick={() => switchLanguage('en')}
-                className={`text-xs font-medium transition-opacity duration-300 ${
-                  locale === 'en' ? 'text-white' : 'text-white opacity-50 hover:opacity-70'
-                }`}
+                className="text-xs font-medium transition-opacity duration-300"
+                style={{
+                  color: scrolled ? black : white,
+                  opacity: locale === 'en' ? 1 : 0.5,
+                }}
               >
                 EN
               </button>
               <span className="text-xs opacity-50" style={{ color: gold }}>|</span>
               <button
                 onClick={() => switchLanguage('ar')}
-                className={`text-xs font-medium transition-opacity duration-300 ${
-                  locale === 'ar' ? 'text-white' : 'text-white opacity-50 hover:opacity-70'
-                }`}
+                className="text-xs font-medium transition-opacity duration-300"
+                style={{
+                  color: scrolled ? black : white,
+                  opacity: locale === 'ar' ? 1 : 0.5,
+                }}
               >
                 AR
               </button>
@@ -170,8 +159,8 @@ export default function Navbar() {
                 fontFamily,
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = white
-                e.currentTarget.style.color = black
+                e.currentTarget.style.background = black
+                e.currentTarget.style.color = cream
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = gold
@@ -186,16 +175,16 @@ export default function Navbar() {
           <button
             className="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
             style={{
-              background: 'rgba(255, 255, 255, 0.1)',
+              background: scrolled ? 'rgba(167,147,112,0.12)' : 'rgba(255, 255, 255, 0.1)',
               backdropFilter: 'blur(10px)',
               border: `1px solid ${gold}`,
             }}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? (
-              <X className="w-5 h-5 text-white" strokeWidth={1.5} />
+              <X className="w-5 h-5" style={{ color: scrolled ? black : white }} strokeWidth={1.5} />
             ) : (
-              <Menu className="w-5 h-5 text-white" strokeWidth={1.5} />
+              <Menu className="w-5 h-5" style={{ color: scrolled ? black : white }} strokeWidth={1.5} />
             )}
           </button>
         </nav>
@@ -206,7 +195,7 @@ export default function Navbar() {
         dir={isRTL ? 'rtl' : 'ltr'}
         className="lg:hidden fixed z-40 top-20 rounded-2xl overflow-hidden"
         style={{
-          ...(isRTL ? { right: '1rem' } : { right: '1rem' }),
+          right: '1rem',
           background: 'rgba(0, 0, 0, 0.95)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
