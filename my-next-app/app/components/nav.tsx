@@ -85,17 +85,17 @@ export default function Navbar() {
           }}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 md:gap-3 shrink-0">
-            <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl overflow-hidden relative">
-              <Image 
-                src="/1.png" 
-                alt="RSW Logo" 
-                fill
-                className="object-contain"
-              />
-            </div>
-            <div></div>
-          </Link>
+     <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl overflow-hidden relative">
+  <Image 
+    src="/1.png" 
+    alt="RSW Logo" 
+    fill
+    className="object-contain transition-all duration-500"
+    style={{
+      filter: scrolled ? 'none' : 'brightness(0) invert(1)',
+    }}
+  />
+</div>
 
           {/* Desktop Nav Links */}
           <div className="hidden lg:flex items-center gap-8 lg:gap-10">

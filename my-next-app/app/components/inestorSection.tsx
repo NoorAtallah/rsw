@@ -128,14 +128,16 @@ const RSWInvestorRelationsSection = () => {
               >
                 <button
                   onClick={() => setActiveAccordion(isActive ? null : index)}
-                  className={`w-full p-5 rounded-xl transition-all duration-300 ${isRTL ? 'text-right' : 'text-left'}`}
+                  className="w-full p-5 rounded-xl transition-all duration-300 text-start"
                   style={{
                     background: isActive ? 'rgba(167, 147, 112, 0.08)' : 'rgba(167, 147, 112, 0.03)',
                     border: `1px solid ${isActive ? 'rgba(167, 147, 112, 0.25)' : 'rgba(167, 147, 112, 0.15)'}`,
                   }}
                 >
-                  <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
-                    <div className={`flex items-center gap-4 flex-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  {/* Header row: icon + title on one side, chevron on the other */}
+                  <div className="flex items-center justify-between gap-4">
+                    {/* Icon + Title group — always together */}
+                    <div className="flex items-center gap-4 flex-1">
                       <div 
                         className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
                         style={{ background: 'rgba(167, 147, 112, 0.12)' }}
@@ -146,6 +148,7 @@ const RSWInvestorRelationsSection = () => {
                         {section.title}
                       </h3>
                     </div>
+
                     <ChevronDown 
                       className="w-5 h-5 transition-transform duration-300 flex-shrink-0"
                       style={{ 
@@ -156,6 +159,7 @@ const RSWInvestorRelationsSection = () => {
                     />
                   </div>
                   
+                  {/* Expanded description */}
                   <motion.div
                     initial={false}
                     animate={{ 
@@ -167,8 +171,11 @@ const RSWInvestorRelationsSection = () => {
                     style={{ overflow: 'hidden' }}
                   >
                     <p 
-                      className={`ir-body text-sm leading-relaxed ${isRTL ? 'pr-16 text-right' : 'pl-16 text-left'}`}
-                      style={{ color: 'rgba(0, 0, 0, 0.7)' }}
+                      className="ir-body text-sm leading-relaxed"
+                      style={{ 
+                        color: 'rgba(0, 0, 0, 0.7)',
+                        paddingInlineStart: '4rem'
+                      }}
                     >
                       {section.description}
                     </p>
@@ -193,14 +200,14 @@ const RSWInvestorRelationsSection = () => {
               border: '1px solid rgba(167, 147, 112, 0.2)'
             }}
           >
-            <div className={`flex items-center gap-3 mb-5 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div className="flex items-center gap-3 mb-5">
               <div 
                 className="w-10 h-10 rounded-lg flex items-center justify-center"
                 style={{ background: 'rgba(167, 147, 112, 0.15)' }}
               >
                 <FileText className="w-5 h-5" style={{ color: gold }} strokeWidth={1.5} />
               </div>
-              <div className="flex-1" style={{ textAlign: isRTL ? 'right' : 'left' }}>
+              <div className="flex-1">
                 <h3 className="ir-body text-base font-semibold" style={{ color: black }}>
                   {t('investorRelations.documentsTitle')}
                 </h3>
@@ -214,7 +221,7 @@ const RSWInvestorRelationsSection = () => {
               {documents.map((doc: any, index: number) => (
                 <button
                   key={index}
-                  className={`group flex items-center gap-3 p-4 rounded-lg transition-all duration-300 hover:shadow-md ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className="group flex items-center gap-3 p-4 rounded-lg transition-all duration-300 hover:shadow-md"
                   style={{ 
                     background: white,
                     border: '1px solid rgba(167, 147, 112, 0.2)'
@@ -232,7 +239,7 @@ const RSWInvestorRelationsSection = () => {
                   >
                     <FileText className="w-4 h-4" style={{ color: gold }} strokeWidth={1.5} />
                   </div>
-                  <div className="flex-1 min-w-0" style={{ textAlign: isRTL ? 'right' : 'left' }}>
+                  <div className="flex-1 min-w-0 text-start">
                     <p className="ir-body text-xs font-semibold truncate" style={{ color: black }}>
                       {doc.name}
                     </p>
@@ -254,9 +261,7 @@ const RSWInvestorRelationsSection = () => {
         {/* Contact IR Team */}
         <motion.div 
           className="mt-8 text-center p-6 rounded-xl"
-          style={{ 
-            background: black
-          }}
+          style={{ background: black }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -271,7 +276,7 @@ const RSWInvestorRelationsSection = () => {
           
           <a
             href="mailto:ir@rswinvestment.ae"
-            className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-xl hover:scale-105 ${isRTL ? 'flex-row-reverse' : ''}`}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
             style={{ 
               background: gold,
               color: black
