@@ -19,7 +19,7 @@ export default function Sidebar() {
 const links = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard, adminOnly: false },
   { href: '/admin/content', label: 'Content', icon: FileText, adminOnly: false },
-  { href: '/admin/about', label: 'About', icon: Info, adminOnly: false },
+//   { href: '/admin/about', label: 'About', icon: Info, adminOnly: false },
   { href: '/admin/news', label: 'News', icon: Newspaper, adminOnly: false },
   { href: '/admin/users', label: 'Users', icon: Users, adminOnly: true },
 ]
