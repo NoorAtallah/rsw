@@ -9,8 +9,17 @@ export async function middleware(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        getAll() { return request.cookies.getAll() },
+        getAll() {
+          return request.cookies.getAll()
+        },
         setAll(cookiesToSet) {
+          // Set on request first
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value)
+          )
+          // Rebuild response with updated request
+          supabaseResponse = NextResponse.next({ request })
+          // Then set on response
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
           )
@@ -21,13 +30,24 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
+  const isAdminPath = request.nextUrl.pathname.startsWith('/admin')
+  const isLoginPath = request.nextUrl.pathname.startsWith('/admin/login')
+
   // Not logged in → redirect to login
-  if (!user && request.nextUrl.pathname.startsWith('/admin') &&
-    !request.nextUrl.pathname.startsWith('/admin/login')) {
-    return NextResponse.redirect(new URL('/admin/login', request.url))
+  if (!user && isAdminPath && !isLoginPath) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/admin/login'
+    return NextResponse.redirect(url)
   }
 
-  // Logged in but trying to access /admin/users → check role
+  // Already logged in → redirect away from login
+  if (user && isLoginPath) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/admin/dashboard'
+    return NextResponse.redirect(url)
+  }
+
+  // Role check for /admin/users
   if (user && request.nextUrl.pathname.startsWith('/admin/users')) {
     const { data } = await supabase
       .from('admin_users')
@@ -36,7 +56,9 @@ export async function middleware(request: NextRequest) {
       .single()
 
     if (data?.role !== 'admin') {
-      return NextResponse.redirect(new URL('/admin/dashboard', request.url))
+      const url = request.nextUrl.clone()
+      url.pathname = '/admin/dashboard'
+      return NextResponse.redirect(url)
     }
   }
 

@@ -14,21 +14,22 @@ export default function AdminLogin() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  async function handleLogin(e: React.FormEvent) {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+async function handleLogin(e: React.FormEvent) {
+  e.preventDefault()
+  setLoading(true)
+  setError('')
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+  const { error } = await supabase.auth.signInWithPassword({ email, password })
 
-    if (error) {
-      setError('Invalid email or password')
-      setLoading(false)
-      return
-    }
-
-    router.push('/admin/dashboard')
+  if (error) {
+    setError('Invalid email or password')
+    setLoading(false)
+    return
   }
+
+  // Hard redirect — ensures cookies are sent with the next request on Vercel
+  window.location.href = '/admin/dashboard'
+}
 
   return (
     <main className="min-h-screen flex items-center justify-center" style={{ background: '#faf9f6' }}>
