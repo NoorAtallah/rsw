@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { Loader2, Plus, Trash2, ChevronDown, ChevronUp } from 'lucide-react'
+import { Loader2, Plus, Trash2, ChevronDown, ChevronUp, Search, X } from 'lucide-react'
 import ImageUpload from './ImageUpload'
 
 const gold = '#a79370'
@@ -60,6 +60,8 @@ const inputStyle = {
 }
 
 const categories = ['real estate', 'construction', 'investment', 'technology']
+const ALL_CATEGORIES = 'all'
+const PAGE_SIZE = 5
 
 export default function NewsEditor() {
   const supabase = createClient()
@@ -68,7 +70,15 @@ export default function NewsEditor() {
   const [saving, setSaving] = useState<string | null>(null)
   const [expanded, setExpanded] = useState<string | null>(null)
 
+  // Search / filter / pagination state
+  const [search, setSearch] = useState('')
+  const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORIES)
+  const [page, setPage] = useState(1)
+
   useEffect(() => { fetchItems() }, [])
+
+  // Reset to page 1 whenever search or filter changes
+  useEffect(() => { setPage(1) }, [search, activeCategory])
 
   async function fetchItems() {
     const { data } = await supabase
@@ -154,14 +164,42 @@ export default function NewsEditor() {
   }
 
   function handleChange(index: number, field: keyof NewsItem, value: string) {
+    // index here refers to position in `items` (the full array), not the paginated slice
     setItems(prev => prev.map((item, i) => i === index ? { ...item, [field]: value } : item))
   }
 
   function handleAddNew() {
     const newItem = { ...emptyItem(), order_index: items.length }
     setItems(prev => [...prev, newItem])
+    // Jump to last page so the new item is visible and expand it
+    const newTotal = items.length + 1
+    const newPage = Math.ceil(newTotal / PAGE_SIZE)
+    setPage(newPage)
     setExpanded('new-' + items.length)
+    // Clear filters so the new item isn't hidden
+    setSearch('')
+    setActiveCategory(ALL_CATEGORIES)
   }
+
+  // --- Derived filtered + paginated data ---
+  const filtered = useMemo(() => {
+    const q = search.toLowerCase().trim()
+    return items.filter(item => {
+      const matchesCategory = activeCategory === ALL_CATEGORIES || item.category === activeCategory
+      const matchesSearch =
+        !q ||
+        item.title_en.toLowerCase().includes(q) ||
+        item.title_ar.includes(q) ||
+        item.slug.toLowerCase().includes(q) ||
+        item.excerpt_en.toLowerCase().includes(q) ||
+        item.tag_en.toLowerCase().includes(q)
+      return matchesCategory && matchesSearch
+    })
+  }, [items, search, activeCategory])
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const clampedPage = Math.min(page, totalPages)
+  const paginated = filtered.slice((clampedPage - 1) * PAGE_SIZE, clampedPage * PAGE_SIZE)
 
   if (loading) return (
     <div className="flex items-center justify-center h-40">
@@ -171,7 +209,8 @@ export default function NewsEditor() {
 
   return (
     <div className="max-w-4xl">
-      <div className="flex items-center justify-between mb-10">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-8">
         <div>
           <p className="text-xs uppercase tracking-widest mb-2" style={{ color: gold, fontFamily: 'Space Mono, monospace' }}>Editing</p>
           <h2 className="text-3xl font-light" style={{ color: '#000', fontFamily: 'Playfair Display, serif' }}>News Items</h2>
@@ -186,164 +225,284 @@ export default function NewsEditor() {
         </button>
       </div>
 
-      <div className="space-y-3">
-        {items.map((item, index) => {
-          const key = item.id || `new-${index}`
-          const isExpanded = expanded === key
+      {/* Search + Filter bar */}
+      <div className="flex flex-wrap gap-3 mb-6">
+        {/* Search input */}
+        <div className="relative flex-1 min-w-[200px]">
+          <Search
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none"
+            style={{ color: '#bbb' }}
+          />
+          <input
+            type="text"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Search by title, slug, tag…"
+            style={{
+              ...inputStyle,
+              paddingLeft: 34,
+              paddingRight: search ? 34 : 14,
+            }}
+          />
+          {search && (
+            <button
+              onClick={() => setSearch('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2"
+              style={{ color: '#bbb' }}
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
 
-          return (
-            <div key={key} className="rounded-sm bg-white overflow-hidden" style={{ border: '1px solid rgba(167,147,112,0.2)' }}>
-              {/* Header */}
-              <div
-                className="flex items-center justify-between px-6 py-4 cursor-pointer"
-                onClick={() => setExpanded(isExpanded ? null : key)}
+        {/* Category filter pills */}
+        <div className="flex gap-2 flex-wrap">
+          {[ALL_CATEGORIES, ...categories].map(cat => {
+            const isActive = activeCategory === cat
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className="px-3 py-2 rounded-sm text-xs font-medium transition-all"
+                style={{
+                  background: isActive ? gold : 'transparent',
+                  color: isActive ? '#fff' : gold,
+                  border: `1px solid ${isActive ? gold : 'rgba(167,147,112,0.35)'}`,
+                  textTransform: 'capitalize',
+                }}
               >
-                <div>
-                  <p className="text-sm font-medium" style={{ color: '#000' }}>
-                    {item.title_en || 'New Item'}
-                  </p>
-                  <p className="text-xs mt-0.5" style={{ color: gold }}>{item.category} — {item.date}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  {item.id && (
-                    <button
-                      onClick={e => { e.stopPropagation(); handleDelete(item.id!) }}
-                      className="p-1.5 rounded hover:bg-red-50 transition-all"
-                      style={{ color: '#ccc' }}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  )}
-                  {isExpanded
-                    ? <ChevronUp className="w-4 h-4" style={{ color: '#ccc' }} />
-                    : <ChevronDown className="w-4 h-4" style={{ color: '#ccc' }} />
-                  }
-                </div>
-              </div>
-
-              {/* Fields */}
-              {isExpanded && (
-                <div className="px-6 pb-6 space-y-4" style={{ borderTop: '1px solid rgba(167,147,112,0.1)' }}>
-
-                  {/* Category / Date / Read Time */}
-                  <div className="pt-4 grid grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Category</label>
-                      <select value={item.category} onChange={e => handleChange(index, 'category', e.target.value)} style={{ ...inputStyle }}>
-                        {categories.map(c => <option key={c} value={c}>{c}</option>)}
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Date</label>
-                      <input type="text" value={item.date} onChange={e => handleChange(index, 'date', e.target.value)} style={inputStyle} placeholder="Feb 9, 2026" />
-                    </div>
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Read Time</label>
-                      <input type="text" value={item.readTime} onChange={e => handleChange(index, 'readTime', e.target.value)} style={inputStyle} placeholder="3 min" />
-                    </div>
-                  </div>
-
-                  {/* Image + Slug */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <ImageUpload
-                      value={item.image_url}
-                      onChange={url => handleChange(index, 'image_url', url)}
-                      label="Article Image"
-                    />
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Slug (URL)</label>
-                      <input
-                        type="text"
-                        value={item.slug}
-                        onChange={e => handleChange(index, 'slug', e.target.value)}
-                        style={inputStyle}
-                        placeholder="dubai-property-sales-2026"
-                      />
-                      <p className="text-[10px] mt-1" style={{ color: '#bbb' }}>
-                        URL: /news/{item.slug || 'your-slug-here'}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Title */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Title (English)</label>
-                      <input type="text" value={item.title_en} onChange={e => handleChange(index, 'title_en', e.target.value)} style={inputStyle} />
-                    </div>
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Title (Arabic)</label>
-                      <input type="text" value={item.title_ar} onChange={e => handleChange(index, 'title_ar', e.target.value)} dir="rtl" style={{ ...inputStyle, fontFamily: 'Tajawal, sans-serif' }} />
-                    </div>
-                  </div>
-
-                  {/* Excerpt */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Excerpt (English)</label>
-                      <textarea value={item.excerpt_en} onChange={e => handleChange(index, 'excerpt_en', e.target.value)} rows={3} style={{ ...inputStyle, resize: 'vertical' }} />
-                    </div>
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Excerpt (Arabic)</label>
-                      <textarea value={item.excerpt_ar} onChange={e => handleChange(index, 'excerpt_ar', e.target.value)} rows={3} dir="rtl" style={{ ...inputStyle, resize: 'vertical', fontFamily: 'Tajawal, sans-serif' }} />
-                    </div>
-                  </div>
-
-                  {/* Body */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Full Article Body (English)</label>
-                      <textarea value={item.body_en} onChange={e => handleChange(index, 'body_en', e.target.value)} rows={6} style={{ ...inputStyle, resize: 'vertical' }} placeholder="Write the full article content here..." />
-                    </div>
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Full Article Body (Arabic)</label>
-                      <textarea value={item.body_ar} onChange={e => handleChange(index, 'body_ar', e.target.value)} rows={6} dir="rtl" style={{ ...inputStyle, resize: 'vertical', fontFamily: 'Tajawal, sans-serif' }} placeholder="اكتب محتوى المقال الكامل هنا..." />
-                    </div>
-                  </div>
-
-                  {/* Tag */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Tag (English)</label>
-                      <input type="text" value={item.tag_en} onChange={e => handleChange(index, 'tag_en', e.target.value)} style={inputStyle} placeholder="Breaking" />
-                    </div>
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Tag (Arabic)</label>
-                      <input type="text" value={item.tag_ar} onChange={e => handleChange(index, 'tag_ar', e.target.value)} dir="rtl" style={{ ...inputStyle, fontFamily: 'Tajawal, sans-serif' }} placeholder="عاجل" />
-                    </div>
-                  </div>
-
-                  {/* Stats */}
-                  <div className="grid grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Stat Value</label>
-                      <input type="text" value={item.stats_value} onChange={e => handleChange(index, 'stats_value', e.target.value)} style={inputStyle} placeholder="63%" />
-                    </div>
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Stat Label (EN)</label>
-                      <input type="text" value={item.stats_label_en} onChange={e => handleChange(index, 'stats_label_en', e.target.value)} style={inputStyle} placeholder="YoY Growth" />
-                    </div>
-                    <div>
-                      <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Stat Label (AR)</label>
-                      <input type="text" value={item.stats_label_ar} onChange={e => handleChange(index, 'stats_label_ar', e.target.value)} dir="rtl" style={{ ...inputStyle, fontFamily: 'Tajawal, sans-serif' }} placeholder="نمو سنوي" />
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => handleSave(item)}
-                    disabled={saving === key}
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-sm text-sm font-medium mt-2"
-                    style={{ background: gold, color: '#fff' }}
-                  >
-                    {saving === key ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-                    {saving === key ? 'Saving...' : 'Save Item'}
-                  </button>
-                </div>
-              )}
-            </div>
-          )
-        })}
+                {cat === ALL_CATEGORIES ? 'All' : cat}
+              </button>
+            )
+          })}
+        </div>
       </div>
+
+      {/* Result count */}
+      <p className="text-xs mb-4" style={{ color: '#bbb', fontFamily: 'Space Mono, monospace' }}>
+        {filtered.length} {filtered.length === 1 ? 'item' : 'items'}
+        {search || activeCategory !== ALL_CATEGORIES ? ' found' : ' total'}
+        {totalPages > 1 && ` — page ${clampedPage} of ${totalPages}`}
+      </p>
+
+      {/* Items list */}
+      <div className="space-y-3">
+        {paginated.length === 0 ? (
+          <div
+            className="text-center py-16 rounded-sm"
+            style={{ border: '1px dashed rgba(167,147,112,0.25)', color: '#bbb' }}
+          >
+            <p className="text-sm">No items match your search.</p>
+          </div>
+        ) : (
+          paginated.map((item) => {
+            // Find the real index in the full `items` array for handleChange
+            const realIndex = items.indexOf(item)
+            const key = item.id || `new-${realIndex}`
+            const isExpanded = expanded === key
+
+            return (
+              <div key={key} className="rounded-sm bg-white overflow-hidden" style={{ border: '1px solid rgba(167,147,112,0.2)' }}>
+                {/* Header */}
+                <div
+                  className="flex items-center justify-between px-6 py-4 cursor-pointer"
+                  onClick={() => setExpanded(isExpanded ? null : key)}
+                >
+                  <div>
+                    <p className="text-sm font-medium" style={{ color: '#000' }}>
+                      {item.title_en || 'New Item'}
+                    </p>
+                    <p className="text-xs mt-0.5" style={{ color: gold }}>{item.category} — {item.date}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {item.id && (
+                      <button
+                        onClick={e => { e.stopPropagation(); handleDelete(item.id!) }}
+                        className="p-1.5 rounded hover:bg-red-50 transition-all"
+                        style={{ color: '#ccc' }}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
+                    {isExpanded
+                      ? <ChevronUp className="w-4 h-4" style={{ color: '#ccc' }} />
+                      : <ChevronDown className="w-4 h-4" style={{ color: '#ccc' }} />
+                    }
+                  </div>
+                </div>
+
+                {/* Fields */}
+                {isExpanded && (
+                  <div className="px-6 pb-6 space-y-4" style={{ borderTop: '1px solid rgba(167,147,112,0.1)' }}>
+
+                    {/* Category / Date / Read Time */}
+                    <div className="pt-4 grid grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Category</label>
+                        <select value={item.category} onChange={e => handleChange(realIndex, 'category', e.target.value)} style={{ ...inputStyle }}>
+                          {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Date</label>
+                        <input type="text" value={item.date} onChange={e => handleChange(realIndex, 'date', e.target.value)} style={inputStyle} placeholder="Feb 9, 2026" />
+                      </div>
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Read Time</label>
+                        <input type="text" value={item.readTime} onChange={e => handleChange(realIndex, 'readTime', e.target.value)} style={inputStyle} placeholder="3 min" />
+                      </div>
+                    </div>
+
+                    {/* Image + Slug */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <ImageUpload
+                        value={item.image_url}
+                        onChange={url => handleChange(realIndex, 'image_url', url)}
+                        label="Article Image"
+                      />
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Slug (URL)</label>
+                        <input
+                          type="text"
+                          value={item.slug}
+                          onChange={e => handleChange(realIndex, 'slug', e.target.value)}
+                          style={inputStyle}
+                          placeholder="dubai-property-sales-2026"
+                        />
+                        <p className="text-[10px] mt-1" style={{ color: '#bbb' }}>
+                          URL: /news/{item.slug || 'your-slug-here'}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Title */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Title (English)</label>
+                        <input type="text" value={item.title_en} onChange={e => handleChange(realIndex, 'title_en', e.target.value)} style={inputStyle} />
+                      </div>
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Title (Arabic)</label>
+                        <input type="text" value={item.title_ar} onChange={e => handleChange(realIndex, 'title_ar', e.target.value)} dir="rtl" style={{ ...inputStyle, fontFamily: 'Tajawal, sans-serif' }} />
+                      </div>
+                    </div>
+
+                    {/* Excerpt */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Excerpt (English)</label>
+                        <textarea value={item.excerpt_en} onChange={e => handleChange(realIndex, 'excerpt_en', e.target.value)} rows={3} style={{ ...inputStyle, resize: 'vertical' }} />
+                      </div>
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Excerpt (Arabic)</label>
+                        <textarea value={item.excerpt_ar} onChange={e => handleChange(realIndex, 'excerpt_ar', e.target.value)} rows={3} dir="rtl" style={{ ...inputStyle, resize: 'vertical', fontFamily: 'Tajawal, sans-serif' }} />
+                      </div>
+                    </div>
+
+                    {/* Body */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Full Article Body (English)</label>
+                        <textarea value={item.body_en} onChange={e => handleChange(realIndex, 'body_en', e.target.value)} rows={6} style={{ ...inputStyle, resize: 'vertical' }} placeholder="Write the full article content here..." />
+                      </div>
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Full Article Body (Arabic)</label>
+                        <textarea value={item.body_ar} onChange={e => handleChange(realIndex, 'body_ar', e.target.value)} rows={6} dir="rtl" style={{ ...inputStyle, resize: 'vertical', fontFamily: 'Tajawal, sans-serif' }} placeholder="اكتب محتوى المقال الكامل هنا..." />
+                      </div>
+                    </div>
+
+                    {/* Tag */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Tag (English)</label>
+                        <input type="text" value={item.tag_en} onChange={e => handleChange(realIndex, 'tag_en', e.target.value)} style={inputStyle} placeholder="Breaking" />
+                      </div>
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Tag (Arabic)</label>
+                        <input type="text" value={item.tag_ar} onChange={e => handleChange(realIndex, 'tag_ar', e.target.value)} dir="rtl" style={{ ...inputStyle, fontFamily: 'Tajawal, sans-serif' }} placeholder="عاجل" />
+                      </div>
+                    </div>
+
+                    {/* Stats */}
+                    <div className="grid grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Stat Value</label>
+                        <input type="text" value={item.stats_value} onChange={e => handleChange(realIndex, 'stats_value', e.target.value)} style={inputStyle} placeholder="63%" />
+                      </div>
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Stat Label (EN)</label>
+                        <input type="text" value={item.stats_label_en} onChange={e => handleChange(realIndex, 'stats_label_en', e.target.value)} style={inputStyle} placeholder="YoY Growth" />
+                      </div>
+                      <div>
+                        <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Stat Label (AR)</label>
+                        <input type="text" value={item.stats_label_ar} onChange={e => handleChange(realIndex, 'stats_label_ar', e.target.value)} dir="rtl" style={{ ...inputStyle, fontFamily: 'Tajawal, sans-serif' }} placeholder="نمو سنوي" />
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => handleSave(item)}
+                      disabled={saving === key}
+                      className="flex items-center gap-2 px-5 py-2.5 rounded-sm text-sm font-medium mt-2"
+                      style={{ background: gold, color: '#fff' }}
+                    >
+                      {saving === key ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+                      {saving === key ? 'Saving...' : 'Save Item'}
+                    </button>
+                  </div>
+                )}
+              </div>
+            )
+          })
+        )}
+      </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between mt-6">
+          <button
+            onClick={() => setPage(p => Math.max(1, p - 1))}
+            disabled={clampedPage === 1}
+            className="px-4 py-2 rounded-sm text-xs font-medium transition-all"
+            style={{
+              border: '1px solid rgba(167,147,112,0.35)',
+              color: clampedPage === 1 ? '#ccc' : gold,
+              cursor: clampedPage === 1 ? 'default' : 'pointer',
+            }}
+          >
+            ← Previous
+          </button>
+
+          <div className="flex gap-1.5">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(n => (
+              <button
+                key={n}
+                onClick={() => setPage(n)}
+                className="w-8 h-8 rounded-sm text-xs font-medium transition-all"
+                style={{
+                  background: n === clampedPage ? gold : 'transparent',
+                  color: n === clampedPage ? '#fff' : gold,
+                  border: `1px solid ${n === clampedPage ? gold : 'rgba(167,147,112,0.35)'}`,
+                }}
+              >
+                {n}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+            disabled={clampedPage === totalPages}
+            className="px-4 py-2 rounded-sm text-xs font-medium transition-all"
+            style={{
+              border: '1px solid rgba(167,147,112,0.35)',
+              color: clampedPage === totalPages ? '#ccc' : gold,
+              cursor: clampedPage === totalPages ? 'default' : 'pointer',
+            }}
+          >
+            Next →
+          </button>
+        </div>
+      )}
     </div>
   )
 }

@@ -5,8 +5,11 @@ import ContentEditor from '../components/ContentEditor'
 import AboutEditor from '../components/AboutEditor'
 import InvestmentsEditor from '../components/InvestmentsEditor'
 import InvestorRelationsEditor from '../components/InvestorRelationsEditor'
+import FooterLinksEditor from '../components/Footerlinkseditor'
+import NavEditor from '../components/Naveditor'
 
 const sections = [
+  { key: 'nav', label: 'Navigation' },
   { key: 'hero', label: 'Hero' },
   { key: 'about', label: 'About (Text)' },
   { key: 'about-arrays', label: 'About (Tabs & Divisions)' },
@@ -15,14 +18,15 @@ const sections = [
   { key: 'investorRelations', label: 'Investor Relations (Text)' },
   { key: 'investorRelations-arrays', label: 'Investor Relations (Sections & Docs)' },
   { key: 'contact', label: 'Contact' },
-  { key: 'footer', label: 'Footer' },
+  { key: 'footer', label: 'Footer (Text)' },
+  { key: 'footer-links', label: 'Footer (Links)' },
   { key: 'news', label: 'News Labels' },
 ]
 
 const gold = '#a79370'
 
 export default function ContentPage() {
-  const [active, setActive] = useState('hero')
+  const [active, setActive] = useState('nav')
 
   return (
     <div className="flex gap-8 min-h-screen">
@@ -53,9 +57,11 @@ export default function ContentPage() {
 
       {/* Editor */}
       <div className="flex-1 pb-20">
-        {active === 'about-arrays' ? <AboutEditor /> :
-         active === 'investments-arrays' ? <InvestmentsEditor /> :
+        {active === 'nav'                    ? <NavEditor /> :
+         active === 'about-arrays'         ? <AboutEditor /> :
+         active === 'investments-arrays'   ? <InvestmentsEditor /> :
          active === 'investorRelations-arrays' ? <InvestorRelationsEditor /> :
+         active === 'footer-links'         ? <FooterLinksEditor /> :
          <ContentEditor section={active} />}
       </div>
 

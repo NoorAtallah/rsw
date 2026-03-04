@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { Menu, X, Globe } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useI18n } from '@/i18n/I18nProvider'
+import { createClient } from '@/lib/supabase/client'
 import Image from 'next/image'
 
 export default function Navbar() {
@@ -13,6 +14,10 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
   const { locale, direction, switchLanguage, t } = useI18n()
+
+  // DB-driven nav data
+  const [dbNavItems, setDbNavItems] = useState<{ name: string; path: string }[] | null>(null)
+  const [dbCta, setDbCta] = useState<string | null>(null)
 
   const gold = '#a79370'
   const cream = '#f5f0e8'
@@ -26,13 +31,50 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const navItems = [
+  useEffect(() => {
+    async function fetchNavData() {
+      const supabase = createClient()
+
+      // Fetch nav links
+      const { data: linkRows } = await supabase
+        .from('content_arrays')
+        .select('*')
+        .eq('section', 'nav.links')
+        .order('order_index')
+
+      if (linkRows && linkRows.length > 0) {
+        setDbNavItems(linkRows.map(row => ({
+          name: locale === 'ar' ? row.data_ar?.label : row.data_en?.label,
+          path: row.data_en?.path || '/',
+        })))
+      }
+
+      // Fetch CTA
+      const { data: ctaRow } = await supabase
+        .from('content')
+        .select('*')
+        .eq('section', 'nav')
+        .eq('key', 'cta')
+        .single()
+
+      if (ctaRow) {
+        setDbCta(locale === 'ar' ? ctaRow.value_ar : ctaRow.value_en)
+      }
+    }
+    fetchNavData()
+  }, [locale])
+
+  // Fallback to translations if DB not populated
+  const defaultNavItems = [
     { name: t('nav.home'), path: '/' },
     { name: t('nav.about'), path: '/about' },
     { name: t('nav.ventures'), path: '/ventures' },
     { name: t('nav.investorRelations'), path: '/investor-relations' },
     { name: t('nav.contact'), path: '/contact' },
   ]
+
+  const navItems = dbNavItems ?? defaultNavItems
+  const ctaLabel = dbCta ?? t('nav.requestDemo')
 
   const fontFamily = locale === 'ar' ? 'Cairo, sans-serif' : 'Outfit, sans-serif'
   const monoFont = 'Space Mono, monospace'
@@ -60,7 +102,7 @@ export default function Navbar() {
         }
       `}</style>
 
-      {/* Outer wrapper - handles positioning only */}
+      {/* Outer wrapper */}
       <div
         className="fixed z-50 top-4 md:top-6 transition-all duration-500"
         style={{
@@ -85,17 +127,15 @@ export default function Navbar() {
           }}
         >
           {/* Logo */}
-     <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl overflow-hidden relative">
-  <Image 
-    src="/1.png" 
-    alt="RSW Logo" 
-    fill
-    className="object-contain transition-all duration-500"
-    style={{
-      filter: scrolled ? 'none' : 'brightness(0) invert(1)',
-    }}
-  />
-</div>
+          <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl overflow-hidden relative">
+            <Image
+              src="/1.png"
+              alt="RSW Logo"
+              fill
+              className="object-contain transition-all duration-500"
+              style={{ filter: scrolled ? 'none' : 'brightness(0) invert(1)' }}
+            />
+          </div>
 
           {/* Desktop Nav Links */}
           <div className="hidden lg:flex items-center gap-8 lg:gap-10">
@@ -130,10 +170,7 @@ export default function Navbar() {
               <button
                 onClick={() => switchLanguage('en')}
                 className="text-xs font-medium transition-opacity duration-300"
-                style={{
-                  color: scrolled ? black : white,
-                  opacity: locale === 'en' ? 1 : 0.5,
-                }}
+                style={{ color: scrolled ? black : white, opacity: locale === 'en' ? 1 : 0.5 }}
               >
                 EN
               </button>
@@ -141,10 +178,7 @@ export default function Navbar() {
               <button
                 onClick={() => switchLanguage('ar')}
                 className="text-xs font-medium transition-opacity duration-300"
-                style={{
-                  color: scrolled ? black : white,
-                  opacity: locale === 'ar' ? 1 : 0.5,
-                }}
+                style={{ color: scrolled ? black : white, opacity: locale === 'ar' ? 1 : 0.5 }}
               >
                 AR
               </button>
@@ -153,21 +187,17 @@ export default function Navbar() {
             {/* CTA Button */}
             <button
               className="px-6 py-3 rounded-full text-xs tracking-wider font-medium transition-all duration-300"
-              style={{
-                background: gold,
-                color: black,
-                fontFamily,
-              }}
-              onMouseEnter={(e) => {
+              style={{ background: gold, color: black, fontFamily }}
+              onMouseEnter={e => {
                 e.currentTarget.style.background = black
                 e.currentTarget.style.color = cream
               }}
-              onMouseLeave={(e) => {
+              onMouseLeave={e => {
                 e.currentTarget.style.background = gold
                 e.currentTarget.style.color = black
               }}
             >
-              {t('nav.requestDemo')}
+              {ctaLabel}
             </button>
           </div>
 
@@ -181,11 +211,10 @@ export default function Navbar() {
             }}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? (
-              <X className="w-5 h-5" style={{ color: scrolled ? black : white }} strokeWidth={1.5} />
-            ) : (
-              <Menu className="w-5 h-5" style={{ color: scrolled ? black : white }} strokeWidth={1.5} />
-            )}
+            {mobileMenuOpen
+              ? <X className="w-5 h-5" style={{ color: scrolled ? black : white }} strokeWidth={1.5} />
+              : <Menu className="w-5 h-5" style={{ color: scrolled ? black : white }} strokeWidth={1.5} />
+            }
           </button>
         </nav>
       </div>
@@ -216,10 +245,7 @@ export default function Navbar() {
               key={i}
               href={item.path}
               className="text-sm font-light transition-colors cursor-pointer hover:opacity-100 py-2 text-white"
-              style={{
-                opacity: pathname === item.path ? 1 : 0.85,
-                fontFamily,
-              }}
+              style={{ opacity: pathname === item.path ? 1 : 0.85, fontFamily }}
               onClick={() => setMobileMenuOpen(false)}
             >
               {item.name}
@@ -239,32 +265,24 @@ export default function Navbar() {
             <Globe className="w-4 h-4" style={{ color: gold }} strokeWidth={1.5} />
             <button
               onClick={() => switchLanguage('en')}
-              className={`text-sm font-medium transition-opacity duration-300 ${
-                locale === 'en' ? 'text-white' : 'text-white opacity-50'
-              }`}
+              className={`text-sm font-medium transition-opacity duration-300 ${locale === 'en' ? 'text-white' : 'text-white opacity-50'}`}
             >
               EN
             </button>
             <span className="text-sm opacity-50" style={{ color: gold }}>|</span>
             <button
               onClick={() => switchLanguage('ar')}
-              className={`text-sm font-medium transition-opacity duration-300 ${
-                locale === 'ar' ? 'text-white' : 'text-white opacity-50'
-              }`}
+              className={`text-sm font-medium transition-opacity duration-300 ${locale === 'ar' ? 'text-white' : 'text-white opacity-50'}`}
             >
               AR
             </button>
           </div>
 
           <button
-            className="px-6 py-3 rounded-full text-xs tracking-wider font-medium transition-all duration-300"
-            style={{
-              background: gold,
-              color: black,
-              fontFamily,
-            }}
+            className="px-6 py-3 rounded-full text-xs tracking-wider font-medium"
+            style={{ background: gold, color: black, fontFamily }}
           >
-            {t('nav.requestDemo')}
+            {ctaLabel}
           </button>
         </div>
       </motion.div>
