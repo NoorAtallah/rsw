@@ -214,25 +214,7 @@ const RSWInvestorRelationsSection = () => {
         </motion.div>
 
         {/* Contact IR */}
-        <motion.div
-          className="mt-8 text-center p-6 rounded-xl"
-          style={{ background: black }}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h3 className="ir-body text-lg font-semibold text-white mb-2">{t('investorRelations.contact.title')}</h3>
-          <p className="ir-body text-sm text-white/80 mb-4">{t('investorRelations.contact.description')}</p>
-          <a
-            href="mailto:ir@rswinvestment.ae"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
-            style={{ background: gold, color: black }}
-          >
-            <span className="ir-body text-xs font-semibold">{t('investorRelations.contact.button')}</span>
-            <ExternalLink className="w-3.5 h-3.5" strokeWidth={2} style={{ transform: isRTL ? 'scaleX(-1)' : 'none' }} />
-          </a>
-        </motion.div>
+        
 
       </div>
     </section>

@@ -164,7 +164,7 @@ const RSWAboutSection = () => {
         </AnimatePresence>
 
         {/* Bottom CTA */}
-        <motion.div
+        {/* <motion.div
           className="text-center p-8 rounded-2xl"
           style={{ background: black }}
           initial={{ opacity: 0, y: 30 }}
@@ -196,7 +196,7 @@ const RSWAboutSection = () => {
               <span className="text-xs font-semibold" style={{ fontFamily: bodyFont }}>{t('about.cta.secondary')}</span>
             </button>
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* Compliance Badges */}
         <div className="mt-12 pt-8" style={{ borderTop: `1px solid rgba(167, 147, 112, 0.15)` }}>

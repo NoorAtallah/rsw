@@ -202,8 +202,7 @@ const VenturesPage = () => {
                 <div className="flex items-center gap-4"><div className="h-px w-12" style={{ background: gold }} /><div className={`ventures-mono text-xs ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: gold }}>{locale === 'ar' ? '2026' : 'MMXXVI'}</div></div>
               </div>
               <h1 className="ventures-title text-6xl lg:text-8xl font-light text-white mb-8 leading-[1.05]" style={{ letterSpacing: '-0.01em' }}>
-                {locale === 'ar' ? (<>استثمارات<br/><span className="italic font-serif" style={{ color: gold }}>استراتيجية</span><br/>عبر ثلاثة قطاعات</>) : (<>Strategic<br/><span className="italic font-serif" style={{ color: gold }}>Investments</span><br/>Across Three Sectors</>)}
-              </h1>
+{locale === 'ar' ? (<><span className="italic font-serif" style={{ color: gold }}>استثمارات استراتيجية عبر ثلاثة قطاعات</span></>) : (<><span className="italic font-serif" style={{ color: gold }}>Strategic Investments Across Three Sectors</span></>)}              </h1>
               <div className="max-w-2xl">
                 <p className="ventures-body text-lg leading-relaxed text-white/90 mb-8">{locale === 'ar' ? 'نهج متكامل للاستثمار في العقارات والبناء والتكنولوجيا، يدمج الخبرة العميقة في السوق مع الرؤية طويلة المدى.' : 'An integrated approach to real estate, construction, and technology investment, combining deep market expertise with long-term vision.'}</p>
                 <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -449,8 +448,7 @@ const VenturesPage = () => {
             <div className={isRTL ? 'text-right' : ''}>
               <div className={`ventures-mono text-[10px] uppercase mb-6 ${locale === 'ar' ? '' : 'tracking-[0.3em]'}`} style={{ color: gold }}>{locale === 'ar' ? 'ابدأ المحادثة' : 'Begin the Conversation'}</div>
               <h2 className="ventures-title text-4xl lg:text-5xl font-light mb-6 leading-tight" style={{ color: black, letterSpacing: '-0.01em' }}>
-                {locale === 'ar' ? (<>استثمر في<br/><span style={{ color: gold }}>المستقبل</span></>) : (<>Invest in<br/><span style={{ color: gold }}>the Future</span></>)}
-              </h2>
+{locale === 'ar' ? (<><span style={{ color: gold }}>استثمر في المستقبل</span></>) : (<><span style={{ color: gold }}>Invest in the Future</span></>)}              </h2>
               <p className="ventures-body text-base leading-relaxed mb-8" style={{ color: 'rgba(0,0,0,0.7)' }}>{locale === 'ar' ? 'تواصل مع فريقنا لمناقشة فرص الاستثمار عبر محفظتنا المتنوعة من العقارات والبناء والتكنولوجيا.' : 'Connect with our team to discuss investment opportunities across our diversified portfolio of real estate, construction, and technology.'}</p>
               <div className={`flex flex-col sm:flex-row gap-4 ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
                 <button className="ventures-body inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-medium transition-all hover:shadow-lg hover:scale-105" style={{ background: gold, color: black }}>

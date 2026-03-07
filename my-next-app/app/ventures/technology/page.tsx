@@ -110,7 +110,7 @@ export default function TechnologyPage() {
 
         <Link href="/ventures" className={`absolute top-8 ${isRTL ? 'right-8' : 'left-8'} z-20`}>
           <motion.div
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm"
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm mt-12"
             style={{ background: 'rgba(167,147,112,0.15)', border: `1px solid ${gold}`, color: gold, fontFamily }}
             whileHover={{ background: gold, color: black }}
           >
@@ -227,13 +227,13 @@ export default function TechnologyPage() {
       </div>
 
       {/* CTA */}
-      <div className="relative py-16 md:py-20" style={{ background: black }}>
+      <div className="relative py-16 md:py-20" style={{ background: white }}>
         <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${gold}, transparent)` }} />
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 text-center">
           <p className="text-xs tracking-[0.3em] uppercase mb-4" style={{ color: gold, fontFamily: monoFont }}>
             {locale === 'ar' ? 'شراكات تقنية' : 'Technology Partnerships'}
           </p>
-          <h3 className="text-3xl md:text-4xl font-light mb-6" style={{ color: white, fontFamily }}>
+          <h3 className="text-3xl md:text-4xl font-light mb-6" style={{ color: gold, fontFamily }}>
             {locale === 'ar' ? 'هل تبحث عن شريك تقني استراتيجي؟' : 'Looking for a Strategic Tech Partner?'}
           </h3>
           <Link href="/contact">

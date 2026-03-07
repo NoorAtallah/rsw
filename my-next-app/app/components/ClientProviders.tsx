@@ -16,7 +16,7 @@ export function ClientProviders({ children }: { children: ReactNode }) {
       {!isAdmin && <RSWNavigation />}
       {children}
       {!isAdmin && <RSWFooter />}
-      {!isAdmin && <SocialPopup />}
+      {/* {!isAdmin && <SocialPopup />} */}
     </I18nProvider>
   )
 }

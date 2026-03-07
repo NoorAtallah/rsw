@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { Loader2, Plus, Trash2, ChevronDown, ChevronUp, Search, X } from 'lucide-react'
+import { Loader2, Plus, Trash2, ChevronDown, ChevronUp, Search, X, Eye, EyeOff } from 'lucide-react'
 import ImageUpload from './ImageUpload'
 
 const gold = '#a79370'
@@ -26,6 +26,7 @@ interface NewsItem {
   stats_label_en: string
   stats_label_ar: string
   order_index: number
+  status: 'published' | 'hidden'
 }
 
 const emptyItem = (): NewsItem => ({
@@ -46,6 +47,7 @@ const emptyItem = (): NewsItem => ({
   stats_label_en: '',
   stats_label_ar: '',
   order_index: 0,
+  status: 'published',
 })
 
 const inputStyle = {
@@ -76,8 +78,6 @@ export default function NewsEditor() {
   const [page, setPage] = useState(1)
 
   useEffect(() => { fetchItems() }, [])
-
-  // Reset to page 1 whenever search or filter changes
   useEffect(() => { setPage(1) }, [search, activeCategory])
 
   async function fetchItems() {
@@ -91,6 +91,7 @@ export default function NewsEditor() {
       setItems(data.map(row => ({
         id: row.id,
         order_index: row.order_index,
+        status: row.status || 'published',
         slug: row.data_en?.slug || '',
         image_url: row.data_en?.image_url || '',
         category: row.data_en?.category || '',
@@ -143,16 +144,28 @@ export default function NewsEditor() {
 
     if (item.id) {
       await supabase.from('content_arrays').update({
-        data_en, data_ar, order_index: item.order_index
+        data_en, data_ar, order_index: item.order_index, status: item.status
       }).eq('id', item.id)
     } else {
       await supabase.from('content_arrays').insert({
         section: 'news.items',
         data_en, data_ar,
-        order_index: items.length
+        order_index: items.length,
+        status: item.status,
       })
     }
 
+    setSaving(null)
+    fetchItems()
+  }
+
+  // Quick-toggle status without opening the form
+  async function handleToggleStatus(e: React.MouseEvent, item: NewsItem) {
+    e.stopPropagation()
+    if (!item.id) return
+    const newStatus = item.status === 'published' ? 'hidden' : 'published'
+    setSaving(item.id)
+    await supabase.from('content_arrays').update({ status: newStatus }).eq('id', item.id)
     setSaving(null)
     fetchItems()
   }
@@ -164,24 +177,20 @@ export default function NewsEditor() {
   }
 
   function handleChange(index: number, field: keyof NewsItem, value: string) {
-    // index here refers to position in `items` (the full array), not the paginated slice
     setItems(prev => prev.map((item, i) => i === index ? { ...item, [field]: value } : item))
   }
 
   function handleAddNew() {
     const newItem = { ...emptyItem(), order_index: items.length }
     setItems(prev => [...prev, newItem])
-    // Jump to last page so the new item is visible and expand it
     const newTotal = items.length + 1
     const newPage = Math.ceil(newTotal / PAGE_SIZE)
     setPage(newPage)
     setExpanded('new-' + items.length)
-    // Clear filters so the new item isn't hidden
     setSearch('')
     setActiveCategory(ALL_CATEGORIES)
   }
 
-  // --- Derived filtered + paginated data ---
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim()
     return items.filter(item => {
@@ -227,35 +236,22 @@ export default function NewsEditor() {
 
       {/* Search + Filter bar */}
       <div className="flex flex-wrap gap-3 mb-6">
-        {/* Search input */}
         <div className="relative flex-1 min-w-[200px]">
-          <Search
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none"
-            style={{ color: '#bbb' }}
-          />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none" style={{ color: '#bbb' }} />
           <input
             type="text"
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search by title, slug, tag…"
-            style={{
-              ...inputStyle,
-              paddingLeft: 34,
-              paddingRight: search ? 34 : 14,
-            }}
+            style={{ ...inputStyle, paddingLeft: 34, paddingRight: search ? 34 : 14 }}
           />
           {search && (
-            <button
-              onClick={() => setSearch('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2"
-              style={{ color: '#bbb' }}
-            >
+            <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2" style={{ color: '#bbb' }}>
               <X className="w-3.5 h-3.5" />
             </button>
           )}
         </div>
 
-        {/* Category filter pills */}
         <div className="flex gap-2 flex-wrap">
           {[ALL_CATEGORIES, ...categories].map(cat => {
             const isActive = activeCategory === cat
@@ -288,33 +284,76 @@ export default function NewsEditor() {
       {/* Items list */}
       <div className="space-y-3">
         {paginated.length === 0 ? (
-          <div
-            className="text-center py-16 rounded-sm"
-            style={{ border: '1px dashed rgba(167,147,112,0.25)', color: '#bbb' }}
-          >
+          <div className="text-center py-16 rounded-sm" style={{ border: '1px dashed rgba(167,147,112,0.25)', color: '#bbb' }}>
             <p className="text-sm">No items match your search.</p>
           </div>
         ) : (
           paginated.map((item) => {
-            // Find the real index in the full `items` array for handleChange
             const realIndex = items.indexOf(item)
             const key = item.id || `new-${realIndex}`
             const isExpanded = expanded === key
+            const isHidden = item.status === 'hidden'
+            const isTogglingThis = saving === item.id
 
             return (
-              <div key={key} className="rounded-sm bg-white overflow-hidden" style={{ border: '1px solid rgba(167,147,112,0.2)' }}>
-                {/* Header */}
+              <div
+                key={key}
+                className="rounded-sm bg-white overflow-hidden"
+                style={{
+                  border: '1px solid rgba(167,147,112,0.2)',
+                  opacity: isHidden ? 0.65 : 1,
+                  transition: 'opacity 0.2s',
+                }}
+              >
+                {/* Header row */}
                 <div
                   className="flex items-center justify-between px-6 py-4 cursor-pointer"
                   onClick={() => setExpanded(isExpanded ? null : key)}
                 >
-                  <div>
-                    <p className="text-sm font-medium" style={{ color: '#000' }}>
-                      {item.title_en || 'New Item'}
-                    </p>
-                    <p className="text-xs mt-0.5" style={{ color: gold }}>{item.category} — {item.date}</p>
+                  <div className="flex items-center gap-3 min-w-0">
+                    {/* Visibility badge */}
+                    <span
+                      className="shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wide"
+                      style={{
+                        background: isHidden ? 'rgba(0,0,0,0.06)' : 'rgba(167,147,112,0.12)',
+                        color: isHidden ? '#aaa' : gold,
+                        border: `1px solid ${isHidden ? 'rgba(0,0,0,0.1)' : 'rgba(167,147,112,0.3)'}`,
+                      }}
+                    >
+                      {isHidden
+                        ? <EyeOff className="w-2.5 h-2.5" />
+                        : <Eye className="w-2.5 h-2.5" />
+                      }
+                      {isHidden ? 'Hidden' : 'Visible'}
+                    </span>
+
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium truncate" style={{ color: '#000' }}>
+                        {item.title_en || 'New Item'}
+                      </p>
+                      <p className="text-xs mt-0.5" style={{ color: gold }}>{item.category} — {item.date}</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
+
+                  <div className="flex items-center gap-1 shrink-0 ml-4">
+                    {/* Quick toggle button */}
+                    {item.id && (
+                      <button
+                        onClick={e => handleToggleStatus(e, item)}
+                        title={isHidden ? 'Make visible' : 'Hide'}
+                        disabled={isTogglingThis}
+                        className="p-1.5 rounded transition-all hover:bg-gray-50"
+                        style={{ color: isHidden ? '#bbb' : gold }}
+                      >
+                        {isTogglingThis
+                          ? <Loader2 className="w-4 h-4 animate-spin" />
+                          : isHidden
+                            ? <Eye className="w-4 h-4" />
+                            : <EyeOff className="w-4 h-4" />
+                        }
+                      </button>
+                    )}
+
                     {item.id && (
                       <button
                         onClick={e => { e.stopPropagation(); handleDelete(item.id!) }}
@@ -324,6 +363,7 @@ export default function NewsEditor() {
                         <Trash2 className="w-4 h-4" />
                       </button>
                     )}
+
                     {isExpanded
                       ? <ChevronUp className="w-4 h-4" style={{ color: '#ccc' }} />
                       : <ChevronDown className="w-4 h-4" style={{ color: '#ccc' }} />
@@ -331,12 +371,45 @@ export default function NewsEditor() {
                   </div>
                 </div>
 
-                {/* Fields */}
+                {/* Expanded fields */}
                 {isExpanded && (
                   <div className="px-6 pb-6 space-y-4" style={{ borderTop: '1px solid rgba(167,147,112,0.1)' }}>
 
+                    {/* Visibility toggle inside form */}
+                    <div className="pt-4 flex items-center justify-between">
+                      <div>
+                        <p className="text-xs font-medium" style={{ color: '#999' }}>Visibility</p>
+                        <p className="text-[11px] mt-0.5" style={{ color: '#bbb' }}>
+                          {isHidden ? 'This article is hidden from the public site.' : 'This article is visible on the public site.'}
+                        </p>
+                      </div>
+                      {/* Toggle switch */}
+                      <button
+                        onClick={() => {
+                          const newStatus = item.status === 'published' ? 'hidden' : 'published'
+                          handleChange(realIndex, 'status', newStatus)
+                        }}
+                        className="relative inline-flex items-center rounded-full transition-colors duration-200"
+                        style={{
+                          width: 44,
+                          height: 24,
+                          background: isHidden ? '#e5e7eb' : gold,
+                          flexShrink: 0,
+                        }}
+                      >
+                        <span
+                          className="inline-block rounded-full bg-white shadow-sm transition-transform duration-200"
+                          style={{
+                            width: 18,
+                            height: 18,
+                            transform: isHidden ? 'translateX(3px)' : 'translateX(23px)',
+                          }}
+                        />
+                      </button>
+                    </div>
+
                     {/* Category / Date / Read Time */}
-                    <div className="pt-4 grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-4">
                       <div>
                         <label className="block text-xs mb-1.5" style={{ color: '#999' }}>Category</label>
                         <select value={item.category} onChange={e => handleChange(realIndex, 'category', e.target.value)} style={{ ...inputStyle }}>

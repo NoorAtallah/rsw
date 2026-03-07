@@ -93,12 +93,12 @@ const RSWFooter = () => {
                 <Image src="/1.png" alt="RSW Logo" fill className="object-contain" />
               </div>
               <div>
-                <p className="text-2xl font-semibold tracking-wide" style={{ color: black, fontFamily }}>
+                {/* <p className="text-2xl font-semibold tracking-wide" style={{ color: black, fontFamily }}>
                   RSW
-                </p>
-                <p className="text-xs tracking-[0.2em]" style={{ color: gold, fontFamily: monoFont }}>
+                </p> */}
+                {/* <p className="text-xs tracking-[0.2em]" style={{ color: gold, fontFamily: monoFont }}>
                   {t('footer.tagline')}
-                </p>
+                </p> */}
               </div>
             </div>
             <p className="text-base font-light leading-relaxed max-w-md mb-6" style={{ color: 'rgba(0,0,0,0.65)', fontFamily }}>

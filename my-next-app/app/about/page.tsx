@@ -221,7 +221,7 @@ const RSWAboutPage = () => {
                 </span>
               </div>
 
-              <h1 className="about-title text-5xl lg:text-8xl font-light mb-8 leading-[0.95]" style={{ color: white }}>
+              <h1 className="about-title text-5xl lg:text-8xl font-light mb-8 leading-[0.95]" style={{ color: gold }}>
                 {heroTitle}<br/>
                 <span className="font-bold" style={{ color: gold }}>{heroGold}</span>
                 {locale !== 'ar' && <><br/>of Investment</>}
@@ -350,8 +350,7 @@ const RSWAboutPage = () => {
           <div className="mb-20">
             <div className={`about-mono text-xs mb-6 uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: gold }}>{locale === 'ar' ? 'أربعة أقسام' : 'FOUR DIVISIONS'}</div>
             <h2 className="about-title text-2xl lg:text-3xl font-light" style={{ color: black }}>
-              {locale === 'ar' ? <>حيث <span className="font-bold" style={{ color: gold }}>نعمل</span></> : <>Where we <span className="font-bold" style={{ color: gold }}>operate</span></>}
-            </h2>
+{locale === 'ar' ? <>حيث نعمل</> : <>Where we operate</>}            </h2>
           </div>
 
           <div className="flex gap-2 mb-12 overflow-x-auto pb-2">
@@ -392,8 +391,7 @@ const RSWAboutPage = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className={`mb-20 ${isRTL ? 'text-right' : ''}`}>
             <div className={`about-mono text-xs mb-4 uppercase ${locale === 'ar' ? '' : 'tracking-widest'}`} style={{ color: gold }}>{locale === 'ar' ? 'فريق القيادة' : 'LEADERSHIP TEAM'}</div>
             <h2 className="about-title text-2xl lg:text-3xl font-light" style={{ color: black }}>
-              {locale === 'ar' ? <>العقول التي <span className="font-bold" style={{ color: gold }}>تقود</span> الرؤية</> : <>The minds <span className="font-bold" style={{ color: gold }}>behind</span> the vision</>}
-            </h2>
+{locale === 'ar' ? <>العقول التي تقود الرؤية</> : <>The minds behind the vision</>}            </h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -431,8 +429,7 @@ const RSWAboutPage = () => {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className={isRTL ? 'text-right' : ''}>
                 <h2 className="about-title text-3xl lg:text-4xl font-light mb-6 leading-tight" style={{ color: black }}>
-                  {locale === 'ar' ? <>هل أنت مستعد لاستكشاف <span className="font-bold" style={{ color: gold }}>الفرص؟</span></> : <>Ready to explore <span className="font-bold" style={{ color: gold }}>opportunities?</span></>}
-                </h2>
+{locale === 'ar' ? <><span className="font-bold" style={{ color: gold }}>هل أنت مستعد لاستكشاف الفرص؟</span></> : <><span className="font-bold" style={{ color: gold }}>Ready to explore opportunities?</span></>}                </h2>
                 <p className="about-body text-base mb-10 leading-relaxed" style={{ color: 'rgba(0,0,0,0.7)' }}>
                   {locale === 'ar' ? 'تواصل مع مجموعة RSW لمناقشة شراكات الاستثمار أو التعاون في المشاريع أو الفرص الوظيفية.' : 'Connect with RSW Group to discuss investment partnerships, project collaborations, or career opportunities.'}
                 </p>

@@ -6,6 +6,7 @@ import { Calendar, Clock, ArrowUpRight, Search, SlidersHorizontal, X } from 'luc
 import { useI18n } from '@/i18n/I18nProvider'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
+
 interface NewsItem {
   _id: string
   title: string
@@ -16,10 +17,7 @@ interface NewsItem {
   readTime: string
   imageUrl: string
   slug: string
-  stats?: {
-    value: string
-    label: string
-  }
+  stats?: { value: string; label: string }
 }
 
 interface NewsPageProps {
@@ -31,25 +29,26 @@ const ITEMS_PER_PAGE = 9
 export default function NewsPage({ initialNews }: NewsPageProps) {
   const { t, locale, direction } = useI18n()
   const [activeCategory, setActiveCategory] = useState('all')
-  const [searchQuery, setSearchQuery] = useState('')
-  const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE)
-  const [isLoading, setIsLoading] = useState(false)
-  const [showFilters, setShowFilters] = useState(false)
-  const [newsData, setNewsData] = useState<NewsItem[]>([])
-  const [dbLoaded, setDbLoaded] = useState(false)
+  const [searchQuery, setSearchQuery]       = useState('')
+  const [displayCount, setDisplayCount]     = useState(ITEMS_PER_PAGE)
+  const [isLoading,    setIsLoading]         = useState(false)
+  const [showFilters,  setShowFilters]       = useState(false)
+  const [newsData,     setNewsData]          = useState<NewsItem[]>([])
+  const [dbLoaded,     setDbLoaded]          = useState(false)
   const loaderRef = useRef<HTMLDivElement>(null)
 
-  const gold = '#a79370'
+  const gold  = '#a79370'
   const black = '#000000'
   const white = '#ffffff'
+  const isRTL = direction === 'rtl'
 
-  const fontFamily = locale === 'ar' ? 'Tajawal, sans-serif' : 'Outfit, sans-serif'
-  const monoFont = locale === 'ar' ? 'IBM Plex Sans Arabic, sans-serif' : 'Space Mono, monospace'
-  const titleFont = locale === 'ar' ? 'Tajawal, sans-serif' : 'Playfair Display, serif'
+  const fontFamily = locale === 'ar' ? 'Tajawal, sans-serif'              : 'Outfit, sans-serif'
+  const monoFont   = locale === 'ar' ? 'IBM Plex Sans Arabic, sans-serif' : 'Space Mono, monospace'
+  const titleFont  = locale === 'ar' ? 'Tajawal, sans-serif'              : 'Playfair Display, serif'
 
   const categories = t('news.categories') || []
 
-  // Fetch from Supabase
+  // ── fetch ────────────────────────────────────────────────────────────────────
   useEffect(() => {
     async function fetchNews() {
       const supabase = createClient()
@@ -61,23 +60,22 @@ export default function NewsPage({ initialNews }: NewsPageProps) {
 
       if (data && data.length > 0) {
         const mapped = data.map(row => ({
-          _id: row.id,
+          _id:      row.id,
           category: row.data_en?.category || '',
-          date: row.data_en?.date || '',
+          date:     row.data_en?.date     || '',
           readTime: row.data_en?.readTime || '',
-          title: locale === 'ar' ? row.data_ar?.title : row.data_en?.title,
-          excerpt: locale === 'ar' ? row.data_ar?.excerpt : row.data_en?.excerpt,
-          tag: locale === 'ar' ? row.data_ar?.tag : row.data_en?.tag,
+          title:    locale === 'ar' ? row.data_ar?.title   : row.data_en?.title,
+          excerpt:  locale === 'ar' ? row.data_ar?.excerpt : row.data_en?.excerpt,
+          tag:      locale === 'ar' ? row.data_ar?.tag     : row.data_en?.tag,
           imageUrl: row.data_en?.image_url || '',
-          slug: row.data_en?.slug || row.id,
+          slug:     row.data_en?.slug || row.id,
           stats: {
             value: row.data_en?.stats?.value || '',
-            label: locale === 'ar' ? row.data_ar?.stats?.label : row.data_en?.stats?.label
-          }
+            label: locale === 'ar' ? row.data_ar?.stats?.label : row.data_en?.stats?.label,
+          },
         }))
         setNewsData(mapped)
       } else {
-        // Fallback to JSON
         setNewsData(initialNews || t('news.items') || [])
       }
       setDbLoaded(true)
@@ -85,51 +83,40 @@ export default function NewsPage({ initialNews }: NewsPageProps) {
     fetchNews()
   }, [locale])
 
-  // Filter news
-  const filteredNews = newsData.filter((item: NewsItem) => {
+  // ── filter ───────────────────────────────────────────────────────────────────
+  const filteredNews  = newsData.filter((item: NewsItem) => {
     const matchesCategory = activeCategory === 'all' || item.category === activeCategory
-    const matchesSearch =
-      !searchQuery ||
+    const matchesSearch   = !searchQuery ||
       item.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.excerpt?.toLowerCase().includes(searchQuery.toLowerCase())
     return matchesCategory && matchesSearch
   })
-
   const displayedNews = filteredNews.slice(0, displayCount)
-  const hasMore = displayCount < filteredNews.length
+  const hasMore       = displayCount < filteredNews.length
 
   const loadMore = useCallback(() => {
     if (isLoading || !hasMore) return
     setIsLoading(true)
-    setTimeout(() => {
-      setDisplayCount((prev) => prev + ITEMS_PER_PAGE)
-      setIsLoading(false)
-    }, 800)
+    setTimeout(() => { setDisplayCount(p => p + ITEMS_PER_PAGE); setIsLoading(false) }, 800)
   }, [isLoading, hasMore])
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasMore && !isLoading) {
-          loadMore()
-        }
-      },
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting && hasMore && !isLoading) loadMore() },
       { threshold: 0.1 }
     )
-    if (loaderRef.current) observer.observe(loaderRef.current)
-    return () => observer.disconnect()
+    if (loaderRef.current) obs.observe(loaderRef.current)
+    return () => obs.disconnect()
   }, [hasMore, isLoading, loadMore])
 
-  useEffect(() => {
-    setDisplayCount(ITEMS_PER_PAGE)
-  }, [activeCategory, searchQuery])
+  useEffect(() => { setDisplayCount(ITEMS_PER_PAGE) }, [activeCategory, searchQuery])
 
   const getImageUrl = (item: NewsItem) => {
     if (item.imageUrl) return item.imageUrl
     const map: Record<string, string> = {
       'real estate': '1545324418-cc1a3fa10c00',
-      construction: '1504307651254-35680f356dfd',
-      investment: '1454165804606-c3d57bc86b40',
+      construction:  '1504307651254-35680f356dfd',
+      investment:    '1454165804606-c3d57bc86b40',
     }
     return `https://images.unsplash.com/photo-${map[item.category] || '1558618666-fcd25c85cd64'}?w=1200&q=80`
   }
@@ -137,12 +124,140 @@ export default function NewsPage({ initialNews }: NewsPageProps) {
   return (
     <main className="min-h-screen" style={{ background: white }} dir={direction}>
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Outfit:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&family=Tajawal:wght@300;400;500;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
-        .news-card-img { transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=Outfit:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&family=Tajawal:wght@300;400;500;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
+        /* ═══════════════════════════════════════════════════════
+           HERO TEXTURE SYSTEM
+           7 stacked CSS-only layers — no images, no JS
+        ═══════════════════════════════════════════════════════ */
+
+        .nh-root {
+          position: relative;
+          overflow: hidden;
+          /* warm dark background — slightly off-black so textures read */
+          background: #0d0b09;
+        }
+
+        /* LAYER 1 — tight crosshatch engraving */
+        .nh-hatch {
+          position: absolute; inset: 0; pointer-events: none; z-index: 1;
+          background-image:
+            repeating-linear-gradient(
+              45deg,
+              rgba(167,147,112,0.055) 0px, rgba(167,147,112,0.055) 1px,
+              transparent 1px, transparent 10px
+            ),
+            repeating-linear-gradient(
+              -45deg,
+              rgba(167,147,112,0.028) 0px, rgba(167,147,112,0.028) 1px,
+              transparent 1px, transparent 10px
+            );
+        }
+
+        /* LAYER 2 — animated film grain (SVG turbulence) */
+        .nh-grain {
+          position: absolute; pointer-events: none; z-index: 2;
+          inset: -80px; /* oversized so drift never reveals edge */
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+          background-repeat: repeat;
+          background-size: 280px 280px;
+          opacity: 0.075;
+          animation: nh-drift 8s steps(3, end) infinite;
+        }
+        @keyframes nh-drift {
+          0%   { transform: translate(  0px,  0px) }
+          12%  { transform: translate( -3px, -2px) }
+          25%  { transform: translate(  2px,  3px) }
+          37%  { transform: translate( -2px,  1px) }
+          50%  { transform: translate(  3px, -3px) }
+          62%  { transform: translate( -1px,  2px) }
+          75%  { transform: translate(  2px, -2px) }
+          87%  { transform: translate( -2px,  0px) }
+          100% { transform: translate(  0px,  0px) }
+        }
+
+        /* LAYER 3 — halftone dot grid, masked to centre ellipse */
+        .nh-dots {
+          position: absolute; inset: 0; pointer-events: none; z-index: 3;
+          background-image: radial-gradient(circle, rgba(167,147,112,0.2) 1.5px, transparent 1.5px);
+          background-size: 20px 20px;
+          mask-image: radial-gradient(ellipse 70% 85% at 50% 50%, black 5%, transparent 100%);
+          -webkit-mask-image: radial-gradient(ellipse 70% 85% at 50% 50%, black 5%, transparent 100%);
+        }
+
+        /* LAYER 4 — diagonal wide ruled lines */
+        .nh-lines {
+          position: absolute; inset: 0; pointer-events: none; z-index: 4;
+          background-image: repeating-linear-gradient(
+            -63deg,
+            transparent 0px, transparent 52px,
+            rgba(167,147,112,0.045) 52px, rgba(167,147,112,0.045) 53px
+          );
+        }
+
+        /* LAYER 5 — fine horizontal CRT scan lines */
+        .nh-scan {
+          position: absolute; inset: 0; pointer-events: none; z-index: 5;
+          background: repeating-linear-gradient(
+            0deg,
+            transparent 0px, transparent 3px,
+            rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+          );
+        }
+
+        /* LAYER 6 — warm radial glow behind headline */
+        .nh-glow {
+          position: absolute; pointer-events: none; z-index: 6;
+          top: -25%; left: 50%; transform: translateX(-50%);
+          width: 1100px; height: 760px;
+          background: radial-gradient(ellipse at 50% 58%,
+            rgba(167,147,112,0.14) 0%,
+            rgba(167,147,112,0.04) 45%,
+            transparent 68%
+          );
+        }
+
+        /* LAYER 7 — dark edge vignette */
+        .nh-vignette {
+          position: absolute; inset: 0; pointer-events: none; z-index: 7;
+          background: radial-gradient(ellipse 130% 100% at 50% 50%,
+            transparent 35%,
+            rgba(0,0,0,0.6) 100%
+          );
+        }
+
+        /* ── CORNER REGISTRATION MARKS ─────────────────────────── */
+        .nh-corner {
+          position: absolute; width: 34px; height: 34px;
+          pointer-events: none; z-index: 9;
+        }
+        .nh-corner::before, .nh-corner::after {
+          content: ''; position: absolute; background: rgba(167,147,112,0.55);
+        }
+        .nh-corner::before { width: 100%; height: 1px; top: 0; left: 0; }
+        .nh-corner::after  { width: 1px; height: 100%; top: 0; left: 0; }
+        .nh-corner.tl { top: 26px;    left: 26px; }
+        .nh-corner.tr { top: 26px;    right: 26px; transform: rotate(90deg); }
+        .nh-corner.bl { bottom: 26px; left: 26px;  transform: rotate(270deg); }
+        .nh-corner.br { bottom: 26px; right: 26px; transform: rotate(180deg); }
+
+        /* ── RULED BORDER LINES ─────────────────────────────────── */
+        .nh-rule-t, .nh-rule-b { position: absolute; left: 0; right: 0; height: 1px; pointer-events: none; z-index: 9; }
+        .nh-rule-t { top: 0;    background: linear-gradient(90deg, transparent, #a79370 30%, #a79370 70%, transparent); }
+        .nh-rule-b { bottom: 0; background: linear-gradient(90deg, transparent, rgba(167,147,112,0.35) 35%, rgba(167,147,112,0.35) 65%, transparent); }
+
+        .nh-rule-l, .nh-rule-r { position: absolute; top: 0; bottom: 0; width: 1px; pointer-events: none; z-index: 9; }
+        .nh-rule-l { left: 38px;  background: linear-gradient(180deg, transparent, rgba(167,147,112,0.2) 18%, rgba(167,147,112,0.2) 82%, transparent); }
+        .nh-rule-r { right: 38px; background: linear-gradient(180deg, transparent, rgba(167,147,112,0.2) 18%, rgba(167,147,112,0.2) 82%, transparent); }
+
+        /* ── CARDS ──────────────────────────────────────────────── */
+        .news-card-img { transition: transform 0.7s cubic-bezier(0.4,0,0.2,1); }
         .news-card:hover .news-card-img { transform: scale(1.06); }
+
+        /* ── SKELETON ───────────────────────────────────────────── */
         @keyframes shimmer {
-          0% { background-position: -400px 0; }
-          100% { background-position: 400px 0; }
+          0%   { background-position: -400px 0; }
+          100% { background-position:  400px 0; }
         }
         .skeleton {
           background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
@@ -153,42 +268,127 @@ export default function NewsPage({ initialNews }: NewsPageProps) {
         .spinner { animation: spin 0.8s linear infinite; }
       `}</style>
 
-      {/* Hero Header */}
-      <div className="relative pt-32 pb-16 px-6 md:px-12 overflow-hidden" style={{ background: black }}>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-[150px] pointer-events-none opacity-10" style={{ background: gold }} />
-        <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${gold}, transparent)` }} />
-        <div className="max-w-5xl mx-auto relative z-10 text-center">
-          <div className="flex items-center justify-center gap-3 mb-5">
-            <div className="w-10 h-px" style={{ background: gold }} />
-            <span className="text-xs tracking-[0.3em] uppercase" style={{ color: gold, fontFamily: monoFont }}>
+      {/* ══ HERO ══════════════════════════════════════════════════════════════ */}
+      <div className="nh-root pt-36 pb-24 px-6 md:px-12">
+
+        {/* 7 texture layers */}
+        <div className="nh-hatch"    aria-hidden="true" />
+        <div className="nh-grain"    aria-hidden="true" />
+        <div className="nh-dots"     aria-hidden="true" />
+        <div className="nh-lines"    aria-hidden="true" />
+        <div className="nh-scan"     aria-hidden="true" />
+        <div className="nh-glow"     aria-hidden="true" />
+        <div className="nh-vignette" aria-hidden="true" />
+
+        {/* corner registration marks */}
+        <div className="nh-corner tl" aria-hidden="true" />
+        <div className="nh-corner tr" aria-hidden="true" />
+        <div className="nh-corner bl" aria-hidden="true" />
+        <div className="nh-corner br" aria-hidden="true" />
+
+        {/* ruled border lines */}
+        <div className="nh-rule-t" aria-hidden="true" />
+        <div className="nh-rule-b" aria-hidden="true" />
+        <div className="nh-rule-l hidden lg:block" aria-hidden="true" />
+        <div className="nh-rule-r hidden lg:block" aria-hidden="true" />
+
+        {/* ── CONTENT — floats above all texture layers ── */}
+        <div className="max-w-5xl mx-auto relative" style={{ zIndex: 10 }}>
+
+          {/* eyebrow label */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className={`flex items-center gap-3 mb-10 ${isRTL ? 'flex-row-reverse' : ''}`}
+          >
+            <div style={{ width: 40, height: 1, background: gold, flexShrink: 0 }} />
+            <span style={{ color: gold, fontFamily: monoFont, fontSize: 10, letterSpacing: '0.3em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
               {locale === 'ar' ? 'المستجدات والأخبار' : 'Latest Updates'}
             </span>
-            <div className="w-10 h-px" style={{ background: gold }} />
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light mb-4" style={{ color: white, fontFamily: titleFont }}>
-            {locale === 'ar' ? (<>أخبار <span className="font-bold" style={{ color: gold }}>ومستجدات</span></>) : (<>News & <span className="font-bold" style={{ color: gold }}>Insights</span></>)}
-          </h1>
-          <p className="text-base font-light max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.55)', fontFamily }}>
-            {locale === 'ar' ? 'تابع آخر مستجدات محفظتنا الاستثمارية والتطورات في القطاعات التي نعمل بها' : 'Stay up to date with our investment portfolio, market insights, and sector developments.'}
-          </p>
+            <div style={{ width: 40, height: 1, background: gold, flexShrink: 0 }} />
+          </motion.div>
+
+          {/* main headline */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            className={isRTL ? 'text-right' : ''}
+          >
+            {locale === 'ar' ? (
+              <h1 style={{ fontFamily: titleFont, fontSize: 'clamp(52px, 9vw, 100px)', fontWeight: 800, lineHeight: 1.0, color: white, letterSpacing: '-0.01em' }}>
+                <span style={{ color: gold }}>أخبار</span>
+                <br />
+                <span style={{ color: 'rgba(255,255,255,0.88)' }}>ومستجدات</span>
+              </h1>
+            ) : (
+              <h1 style={{ fontFamily: titleFont, fontSize: 'clamp(52px, 9vw, 100px)', fontWeight: 400, lineHeight: 1.0, color: white, letterSpacing: '-0.025em' }}>
+                <span style={{ fontStyle: 'italic', color: gold }}>News</span>
+                {' '}
+                <span style={{ fontWeight: 800, color: gold }}>&amp;</span>
+                <br />
+                <span style={{ fontWeight: 800, color: gold }}>Insights</span>
+              </h1>
+            )}
+
+            {/* ruled separator with diamond accent */}
+            <div className={`flex items-center gap-4 my-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div style={{ flex: 1, height: 1, background: 'rgba(167,147,112,0.25)' }} />
+              <div style={{ width: 6, height: 6, transform: 'rotate(45deg)', background: gold, flexShrink: 0 }} />
+              <div style={{ width: 36, height: 1, background: 'rgba(167,147,112,0.25)', flexShrink: 0 }} />
+            </div>
+
+            <p style={{ fontFamily, fontSize: 15, color: 'rgba(255,255,255,0.42)', maxWidth: 480, lineHeight: 1.85 }}
+              className={isRTL ? 'mr-auto' : ''}>
+              {locale === 'ar'
+                ? 'تابع آخر مستجدات محفظتنا الاستثمارية والتطورات في القطاعات التي نعمل بها'
+                : 'Stay up to date with our investment portfolio, market insights, and sector developments.'}
+            </p>
+          </motion.div>
+
+          {/* stat pills */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.38 }}
+            className={`flex flex-wrap gap-2 mt-10 ${isRTL ? 'flex-row-reverse' : ''}`}
+          >
+            {[
+              { n: newsData.length || '—', l: locale === 'ar' ? 'مقالة'  : 'Articles' },
+              { n: '3',                     l: locale === 'ar' ? 'قطاعات' : 'Sectors'  },
+              { n: 'UAE',                   l: locale === 'ar' ? 'مقرها'  : 'Based'    },
+            ].map((s, i) => (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                padding: '9px 18px',
+                border: '1px solid rgba(167,147,112,0.22)',
+                borderRadius: 2,
+                background: 'rgba(167,147,112,0.06)',
+                backdropFilter: 'blur(10px)',
+              }}>
+                <span style={{ fontFamily: titleFont, fontSize: 20, fontWeight: 700, color: gold, lineHeight: 1 }}>{s.n}</span>
+                <span style={{ fontFamily: monoFont, fontSize: 9, textTransform: 'uppercase', letterSpacing: '0.15em', color: 'rgba(255,255,255,0.35)' }}>{s.l}</span>
+              </div>
+            ))}
+          </motion.div>
+
         </div>
       </div>
+      {/* END HERO */}
 
-      {/* Sticky Filters Bar */}
-      <div className="sticky top-0 z-40 py-4 px-6 md:px-12" style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(16px)', borderBottom: `1px solid rgba(167,147,112,0.2)` }}>
+      {/* ══ STICKY FILTERS ════════════════════════════════════════════════════ */}
+      <div className="sticky top-0 z-40 py-4 px-6 md:px-12"
+        style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(16px)', borderBottom: `1px solid rgba(167,147,112,0.2)` }}>
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center gap-3">
           <div className="relative flex-1 w-full">
-            <Search className="absolute top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: gold, [direction === 'rtl' ? 'right' : 'left']: '14px' }} strokeWidth={1.5} />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+            <Search className="absolute top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"
+              style={{ color: gold, [isRTL ? 'right' : 'left']: '14px' }} strokeWidth={1.5} />
+            <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
               placeholder={locale === 'ar' ? 'ابحث في الأخبار...' : 'Search news...'}
               className="w-full py-2.5 text-sm rounded-xl outline-none"
               style={{ background: 'rgba(167,147,112,0.06)', border: `1px solid rgba(167,147,112,0.25)`, color: black, fontFamily, paddingInlineStart: '40px', paddingInlineEnd: searchQuery ? '36px' : '16px' }}
             />
             {searchQuery && (
-              <button onClick={() => setSearchQuery('')} className="absolute top-1/2 -translate-y-1/2" style={{ [direction === 'rtl' ? 'left' : 'right']: '10px' }}>
+              <button onClick={() => setSearchQuery('')} className="absolute top-1/2 -translate-y-1/2"
+                style={{ [isRTL ? 'left' : 'right']: '10px' }}>
                 <X className="w-3.5 h-3.5" style={{ color: 'rgba(0,0,0,0.4)' }} />
               </button>
             )}
@@ -197,16 +397,14 @@ export default function NewsPage({ initialNews }: NewsPageProps) {
             {categories.map((cat: any) => (
               <button key={cat.key} onClick={() => setActiveCategory(cat.key)}
                 className="px-4 py-2 rounded-full transition-all duration-300 text-xs font-medium whitespace-nowrap"
-                style={{ background: activeCategory === cat.key ? gold : 'rgba(167,147,112,0.07)', color: activeCategory === cat.key ? white : gold, border: `1px solid ${activeCategory === cat.key ? gold : 'rgba(167,147,112,0.2)'}`, fontFamily }}
-              >
+                style={{ background: activeCategory === cat.key ? gold : 'rgba(167,147,112,0.07)', color: activeCategory === cat.key ? white : gold, border: `1px solid ${activeCategory === cat.key ? gold : 'rgba(167,147,112,0.2)'}`, fontFamily }}>
                 {cat.label}
               </button>
             ))}
           </div>
           <button className="sm:hidden flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs"
             style={{ background: showFilters ? gold : 'rgba(167,147,112,0.07)', color: showFilters ? white : gold, border: `1px solid ${gold}`, fontFamily }}
-            onClick={() => setShowFilters(!showFilters)}
-          >
+            onClick={() => setShowFilters(!showFilters)}>
             <SlidersHorizontal className="w-3.5 h-3.5" strokeWidth={1.5} />
             {locale === 'ar' ? 'تصفية' : 'Filter'}
           </button>
@@ -216,8 +414,7 @@ export default function NewsPage({ initialNews }: NewsPageProps) {
             {categories.map((cat: any) => (
               <button key={cat.key} onClick={() => { setActiveCategory(cat.key); setShowFilters(false) }}
                 className="px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200"
-                style={{ background: activeCategory === cat.key ? gold : 'rgba(167,147,112,0.07)', color: activeCategory === cat.key ? white : gold, border: `1px solid rgba(167,147,112,0.25)`, fontFamily }}
-              >
+                style={{ background: activeCategory === cat.key ? gold : 'rgba(167,147,112,0.07)', color: activeCategory === cat.key ? white : gold, border: `1px solid rgba(167,147,112,0.25)`, fontFamily }}>
                 {cat.label}
               </button>
             ))}
@@ -225,14 +422,16 @@ export default function NewsPage({ initialNews }: NewsPageProps) {
         )}
       </div>
 
-      {/* Results count */}
+      {/* ══ COUNT ═════════════════════════════════════════════════════════════ */}
       <div className="max-w-5xl mx-auto px-6 md:px-12 pt-8 pb-4">
         <p className="text-xs" style={{ color: 'rgba(0,0,0,0.4)', fontFamily: monoFont }}>
-          {locale === 'ar' ? `عرض ${displayedNews.length} من ${filteredNews.length} مقالة` : `Showing ${displayedNews.length} of ${filteredNews.length} articles`}
+          {locale === 'ar'
+            ? `عرض ${displayedNews.length} من ${filteredNews.length} مقالة`
+            : `Showing ${displayedNews.length} of ${filteredNews.length} articles`}
         </p>
       </div>
 
-      {/* News Grid */}
+      {/* ══ GRID ══════════════════════════════════════════════════════════════ */}
       <div className="max-w-5xl mx-auto px-6 md:px-12 pb-16">
         {!dbLoaded ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -260,69 +459,56 @@ export default function NewsPage({ initialNews }: NewsPageProps) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayedNews.map((news: NewsItem, index: number) => (
               <Link href={`/news/${news.slug}`} key={news._id || index}>
-
-              <motion.article
-                key={news._id || index}
-                className="news-card group cursor-pointer rounded-2xl overflow-hidden"
-                style={{ border: '1px solid rgba(167,147,112,0.15)', boxShadow: '0 2px 16px rgba(167,147,112,0.07)', background: white }}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: (index % ITEMS_PER_PAGE) * 0.06 }}
-                whileHover={{ y: -4, boxShadow: '0 12px 40px rgba(167,147,112,0.18)' }}
-              >
-                {/* Image */}
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img src={getImageUrl(news)} alt={news.title} className="news-card-img w-full h-full object-cover" />
-                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 55%)' }} />
-                  {news.tag && (
-                    <div className="absolute top-3 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider"
-                      style={{ background: gold, color: black, fontFamily: monoFont, [direction === 'rtl' ? 'right' : 'left']: '12px' }}
-                    >
-                      {news.tag}
+                <motion.article
+                  className="news-card group cursor-pointer rounded-2xl overflow-hidden"
+                  style={{ border: '1px solid rgba(167,147,112,0.15)', boxShadow: '0 2px 16px rgba(167,147,112,0.07)', background: white }}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: (index % ITEMS_PER_PAGE) * 0.06 }}
+                  whileHover={{ y: -4, boxShadow: '0 12px 40px rgba(167,147,112,0.18)' }}
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img src={getImageUrl(news)} alt={news.title} className="news-card-img w-full h-full object-cover" />
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 55%)' }} />
+                    {news.tag && (
+                      <div className="absolute top-3 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider"
+                        style={{ background: gold, color: black, fontFamily: monoFont, [isRTL ? 'right' : 'left']: '12px' }}>
+                        {news.tag}
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-3 h-3" style={{ color: gold }} strokeWidth={1.5} />
+                        <span className="text-[10px]" style={{ color: 'rgba(0,0,0,0.45)', fontFamily }}>{news.date}</span>
+                      </div>
+                      <div className="w-1 h-1 rounded-full" style={{ background: 'rgba(167,147,112,0.4)' }} />
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" style={{ color: gold }} strokeWidth={1.5} />
+                        <span className="text-[10px]" style={{ color: 'rgba(0,0,0,0.45)', fontFamily }}>{news.readTime}</span>
+                      </div>
                     </div>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="p-5">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-3 h-3" style={{ color: gold }} strokeWidth={1.5} />
-                      <span className="text-[10px]" style={{ color: 'rgba(0,0,0,0.45)', fontFamily }}>{news.date}</span>
-                    </div>
-                    <div className="w-1 h-1 rounded-full" style={{ background: 'rgba(167,147,112,0.4)' }} />
-                    <div className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" style={{ color: gold }} strokeWidth={1.5} />
-                      <span className="text-[10px]" style={{ color: 'rgba(0,0,0,0.45)', fontFamily }}>{news.readTime}</span>
+                    <h3 className="text-base font-bold leading-snug mb-2 line-clamp-2" style={{ color: black, fontFamily: titleFont }}>
+                      {news.title}
+                    </h3>
+                    <p className="text-xs leading-relaxed mb-3 line-clamp-2" style={{ color: 'rgba(0,0,0,0.55)', fontFamily }}>
+                      {news.excerpt}
+                    </p>
+                    {news.stats?.value && (
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full mb-3"
+                        style={{ background: 'rgba(167,147,112,0.08)', border: '1px solid rgba(167,147,112,0.2)' }}>
+                        <span className="text-xs font-bold" style={{ color: gold }}>{news.stats.value}</span>
+                        <span className="text-[10px]" style={{ color: 'rgba(0,0,0,0.45)', fontFamily }}>{news.stats.label}</span>
+                      </div>
+                    )}
+                    <div className="flex items-center gap-1.5 text-xs font-semibold group-hover:gap-2.5 transition-all duration-300" style={{ color: gold }}>
+                      <span style={{ fontFamily }}>{locale === 'ar' ? 'اقرأ المزيد' : 'Read more'}</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={2.5}
+                        style={{ transform: isRTL ? 'scaleX(-1)' : 'none' }} />
                     </div>
                   </div>
-
-                  <h3 className="text-base font-bold leading-snug mb-2 line-clamp-2" style={{ color: black, fontFamily: titleFont }}>
-                    {news.title}
-                  </h3>
-
-                  <p className="text-xs leading-relaxed mb-3 line-clamp-2" style={{ color: 'rgba(0,0,0,0.55)', fontFamily }}>
-                    {news.excerpt}
-                  </p>
-
-                  {/* Stats badge */}
-                  {news.stats?.value && (
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full mb-3"
-                      style={{ background: 'rgba(167,147,112,0.08)', border: '1px solid rgba(167,147,112,0.2)' }}
-                    >
-                      <span className="text-xs font-bold" style={{ color: gold }}>{news.stats.value}</span>
-                      <span className="text-[10px]" style={{ color: 'rgba(0,0,0,0.45)', fontFamily }}>{news.stats.label}</span>
-                    </div>
-                  )}
-
-                  <div className="flex items-center gap-1.5 text-xs font-semibold group-hover:gap-2.5 transition-all duration-300" style={{ color: gold }}>
-                    <span style={{ fontFamily }}>{locale === 'ar' ? 'اقرأ المزيد' : 'Read more'}</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={2.5}
-                      style={{ transform: direction === 'rtl' ? 'scaleX(-1)' : 'none' }}
-                    />
-                  </div>
-                </div>
-              </motion.article>
+                </motion.article>
               </Link>
             ))}
 
@@ -345,13 +531,17 @@ export default function NewsPage({ initialNews }: NewsPageProps) {
           {isLoading && !displayedNews.length ? null : hasMore ? (
             <div className="flex flex-col items-center gap-3">
               <div className="spinner w-6 h-6 rounded-full border-2" style={{ borderColor: gold, borderTopColor: 'transparent' }} />
-              <span className="text-xs" style={{ color: gold, fontFamily: monoFont }}>{locale === 'ar' ? 'جارٍ التحميل...' : 'Loading more...'}</span>
+              <span className="text-xs" style={{ color: gold, fontFamily: monoFont }}>
+                {locale === 'ar' ? 'جارٍ التحميل...' : 'Loading more...'}
+              </span>
             </div>
           ) : filteredNews.length > 0 ? (
             <div className="flex items-center gap-3">
-              <div className="w-12 h-px" style={{ background: `rgba(167,147,112,0.3)` }} />
-              <span className="text-xs" style={{ color: 'rgba(0,0,0,0.3)', fontFamily: monoFont }}>{locale === 'ar' ? 'انتهت المقالات' : 'All caught up'}</span>
-              <div className="w-12 h-px" style={{ background: `rgba(167,147,112,0.3)` }} />
+              <div className="w-12 h-px" style={{ background: 'rgba(167,147,112,0.3)' }} />
+              <span className="text-xs" style={{ color: 'rgba(0,0,0,0.3)', fontFamily: monoFont }}>
+                {locale === 'ar' ? 'انتهت المقالات' : 'All caught up'}
+              </span>
+              <div className="w-12 h-px" style={{ background: 'rgba(167,147,112,0.3)' }} />
             </div>
           ) : null}
         </div>

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import {
   LayoutDashboard, FileText, LogOut, ArrowUpRight,
-  Users, Newspaper, Inbox, Info
+  Users, Newspaper, Inbox, Info, Calculator
 } from 'lucide-react'
 import { useRole } from '../hooks/useRole'
 
@@ -42,6 +42,9 @@ export default function Sidebar() {
     { href: '/admin/aboutPage',     label: 'About',     icon: Info,            adminOnly: false },
     { href: '/admin/news',      label: 'News',      icon: Newspaper,       adminOnly: false },
     {href: '/admin/ventures',  label: 'Ventures',  icon: Info,            adminOnly: false },
+    {href: '/admin/projects',  label: 'Projects',  icon: Info,            adminOnly: false },
+    {href: '/admin/investor',  label: 'Investor Relations',  icon: Info,  adminOnly: false },
+    {href: '/admin/finance',  label: 'Financial Dashboard',  icon: Calculator,  adminOnly: false },
     { href: '/admin/contacts',  label: 'Contacts',  icon: Inbox,           adminOnly: false, badge: unreadCount },
     { href: '/admin/users',     label: 'Users',     icon: Users,           adminOnly: true },
   ]

@@ -109,7 +109,7 @@ export default function RSWInvestmentsSection() {
             {locale === 'ar' ? (
               <span className="font-bold">{t('investments.title')}</span>
             ) : (
-              <>Our <span className="font-bold" style={{ color: gold }}>Investments</span></>
+              <><span className="font-bold" style={{ color: black }}>Our Investments</span></>
             )}
           </h2>
 

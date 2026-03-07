@@ -15,12 +15,11 @@ export default function Navbar() {
   const pathname = usePathname()
   const { locale, direction, switchLanguage, t } = useI18n()
 
-  // DB-driven nav data
   const [dbNavItems, setDbNavItems] = useState<{ name: string; path: string }[] | null>(null)
   const [dbCta, setDbCta] = useState<string | null>(null)
 
   const gold = '#a79370'
-  const cream = '#f5f0e8'
+  const cream = '#f5f0e895'
   const white = '#ffffff'
   const black = '#000000'
   const isRTL = direction === 'rtl'
@@ -35,7 +34,6 @@ export default function Navbar() {
     async function fetchNavData() {
       const supabase = createClient()
 
-      // Fetch nav links
       const { data: linkRows } = await supabase
         .from('content_arrays')
         .select('*')
@@ -49,7 +47,6 @@ export default function Navbar() {
         })))
       }
 
-      // Fetch CTA
       const { data: ctaRow } = await supabase
         .from('content')
         .select('*')
@@ -64,7 +61,6 @@ export default function Navbar() {
     fetchNavData()
   }, [locale])
 
-  // Fallback to translations if DB not populated
   const defaultNavItems = [
     { name: t('nav.home'), path: '/' },
     { name: t('nav.about'), path: '/about' },
@@ -102,122 +98,110 @@ export default function Navbar() {
         }
       `}</style>
 
-      {/* Outer wrapper */}
-      <div
-        className="fixed z-50 top-4 md:top-6 transition-all duration-500"
+      {/* Navbar — fixed at top, full width, never moves */}
+      <nav
+        dir={isRTL ? 'rtl' : 'ltr'}
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between transition-all duration-500"
         style={{
-          left: scrolled ? '50%' : '5%',
-          right: scrolled ? 'auto' : '5%',
-          transform: scrolled ? 'translateX(-50%)' : 'none',
-          maxWidth: scrolled ? '1200px' : 'none',
-          width: scrolled ? '90%' : 'auto',
+          background: scrolled ? cream : 'transparent',
+          backdropFilter: scrolled ? 'blur(20px)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+          borderBottom: scrolled ? `1px solid ${gold}` : 'none',
+          boxShadow: scrolled ? `0 4px 24px 0 rgba(167, 147, 112, 0.15)` : 'none',
+          padding: '1rem 5%',
         }}
       >
-        <nav
-          dir={isRTL ? 'rtl' : 'ltr'}
-          className="flex items-center justify-between gap-6 transition-all duration-500"
-          style={{
-            background: scrolled ? cream : 'transparent',
-            backdropFilter: scrolled ? 'blur(20px)' : 'none',
-            WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-            padding: scrolled ? '0.75rem 1.5rem' : '0',
-            borderRadius: scrolled ? '1rem' : '0',
-            border: scrolled ? `1px solid ${gold}` : 'none',
-            boxShadow: scrolled ? `0 8px 32px 0 rgba(167, 147, 112, 0.25)` : 'none',
-          }}
-        >
-          {/* Logo */}
-          <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl overflow-hidden relative">
-            <Image
-              src="/1.png"
-              alt="RSW Logo"
-              fill
-              className="object-contain transition-all duration-500"
-              style={{ filter: scrolled ? 'none' : 'brightness(0) invert(1)' }}
-            />
-          </div>
+        {/* Logo */}
+        <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl overflow-hidden relative shrink-0">
+          <Image
+            src="/1.png"
+            alt="RSW Logo"
+            fill
+            className="object-contain transition-all duration-500"
+            style={{ filter: scrolled ? 'none' : 'brightness(0) invert(1)' }}
+          />
+        </div>
 
-          {/* Desktop Nav Links */}
-          <div className="hidden lg:flex items-center gap-8 lg:gap-10">
-            {navItems.map((item, i) => (
-              <Link
-                key={i}
-                href={item.path}
-                className="text-sm font-light transition-all duration-300 cursor-pointer link-hover whitespace-nowrap"
-                style={{
-                  opacity: pathname === item.path ? 1 : 0.75,
-                  fontFamily,
-                  color: scrolled ? black : white,
-                }}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-
-          {/* Desktop - Language Switcher & CTA */}
-          <div className="hidden lg:flex items-center gap-4 shrink-0" style={{ direction: 'ltr' }}>
-            {/* Language Switcher */}
-            <div
-              className="flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300"
+        {/* Desktop Nav Links */}
+        <div className="hidden lg:flex items-center gap-8 lg:gap-10">
+          {navItems.map((item, i) => (
+            <Link
+              key={i}
+              href={item.path}
+              className="text-sm font-light transition-all duration-300 cursor-pointer link-hover whitespace-nowrap"
               style={{
-                background: scrolled ? 'rgba(167,147,112,0.12)' : 'rgba(255, 255, 255, 0.1)',
-                border: `1px solid ${gold}`,
-                fontFamily: monoFont,
+                opacity: pathname === item.path ? 1 : 0.75,
+                fontFamily,
+                color: scrolled ? black : white,
               }}
             >
-              <Globe className="w-4 h-4" style={{ color: gold }} strokeWidth={1.5} />
-              <button
-                onClick={() => switchLanguage('en')}
-                className="text-xs font-medium transition-opacity duration-300"
-                style={{ color: scrolled ? black : white, opacity: locale === 'en' ? 1 : 0.5 }}
-              >
-                EN
-              </button>
-              <span className="text-xs opacity-50" style={{ color: gold }}>|</span>
-              <button
-                onClick={() => switchLanguage('ar')}
-                className="text-xs font-medium transition-opacity duration-300"
-                style={{ color: scrolled ? black : white, opacity: locale === 'ar' ? 1 : 0.5 }}
-              >
-                AR
-              </button>
-            </div>
+              {item.name}
+            </Link>
+          ))}
+        </div>
 
-            {/* CTA Button */}
-            <button
-              className="px-6 py-3 rounded-full text-xs tracking-wider font-medium transition-all duration-300"
-              style={{ background: gold, color: black, fontFamily }}
-              onMouseEnter={e => {
-                e.currentTarget.style.background = black
-                e.currentTarget.style.color = cream
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background = gold
-                e.currentTarget.style.color = black
-              }}
-            >
-              {ctaLabel}
-            </button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+        {/* Desktop - Language Switcher & CTA */}
+        <div className="hidden lg:flex items-center gap-4 shrink-0" style={{ direction: 'ltr' }}>
+          <div
+            className="flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300"
             style={{
               background: scrolled ? 'rgba(167,147,112,0.12)' : 'rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(10px)',
               border: `1px solid ${gold}`,
+              fontFamily: monoFont,
             }}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen
-              ? <X className="w-5 h-5" style={{ color: scrolled ? black : white }} strokeWidth={1.5} />
-              : <Menu className="w-5 h-5" style={{ color: scrolled ? black : white }} strokeWidth={1.5} />
-            }
+            <Globe className="w-4 h-4" style={{ color: gold }} strokeWidth={1.5} />
+            <button
+              onClick={() => switchLanguage('en')}
+              className="text-xs font-medium transition-opacity duration-300"
+              style={{ color: scrolled ? black : white, opacity: locale === 'en' ? 1 : 0.5 }}
+            >
+              EN
+            </button>
+            <span className="text-xs opacity-50" style={{ color: gold }}>|</span>
+            <button
+              onClick={() => switchLanguage('ar')}
+              className="text-xs font-medium transition-opacity duration-300"
+              style={{ color: scrolled ? black : white, opacity: locale === 'ar' ? 1 : 0.5 }}
+            >
+              AR
+            </button>
+          </div>
+<Link href="/contact"> 
+          <button
+            className="px-6 py-3 rounded-full text-xs tracking-wider font-medium transition-all duration-300"
+            style={{ background: gold, color: black, fontFamily }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = black
+              e.currentTarget.style.color = cream
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = gold
+              e.currentTarget.style.color = black
+            }}
+          >
+            {ctaLabel}
           </button>
-        </nav>
-      </div>
+
+          </Link>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+          style={{
+            background: scrolled ? 'rgba(167,147,112,0.12)' : 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(10px)',
+            border: `1px solid ${gold}`,
+          }}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen
+            ? <X className="w-5 h-5" style={{ color: scrolled ? black : white }} strokeWidth={1.5} />
+            : <Menu className="w-5 h-5" style={{ color: scrolled ? black : white }} strokeWidth={1.5} />
+          }
+        </button>
+      </nav>
 
       {/* Mobile Menu */}
       <motion.div
@@ -252,7 +236,6 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {/* Mobile Language Switcher */}
           <div
             className="flex items-center justify-center gap-3 px-4 py-3 rounded-full mt-2"
             style={{

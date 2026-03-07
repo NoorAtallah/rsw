@@ -29,7 +29,7 @@ export default function NewsArticle({ article }: { article: any }) {
       `}</style>
 
       {/* Hero Image */}
-      <div className="relative h-[50vh] overflow-hidden" style={{ background: '#111' }}>
+      <div className="relative h-[50vh] overflow-hidden" style={{ background: '#11111161' }}>
         {enData?.image_url && (
           <img
             src={enData.image_url}
@@ -37,7 +37,7 @@ export default function NewsArticle({ article }: { article: any }) {
             className="w-full h-full object-cover opacity-70"
           />
         )}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)' }} />
+        {/* <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)' }} /> */}
 
         {/* Back button */}
         <Link

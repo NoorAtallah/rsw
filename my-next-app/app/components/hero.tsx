@@ -108,7 +108,7 @@ export default function RSWHeroSection() {
 
             <h1
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light leading-[1.1] mb-4 md:mb-6"
-              style={{ color: white, fontFamily }}
+              style={{ color: gold, fontFamily }}
             >
               {t('hero.title.line1')}
               <span className="block font-bold mt-1 md:mt-2 stat-glow" style={{ color: gold }}>
@@ -125,17 +125,17 @@ export default function RSWHeroSection() {
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4">
               <Link href="/ventures">
-                <button
+                {/* <button
                   className="group flex items-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-lg transition-all duration-300 hover:bg-opacity-90 hover:shadow-2xl hover:scale-105"
                   style={{ background: gold, color: black, fontFamily, fontWeight: 500 }}
                 >
                   <span className="text-sm tracking-wide">{t('hero.cta.explore')}</span>
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" strokeWidth={2} style={{ transform: isRTL ? 'scaleX(-1)' : 'none' }} />
-                </button>
+                </button> */}
               </Link>
 
               <Link href="/investor-relations">
-                <button
+                {/* <button
                   className="group flex items-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-lg transition-all duration-300 glass-bg-gold glass-border-gold"
                   style={{ fontFamily, fontWeight: 500, color: white }}
                   onMouseEnter={(e) => { e.currentTarget.style.background = white; e.currentTarget.style.color = black }}
@@ -143,7 +143,7 @@ export default function RSWHeroSection() {
                 >
                   <span className="text-sm tracking-wide">{t('hero.cta.investor')}</span>
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" strokeWidth={2} style={{ transform: isRTL ? 'scaleX(-1)' : 'none' }} />
-                </button>
+                </button> */}
               </Link>
             </div>
           </div>
@@ -214,7 +214,7 @@ export default function RSWHeroSection() {
         />
 
         {/* CTA Card */}
-        <motion.div
+        {/* <motion.div
           className="hidden lg:block absolute z-30"
           style={{ bottom: '20%', [isRTL ? 'left' : 'right']: '4%' }}
           initial={{ opacity: 0, y: 30 }}
@@ -238,7 +238,7 @@ export default function RSWHeroSection() {
               </div>
             </div>
           </Link>
-        </motion.div>
+        </motion.div> */}
       </div>
     </div>
   )

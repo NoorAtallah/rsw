@@ -463,8 +463,8 @@ const ContactPage = () => {
                   {locale === 'ar' ? 'ساعات العمل' : 'Office Hours'}
                 </div>
                 <div className="contact-body text-sm space-y-2" style={{ color: black }}>
-                  <div>{locale === 'ar' ? 'الأحد - الخميس: 9:00 - 18:00' : 'Sunday - Thursday: 9:00 AM - 6:00 PM'}</div>
-                  <div>{locale === 'ar' ? 'الجمعة - السبت: مغلق' : 'Friday - Saturday: Closed'}</div>
+                  <div>{locale === 'ar' ? 'الأثنين - الجمعة: 9:00 - 18:00' : 'Monday - Friday: 9:00 AM - 6:00 PM'}</div>
+                  <div>{locale === 'ar' ? 'السبت - الأحد: مغلق' : 'Saturday - Sunday: Closed'}</div>
                 </div>
               </div>
             </div>

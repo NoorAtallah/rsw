@@ -96,7 +96,7 @@ export default function RealEstatePage() {
         {/* Back button */}
         <Link href="/ventures" className={`absolute top-8 ${isRTL ? 'right-8' : 'left-8'} z-20`}>
           <motion.div
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all duration-300"
+            className="flex items-center gap-2 px-4 py-2 mt-12 rounded-full text-sm transition-all duration-300"
             style={{ background: 'rgba(167,147,112,0.15)', border: `1px solid ${gold}`, color: gold, fontFamily }}
             whileHover={{ background: gold, color: black }}
           >
@@ -217,11 +217,7 @@ export default function RealEstatePage() {
                   <h4 className="text-sm font-semibold" style={{ color: black, fontFamily }}>
                     {service.title}
                   </h4>
-                  <ArrowUpRight
-                    className="w-4 h-4 shrink-0 mt-0.5"
-                    style={{ color: activeService === service.id ? black : gold }}
-                    strokeWidth={2}
-                  />
+                 
                 </div>
                 <p className="text-xs leading-relaxed" style={{ color: 'rgba(0,0,0,0.6)', fontFamily }}>
                   {service.description}
@@ -233,13 +229,13 @@ export default function RealEstatePage() {
       </div>
 
       {/* CTA */}
-      <div className="py-16 md:py-20" style={{ background: black }}>
+      <div className="py-16 md:py-20" style={{ background: white }}>
         <div className="absolute left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${gold}, transparent)` }} />
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 text-center">
           <p className="text-xs tracking-[0.3em] uppercase mb-4" style={{ color: gold, fontFamily: monoFont }}>
             {locale === 'ar' ? 'استثمر معنا' : 'Invest With Us'}
           </p>
-          <h3 className="text-3xl md:text-4xl font-light mb-6" style={{ color: white, fontFamily }}>
+          <h3 className="text-3xl md:text-4xl font-light mb-6" style={{ color: gold, fontFamily }}>
             {locale === 'ar' ? 'هل أنت مستعد لاستكشاف الفرص؟' : 'Ready to Explore Opportunities?'}
           </h3>
           <Link href="/contact">
