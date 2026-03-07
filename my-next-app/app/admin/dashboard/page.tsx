@@ -330,7 +330,7 @@ export default function DashboardPage() {
 
       {/* ── CHARTS ROW 1: Annual Area + Quarterly Bar ── */}
       <div>
-        <SectionHead title="Revenue & Net Income" sub="Annual Performance" href="/admin/financial" />
+        <SectionHead title="Revenue & Net Income" sub="Annual Performance" href="/admin/finance" />
         <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: 14 }}>
 
           <ChartCard>
@@ -372,7 +372,7 @@ export default function DashboardPage() {
                   <p style={{ color: '#ccc', fontSize: 12, fontFamily: 'Space Mono, monospace' }}>
                     No quarterly data
                   </p>
-                  <Link href="/admin/financial"
+                  <Link href="/admin/finance"
                     style={{ fontSize: 11, color: gold, fontFamily: 'Space Mono, monospace' }}>
                     Add in Financial Editor →
                   </Link>
@@ -398,7 +398,7 @@ export default function DashboardPage() {
 
       {/* ── CHARTS ROW 2: AUM Line + Donut ── */}
       <div>
-        <SectionHead title="Assets & Portfolio Allocation" sub="Portfolio Overview" href="/admin/financial" />
+        <SectionHead title="Assets & Portfolio Allocation" sub="Portfolio Overview" href="/admin/finance" />
         <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: 14 }}>
 
           <ChartCard>
@@ -445,7 +445,7 @@ export default function DashboardPage() {
                   <p style={{ color: '#ccc', fontSize: 12, fontFamily: 'Space Mono, monospace' }}>
                     No allocation data
                   </p>
-                  <Link href="/admin/financial"
+                  <Link href="/admin/finance"
                     style={{ fontSize: 11, color: gold, fontFamily: 'Space Mono, monospace' }}>
                     Add in Financial Editor →
                   </Link>
@@ -571,7 +571,7 @@ export default function DashboardPage() {
               { label: 'News Editor',        href: '/admin/news',               desc: 'Add & manage articles' },
               { label: 'Content Editor',     href: '/admin/content',            desc: 'Edit all page content' },
               { label: 'Investor Relations', href: '/admin/investor-relations', desc: 'Docs & page sections' },
-              { label: 'Financial Data',     href: '/admin/financial',          desc: 'Edit charts & KPIs' },
+              { label: 'Financial Data',     href: '/admin/finance',          desc: 'Edit charts & KPIs' },
               { label: 'View Live Site',     href: '/',                         desc: 'Opens in new tab' },
             ].map(({ label, href, desc }) => (
               <Link key={href} href={href}
